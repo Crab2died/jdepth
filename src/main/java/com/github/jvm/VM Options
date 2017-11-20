@@ -41,3 +41,12 @@ tenured generation   total 69632K, used 3182K [0x227d0000, 0x26bd0000, 0x26bd000
 • 每个对象的属性指针
 • 普通对象数组的每个元素指针
 指向PermGen的Class对象指针，本地变量，堆栈元素，入参，返回值，NULL指针不会被压缩。
+
+-XX：+TraceClassLoading
+打印虚拟机类加载情况
+
+-XX：-UseSplitVerifier
+-XX：+FailOverToOldVerifier
+
+-Xverify：none
+参数来关闭大部分的类验证措施，以缩短虚拟机类加载的时间。

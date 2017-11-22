@@ -1,5 +1,5 @@
 
-
+                                            JVM启动参数
 -XX:+/-UseTLAB
 除如何划分可用空间之外，还有另外一个需要考虑的问题是对象创建在虚拟机中是非常
 频繁的行为，即使是仅仅修改一个指针所指向的位置，在并发情况下也并不是线程安全的，
@@ -48,5 +48,5 @@ tenured generation   total 69632K, used 3182K [0x227d0000, 0x26bd0000, 0x26bd000
 -XX：-UseSplitVerifier
 -XX：+FailOverToOldVerifier
 
--Xverify：none
+-Xverify:none
 参数来关闭大部分的类验证措施，以缩短虚拟机类加载的时间。

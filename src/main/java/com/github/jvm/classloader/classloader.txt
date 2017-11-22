@@ -1,10 +1,14 @@
+
                                             类加载(ClassLoader)
 
 1. 类加载时机
 1.1 - 生命周期
-                 -------------------------连接(Linking)---------------------
-加载(Loading) => |验证(Verification) => 准备(Preparation) => 解析(Resolution)| => 初始化(Initialization) => 使用(Using) => 卸载(Unloading)
-                 -----------------------------------------------------------
+                  ------------------------连接(Linking)------------------------
+加载(Loading) ——> |验证(Verification) ——> 准备(Preparation) ——> 解析(Resolution)|
+                  -------------------------------------------------------------
+                                                                        ↓
+                       卸载(Unloading) <—— 使用(Using) <—— 初始化(Initialization)
+
 1.2 - 立即初始化(主动引用)
     1)  遇到new、 getstatic、 putstatic或invokestatic这4条字节码指令时
     2)  使用java.lang.reflect包的方法对类进行反射调用的时候，如果类没有进行过初始化,则需要先触发其初始化。
@@ -77,3 +81,48 @@
     2) 字段解析
     3) 类方法解析
     4) 接口方法解析
+
+2-5 - 初始化
+    类加载的最后一步，真正执行java的字节码。
+    <clinit>()方法保证在子类执行之前父类的<clinit>()已执行完毕。
+    虚拟机中第一个被执行的<clinit>()方法的类肯定是java.lang.Object。
+    <clinit>()虚拟机保证只执行一次，多线程时只会有一条线程执行，其他线程阻塞等待。
+
+2-6 - 卸载
+
+3. 类加载器
+    描述
+    通过一个类的全限定名来获取描述此类的二进制字节流
+    应用：类层次划分、热部署、OSGi(面向Java的动态模型系统)、代码加密等
+
+3-1 - 类与类加载器
+    相同的类被不同的类加载器加载他们必不相等。
+
+3-2 - 双亲委派模型(Parents Delegation Model)
+    类加载器
+    1) 启动类加载器(Bootstrap ClassLoader)C++实现、虚拟机一部分
+        - 又称 引导类加载器
+        - 按名识别，如：rt.jar
+        - 负责加载<JAVA_HOME>\lib目录或被参数-Xbootclasspth指定的目录
+    2) 其他类加载器， java实现，独立与虚拟机外部，全部继承抽象类java.lang.ClassLoader
+        - 扩展类加载器(Extension ClassLoader)
+            * 由sun.misc.Launcher$ExtClassLoader类实现
+            * 负责加载<JAVA_HOME>\lib\ext目录或参数-Djava.ext.dirs所指定目录下的类
+        - 应用程序类加载器(Application ClassLoader)
+            * 又称 系统类加载器
+            * 由sun.misc.Launcher$AppClassLoader实现
+            * 它负责加载用户类路径（ClassPath）上所指定的类库，开发者可以直接使用这个类加载器，是程序中默认的类加载器
+
+    双亲委派模型图
+
+                                                     自定义类加载器(CustomClassLoader)
+                                                    //
+    1) 启动类加载器 <= 扩展类加载器 <= 应用程序加载器 <==
+                                                    \\
+                                                     自定义类加载器(CustomClassLoader)
+
+    2) 双亲委派模型的工作过程是：如果一个类加载器收到了类加载的请求，它首先不会自己去尝试加载这个类，而
+       是把这个请求委派给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的启动类加载器中，
+       只有当父加载器反馈自己无法完成这个加载请求（它的搜索范围中没有找到所需的类）时，子加载器才会尝试自己去加载
+
+3-3 - 破坏双亲委派模型

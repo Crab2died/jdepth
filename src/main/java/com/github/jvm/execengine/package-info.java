@@ -1,6 +1,6 @@
 
 /**
- * 本包是对jdk1.5相关新特性的验证与试验
+ * 虚拟机执行引擎介绍
  * @since 1.5
  */
 package com.github.jvm.execengine;

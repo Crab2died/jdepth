@@ -50,3 +50,20 @@ tenured generation   total 69632K, used 3182K [0x227d0000, 0x26bd0000, 0x26bd000
 
 -Xverify:none
 参数来关闭大部分的类验证措施，以缩短虚拟机类加载的时间。
+
+-XX:CompileThreshold
+设置方法调用次数计数器阈值，以判定是否为热点方法
+
+-XX:-UseCounterDecay
+设置关闭热度衰减
+
+-XX:CounterHalfLifeTime
+参数设置半衰周期的时间，单位是秒
+
+-XX:-BackgroundCompilation
+禁止后台编译，在禁止后台编译后，一旦达到JIT的编译条件，执行线程向虚拟机提交编译请求后将会一直等待，
+直到编译过程完成后再开始执行编译器输出的本地代码
+
+-XX：+DoEscapeAnalysis来手动开启逃逸分析，开启之后可以通过参数-XX：+PrintEscapeAnalysis来查看分析结果。
+有了逃逸分析支持之后，用户可以使用参数-XX：+EliminateAllocations来开启标量替换，使用+XX：+EliminateLocks来开启同步消除，
+使用参数-XX：+PrintEliminateAllocations查看标量的替换情况。

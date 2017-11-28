@@ -1,4 +1,4 @@
-package com.github.jvm.jdk5;
+package com.github.jvm.version.jdk5;
 
 /**
  *

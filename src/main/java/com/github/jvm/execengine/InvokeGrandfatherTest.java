@@ -26,6 +26,8 @@ public class InvokeGrandfatherTest {
     }
 
     class Son extends Father {
+
+        @Override
         void thinking() {
             try {
                 MethodType mt = MethodType.methodType(void.class);

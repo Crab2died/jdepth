@@ -16,18 +16,14 @@ public class ServerHandler implements Runnable {
     @Override
     public void run() {
 
-        try {
-            try (BufferedReader br = new BufferedReader(
-                    new InputStreamReader(this.socket.getInputStream())
-            );
-                 PrintWriter pw = new PrintWriter(this.socket.getOutputStream(), true)
-            ) {
-                for (; ; ) {
-                    String line = br.readLine();
-                    if (line != null) {
-                        System.out.println("request is :" + line);
-                        pw.println(System.currentTimeMillis() + ":" + line);
-                    }
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
+             PrintWriter pw = new PrintWriter(this.socket.getOutputStream(), true)) {
+
+            for (; ; ) {
+                String line = br.readLine();
+                if (line != null) {
+                    System.out.println("request is :" + line);
+                    pw.println(System.currentTimeMillis() + ":" + line);
                 }
             }
         } catch (Exception e) {

@@ -16,7 +16,7 @@ public class BioServer {
                     Socket socket = server.accept();
                     System.out.println(socket.getInetAddress() + ":" + socket.getPort() + " is connected");
                     // 为每一个连接创建一个线程跟踪处理
-                    new Thread(new ServerHandler(socket)).start();
+                    new Thread(new BioServerHandler(socket)).start();
                 }
             }
         } catch (Exception e) {

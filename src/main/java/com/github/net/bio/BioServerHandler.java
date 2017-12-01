@@ -5,11 +5,11 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 
-public class ServerHandler implements Runnable {
+public class BioServerHandler implements Runnable {
 
     private Socket socket;
 
-    public ServerHandler(Socket socket) {
+    public BioServerHandler(Socket socket) {
         this.socket = socket;
     }
 

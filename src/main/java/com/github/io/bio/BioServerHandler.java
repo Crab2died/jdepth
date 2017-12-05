@@ -1,4 +1,4 @@
-package com.github.net.bio;
+package com.github.io.bio;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;

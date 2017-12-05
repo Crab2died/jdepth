@@ -1,4 +1,4 @@
-package com.github.net.netty;
+package com.github.io.netty;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;

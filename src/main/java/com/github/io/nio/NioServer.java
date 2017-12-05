@@ -1,4 +1,4 @@
-package com.github.net.nio;
+package com.github.io.nio;
 
 public class NioServer {
 

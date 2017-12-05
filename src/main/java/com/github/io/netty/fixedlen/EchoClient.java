@@ -1,31 +1,29 @@
-package com.github.net.netty;
+package com.github.io.netty.fixedlen;
 
 import io.netty.bootstrap.Bootstrap;
-import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.FixedLengthFrameDecoder;
+import io.netty.handler.codec.string.StringDecoder;
 
-import java.util.Scanner;
+public class EchoClient {
 
-public class NettyClient {
-
-    private final static String HOST = "127.0.0.1";
-
-    private final static int    PORT =        8200;
+    private static final String HOST = "127.0.0.1";
+    private static final int    PORT =        8020;
 
     public static void main(String... args) {
 
         try {
-            new NettyClient().connect(HOST, PORT);
+            new EchoClient().connect(HOST, PORT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
     }
 
-    public void connect(String host, int port) throws InterruptedException {
+    private void connect(String host, int port) throws InterruptedException {
 
         EventLoopGroup group = new NioEventLoopGroup();
 
@@ -37,49 +35,46 @@ public class NettyClient {
                     .handler(new ChannelInitializer<SocketChannel>() {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
-                            ch.pipeline().addLast(new ClientHandler());
+
+                            ch.pipeline()
+                                    .addLast(new FixedLengthFrameDecoder(15)) // 定长设置
+                                    .addLast(new StringDecoder())
+                                    .addLast(new EchoClientHandler());
                         }
                     });
 
             ChannelFuture future = bootstrap.connect(host, port).sync();
-
             future.channel().closeFuture().sync();
         } finally {
             group.shutdownGracefully();
         }
     }
 
-
-    class ClientHandler extends ChannelHandlerAdapter {
-
-        private ByteBuf reqBuf;
-
-        ClientHandler() {
-            System.out.print("Please input something:");
-            Scanner scan = new Scanner(System.in);
-            String msg = scan.nextLine();
-            byte[] req = msg.getBytes();
-            reqBuf = Unpooled.buffer(req.length);
-            reqBuf.writeBytes(req);
-        }
+    class EchoClientHandler extends ChannelHandlerAdapter {
 
         @Override
-        public void channelActive(ChannelHandlerContext ctx) {
+        public void channelActive(ChannelHandlerContext ctx) throws Exception {
 
-            ctx.writeAndFlush(reqBuf);
+            for (int i = 10; i < 100; i++) {
+                ctx.writeAndFlush(Unpooled.copiedBuffer(("Echo request " + i).getBytes()));
+            }
         }
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-            ByteBuf buf = (ByteBuf) msg;
-            byte[] resp = new byte[buf.readableBytes()];
-            buf.readBytes(resp);
-            String respBody = new String(resp, "UTF-8");
-            System.out.println("Response is : " + respBody);
+
+            System.out.println("Response is >> " + msg);
+        }
+
+        @Override
+        public void channelReadComplete(ChannelHandlerContext ctx) throws Exception {
+            ctx.flush();
         }
 
         @Override
         public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+
+            cause.printStackTrace();
             ctx.close();
         }
     }

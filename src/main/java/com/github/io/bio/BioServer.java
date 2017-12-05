@@ -1,4 +1,4 @@
-package com.github.net.bio;
+package com.github.io.bio;
 
 import java.net.ServerSocket;
 import java.net.Socket;

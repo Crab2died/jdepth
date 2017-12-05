@@ -66,5 +66,18 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>${slf4j.log4j.version}</version>
         </dependency>
+
+        <!-- JBoss serial -->
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling</artifactId>
+            <version>1.4.11.Final</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.marshalling</groupId>
+            <artifactId>jboss-marshalling-serial</artifactId>
+            <version>1.4.11.Final</version>
+        </dependency>
+
     </dependencies>
 </project>

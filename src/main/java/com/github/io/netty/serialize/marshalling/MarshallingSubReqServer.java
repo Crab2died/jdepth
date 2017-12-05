@@ -1,4 +1,4 @@
-package com.github.io.netty.serialize.java;
+package com.github.io.netty.serialize.marshalling;
 
 import com.github.io.netty.serialize.SubscribeReq;
 import com.github.io.netty.serialize.SubscribeResp;
@@ -7,21 +7,19 @@ import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
-import io.netty.handler.codec.serialization.ClassResolvers;
-import io.netty.handler.codec.serialization.ObjectDecoder;
-import io.netty.handler.codec.serialization.ObjectEncoder;
 import io.netty.handler.logging.LogLevel;
 import io.netty.handler.logging.LoggingHandler;
 
 import java.util.UUID;
 
-public class SubReqServer {
+public class MarshallingSubReqServer {
+
 
     private static final int PORT = 8200;
 
-    public static void main(String... args){
+    public static void main(String... args) {
         try {
-            new SubReqServer().bind(PORT);
+            new MarshallingSubReqServer().bind(PORT);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -42,26 +40,22 @@ public class SubReqServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new ObjectDecoder(
-                                            1024 * 1024,
-                                            ClassResolvers.weakCachingConcurrentResolver(
-                                                    this.getClass().getClassLoader())
-                                    ))
-                                    .addLast(new ObjectEncoder())
-                                    .addLast(new SubReqServerHandler());
+                                    .addLast(MarshallingCodeCFactory.buildDecoder())
+                                    .addLast(MarshallingCodeCFactory.buildEncoder())
+                                    .addLast(new MarshallingSubReqServerHandler());
                         }
                     });
 
             ChannelFuture future = bootstrap.bind(port).sync();
 
             future.channel().closeFuture().sync();
-        }finally {
+        } finally {
             boosGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
 
-    class SubReqServerHandler extends ChannelHandlerAdapter {
+    class MarshallingSubReqServerHandler extends ChannelHandlerAdapter {
 
         @Override
         public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -69,10 +63,10 @@ public class SubReqServer {
             SubscribeReq req = (SubscribeReq) msg;
 
             SubscribeResp resp = new SubscribeResp();
-            resp.setSubReqId(req.getSubReqId());
             resp.setRespCode(UUID.randomUUID().toString());
+            resp.setSubReqId(req.getSubReqId());
             resp.setDesc("You order ID is : " + req.getSubReqId() + " address is : " + req.getAddress()
-                                + " phone is : " + req.getPhoneNumber());
+                    + " phone is : " + req.getPhoneNumber());
             ctx.writeAndFlush(resp);
         }
 
@@ -82,4 +76,5 @@ public class SubReqServer {
             ctx.close();
         }
     }
+
 }

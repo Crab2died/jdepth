@@ -1,4 +1,4 @@
-package com.github.io.netty.serialize.java;
+package com.github.io.netty.serialize;
 
 import java.io.Serializable;
 

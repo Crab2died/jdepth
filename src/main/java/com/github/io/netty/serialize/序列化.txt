@@ -9,3 +9,4 @@
         2)  高效的编码性能
         3)  语言无关，平台无关，扩展性好
         4)  官方支持java、c++和python三种语言
+3.  JBoss的Marshalling

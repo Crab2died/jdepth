@@ -79,5 +79,72 @@
             <version>1.4.11.Final</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.jibx/jibx-run -->
+        <dependency>
+            <groupId>org.jibx</groupId>
+            <artifactId>jibx-run</artifactId>
+            <version>1.3.1</version>
+        </dependency>
+
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin><!-- 生成jibx class信息 -->
+                <groupId>org.jibx</groupId>
+                <artifactId>jibx-maven-plugin</artifactId>
+                <version>1.3.1</version>
+                <executions>
+                    <!-- 根据xsd文件生成class文件 -->
+                    <!--<execution>-->
+                        <!--<id>generate-java-code-from-schema</id>-->
+                        <!--<goals>-->
+                            <!--<goal>schema-codegen</goal>-->
+                        <!--</goals>-->
+                        <!--<configuration>-->
+                            <!--&lt;!&ndash; 指定xsd目录 &ndash;&gt;-->
+                            <!--<schemaLocation>src/main/resources/META-INF</schemaLocation>-->
+                            <!--<includeSchemas>-->
+                                <!--&lt;!&ndash; 指定xsd文件 &ndash;&gt;-->
+                                <!--<includeSchema>pojo.xsd</includeSchema>-->
+                            <!--</includeSchemas>-->
+                            <!--<options>-->
+                                <!--&lt;!&ndash; 生成的class文件包路径 &ndash;&gt;-->
+                                <!--<package>com.github.xml</package>-->
+                            <!--</options>-->
+                        <!--</configuration>-->
+                    <!--</execution>-->
+                    <!--<execution>-->
+                        <!--<id>Generates WSDL from java code</id>-->
+                        <!--<configuration>-->
+                            <!--<interfaceClassNames>-->
+                                <!--<className>com.github.xml.pojo.Address</className>-->
+                            <!--</interfaceClassNames>-->
+                            <!--<outputDirectory>d:</outputDirectory>-->
+                        <!--</configuration>-->
+                        <!--<goals>-->
+                            <!--<goal>jibx2wsdl</goal>-->
+                        <!--</goals>-->
+                    <!--</execution>-->
+                    <!-- 根据binding.xml执行编译命令 -->
+                    <execution>
+                        <configuration>
+                            <schemaBindingDirectory>src/main/resources/META-INF</schemaBindingDirectory>
+                            <includeSchemaBindings>
+                                <includeSchemaBindings>*binding.xml</includeSchemaBindings>
+                            </includeSchemaBindings>
+                            <verbose>true</verbose>
+                        </configuration>
+                        <id>jibx-bind</id>
+                        <!--把jibx绑定到了comile编译阶段 -->
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>bind</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

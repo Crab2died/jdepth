@@ -1,0 +1,48 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://github.com/xml/order-1.0"
+           elementFormDefault="qualified" targetNamespace="http://github.com/xml/order-1.0">
+    <xs:element type="tns:order" name="order"/>
+    <xs:complexType name="order">
+        <xs:sequence>
+            <xs:element type="tns:customer" name="customer" minOccurs="0"/>
+            <xs:element type="tns:address" name="billTo" minOccurs="0"/>
+            <xs:element name="shipping" minOccurs="0">
+                <xs:simpleType>
+                    <xs:restriction base="xs:string">
+                        <xs:enumeration value="STANDARD_MAIL"/>
+                        <xs:enumeration value="PRIORITY_MAIL"/>
+                        <xs:enumeration value="INTERNATIONAL_MAIL"/>
+                        <xs:enumeration value="DOMESTIC_EXPRESS"/>
+                        <xs:enumeration value="INTERNATIONAL_EXPRESS"/>
+                    </xs:restriction>
+                </xs:simpleType>
+            </xs:element>
+            <xs:element type="tns:address" name="shipTo" minOccurs="0"/>
+        </xs:sequence>
+        <xs:attribute type="xs:long" use="required" name="orderNumber"/>
+        <xs:attribute type="xs:float" use="required" name="total"/>
+    </xs:complexType>
+    <xs:complexType name="address">
+        <xs:sequence>
+            <xs:element type="xs:string" name="street1" minOccurs="0"/>
+            <xs:element type="xs:string" name="street2" minOccurs="0"/>
+            <xs:element type="xs:string" name="city" minOccurs="0"/>
+            <xs:element type="xs:string" name="state" minOccurs="0"/>
+            <xs:element type="xs:string" name="postCode" minOccurs="0"/>
+            <xs:element type="xs:string" name="country" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+    <xs:element type="tns:customer" name="customer"/>
+    <xs:element type="tns:address" name="address"/>
+    <xs:complexType name="shipping">
+        <xs:sequence/>
+    </xs:complexType>
+    <xs:element type="tns:shipping" name="shipping"/>
+    <xs:complexType name="customer">
+        <xs:sequence>
+            <xs:element type="xs:string" name="firstName" minOccurs="0"/>
+            <xs:element type="xs:string" name="lastName" minOccurs="0"/>
+            <xs:element type="xs:string" name="middleName" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+        <xs:attribute type="xs:long" use="required" name="customerNumber"/>
+    </xs:complexType>
+</xs:schema>

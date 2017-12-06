@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<xs:schema version="1.0"
+           xmlns="http://www.github.com/crab2died/order"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://www.github.com/crab2died/order">
+    <xs:complexType name="order">
+        <xs:sequence>
+            <xs:element name="billTo" type="address" minOccurs="0"/>
+            <xs:element name="customer" type="customer" minOccurs="0"/>
+            <xs:element name="orderNumber" type="xs:long"/>
+            <xs:element name="shipTo" type="address" minOccurs="0"/>
+            <xs:element name="shipping" type="shipping" minOccurs="0"/>
+            <xs:element name="total" type="xs:float"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="address">
+        <xs:sequence>
+            <xs:element name="city" type="xs:string" minOccurs="0"/>
+            <xs:element name="country" type="xs:string" minOccurs="0"/>
+            <xs:element name="postCode" type="xs:string" minOccurs="0"/>
+            <xs:element name="state" type="xs:string" minOccurs="0"/>
+            <xs:element name="street1" type="xs:string" minOccurs="0"/>
+            <xs:element name="street2" type="xs:string" minOccurs="0"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="customer">
+        <xs:sequence>
+            <xs:element name="customerNumber" type="xs:long"/>
+            <xs:element name="firstName" type="xs:string" minOccurs="0"/>
+            <xs:element name="lastName" type="xs:string" minOccurs="0"/>
+            <xs:element name="middleNames" type="xs:string" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="shipping">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="STANDARD_MAIL"/>
+            <xs:enumeration value="PRIORITY_MAIL"/>
+            <xs:enumeration value="INTERNATIONAL_MAIL"/>
+            <xs:enumeration value="DOMESTIC_EXPRESS"/>
+            <xs:enumeration value="INTERNATIONAL_EXPRESS"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>
+

@@ -1,0 +1,10 @@
+// JiBx生成binding.xml和xsd
+java -cp E:\tool\jibx\lib\jibx-tools.jar org.jibx.binding.generator.BindGen ^
+-t D:\IdeaSpace\jdepth\src\main\java\com\github\xml ^
+-v com.github.xml.pojo.Customer com.github.xml.pojo.Address com.github.xml.pojo.Shipping com.github.xml.pojo.Order
+
+// 编译binding.xml
+java -cp E:\tool\jibx\lib\jibx-bind.jar org.jibx.binding.Compile ^
+-v D:\IdeaSpace\jdepth\src\main\java\com\github\xml\pojo\binding.xml
+
+maven jibx插件

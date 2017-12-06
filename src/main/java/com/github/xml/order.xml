@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<order xmlns="http://github.com/xml/order-1.0" orderNumber="654321" total="514.1">
+    <customer customerNumber="123456">
+        <firstName>杨</firstName>
+        <lastName>UKU</lastName>
+        <middleName>ASD</middleName>
+        <middleName>SYM</middleName>
+    </customer>
+    <billTo>
+        <street1>1号路</street1>
+        <city>Osben</city>
+        <state>121</state>
+        <postCode>3456789</postCode>
+        <country>Okays</country>
+    </billTo>
+    <shipping>DOMESTIC_EXPRESS</shipping>
+    <shipTo>
+        <street1>1号路</street1>
+        <city>Osben</city>
+        <state>121</state>
+        <postCode>3456789</postCode>
+        <country>Okays</country>
+    </shipTo>
+</order>

@@ -8,7 +8,7 @@
     </customer>
     <billTo>
         <street1>1号路</street1>
-        <city>Osben</city>
+        <city>Oan</city>
         <state>121</state>
         <postCode>3456789</postCode>
         <country>Okays</country>
@@ -16,7 +16,7 @@
     <shipping>DOMESTIC_EXPRESS</shipping>
     <shipTo>
         <street1>1号路</street1>
-        <city>Osben</city>
+        <city>Ohj</city>
         <state>121</state>
         <postCode>3456789</postCode>
         <country>Okays</country>

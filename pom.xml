@@ -144,6 +144,27 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <!-- 打包时,添加信息 -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifestFile>src/main/resources/META-INF/MANIFEST.MF</manifestFile>
+                        <manifest>
+                            <addClasspath>false</addClasspath>
+                            <classpathPrefix>lib/</classpathPrefix>
+                            <addDefaultSpecificationEntries>false</addDefaultSpecificationEntries>
+                            <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+                            <mainClass>com.github.xml.pojo.OrderTest</mainClass>
+                        </manifest>
+                        <manifestEntries>
+                            <copyright>Crab2Died</copyright>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
 

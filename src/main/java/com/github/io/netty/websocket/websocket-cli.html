@@ -1,0 +1,57 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Netty websocket</title>
+    </head>
+    <body>
+        <form action="" onsubmit="return false;">
+            <label>
+                <input type="text" name="message" value="..."/>
+            </label>
+            <br>
+            <input type="button" value="send" onclick="send(this.form.message.value);" />
+            <hr color="blue">
+            <h3>服务器返回信息</h3>
+            <label for="responseText">
+                <textarea id="responseText" rows="10" cols=""></textarea>
+            </label>
+        </form>
+    </body>
+    
+    <script type="text/javascript">
+        var socket;
+        if(!window.WebSocket){
+            window.WebSocket = window.MozWebSocket;
+        }
+        if(window.WebSocket){
+            socket = new WebSocket("ws://localhost:8201/websocket");
+            socket.onmessage = function(event){
+                var ta = document.getElementById('responseText');
+                ta.value="";
+                ta.value=event.data;
+            };
+            socket.onopen = function(event){
+                var ta = document.getElementById('responseText');
+                ta.value = "打开websocket服务正常.";
+            };
+            socket.onclose = function(event){
+                var ta = document.getElementById('responseText');
+                ta.value="";
+                ta.value="websocket关闭.";
+            }
+        }else{
+            alert("对不起，您的浏览器不支持WebSocket.");
+        }
+        
+        function send(message){
+            if(!window.WebSocket){
+                return ;
+            }
+            if(socket.readyState === WebSocket.OPEN){
+                socket.send(message);
+            }else{
+                alert("WebSocket 连接创建失败.");
+            }
+        }
+    </script>
+</html>

@@ -1,4 +1,4 @@
-package com.github.io.netty.websocket;
+package com.github.io.protocol.websocket;
 
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.buffer.ByteBuf;

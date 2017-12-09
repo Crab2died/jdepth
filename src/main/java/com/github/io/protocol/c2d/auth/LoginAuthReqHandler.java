@@ -3,12 +3,12 @@ package com.github.io.protocol.c2d.auth;
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
 import com.github.io.protocol.c2d.message.MessageSignal;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
+public class LoginAuthReqHandler extends ChannelHandlerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginAuthReqHandler.class);
 
@@ -23,7 +23,7 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
         C2DMessage message = (C2DMessage) msg;
 
         // 如果是握手应答消息，需要判断是否认证成功
-        if (message.getHeader() != null
+        if (message.getHeader() != null && message.getBody() != null
                 && message.getHeader().getSignal() == MessageSignal.AUTH_RESP) {
             byte loginResult = (byte) message.getBody();
             if (loginResult != (byte) 0) {
@@ -50,6 +50,7 @@ public class LoginAuthReqHandler extends ChannelInboundHandlerAdapter {
         return message;
     }
 
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
         logger.error("LoginAuthReqHandler exception", cause);

@@ -1,11 +1,12 @@
 package com.github.io.protocol.c2d.message;
 
 import java.io.Serializable;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
  * Crab2Died(C2D)协议消息头
- *
+ * <p>
  * 2017/12/08  09:53:26
  */
 public class C2DHeader implements Serializable {
@@ -35,7 +36,7 @@ public class C2DHeader implements Serializable {
 
     // 消息头扩展信息(不定长)
     // map size为0表示无扩展消息
-    private Map<String, Object> attachment;
+    private Map<String, Object> attachment = new HashMap<>();
 
     public int getMagic() {
         return magic;
@@ -76,6 +77,7 @@ public class C2DHeader implements Serializable {
     public void setSignal(byte signal) {
         this.signal = signal;
     }
+
 
     public byte getPriority() {
         return priority;

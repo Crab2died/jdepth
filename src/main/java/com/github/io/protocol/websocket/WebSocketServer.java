@@ -29,7 +29,7 @@ public class WebSocketServer {
         }
     }
 
-    public void run(int port) throws InterruptedException {
+    private void run(int port) throws InterruptedException {
 
         EventLoopGroup bossGroup = new NioEventLoopGroup();
         EventLoopGroup workerGroup = new NioEventLoopGroup();

@@ -1,33 +1,35 @@
 package com.github.io.protocol.c2d.coding;
 
+import io.netty.handler.codec.marshalling.DefaultMarshallerProvider;
+import io.netty.handler.codec.marshalling.DefaultUnmarshallerProvider;
+import io.netty.handler.codec.marshalling.MarshallerProvider;
+import io.netty.handler.codec.marshalling.UnmarshallerProvider;
 import org.jboss.marshalling.*;
 
 import java.io.IOException;
 
-/**
- *
- */
-final class MarshallingCodecFactory {
-
+public class MarshallingCodecFactory {
     /**
      * 创建Jboss Marshaller
      */
-    static Marshaller buildMarshalling() throws IOException {
-        final MarshallerFactory marshallerFactory = Marshalling
+    public static C2DMarshalEncoder buildMarshalling() throws IOException {
+        MarshallerFactory marshallerFactory = Marshalling
                 .getProvidedMarshallerFactory("serial");
-        final MarshallingConfiguration configuration = new MarshallingConfiguration();
+        MarshallingConfiguration configuration = new MarshallingConfiguration();
         configuration.setVersion(5);
-        return marshallerFactory.createMarshaller(configuration);
+        MarshallerProvider provider = new DefaultMarshallerProvider(marshallerFactory, configuration);
+        return new C2DMarshalEncoder(provider);
     }
 
     /**
      * 创建Jboss Unmarshaller
      */
-    static Unmarshaller buildUnMarshalling() throws IOException {
-        final MarshallerFactory marshallerFactory = Marshalling
+    public static C2DMarshalDecoder buildUnMarshalling() throws IOException {
+        MarshallerFactory marshallerFactory = Marshalling
                 .getProvidedMarshallerFactory("serial");
-        final MarshallingConfiguration configuration = new MarshallingConfiguration();
+        MarshallingConfiguration configuration = new MarshallingConfiguration();
         configuration.setVersion(5);
-        return marshallerFactory.createUnmarshaller(configuration);
+        UnmarshallerProvider provider = new DefaultUnmarshallerProvider(marshallerFactory, configuration);
+        return new C2DMarshalDecoder(provider, 1024 * 1024);
     }
 }

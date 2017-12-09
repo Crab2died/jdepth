@@ -15,45 +15,51 @@ import java.util.Map;
 
 public class C2DMessageDecoder extends LengthFieldBasedFrameDecoder {
 
+
     private static final Logger logger = LoggerFactory.getLogger(C2DMessageDecoder.class);
 
-    private MarshallingDecoder marshallingDecoder;
+    private C2DMarshalDecoder marshallingDecoder;
 
-    public C2DMessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength)
+    public C2DMessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
+                             int lengthAdjustment, int initialBytesToStrip)
             throws IOException {
-        super(maxFrameLength, lengthFieldOffset, lengthFieldLength);
-        marshallingDecoder = new MarshallingDecoder();
+        super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);
+        this.marshallingDecoder = MarshallingCodecFactory.buildUnMarshalling();
     }
 
     @Override
-    protected Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
+    public void channelActive(ChannelHandlerContext ctx) throws Exception {
+        super.channelActive(ctx);
+    }
+
+    @Override
+    public Object decode(ChannelHandlerContext ctx, ByteBuf in) throws Exception {
 
         ByteBuf frame = (ByteBuf) super.decode(ctx, in);
-        if (null == frame) return null;
-
-        //
+        if (null == frame || frame.readableBytes() <= 0) return null;
         C2DMessage message = new C2DMessage();
         C2DHeader header = new C2DHeader();
         header.setMagic(frame.readInt());
         header.setLength(frame.readInt());
         header.setSerial(frame.readLong());
+        header.setSessionId(frame.readLong());
         header.setSignal(frame.readByte());
         header.setPriority(frame.readByte());
 
         int size = frame.readInt();
-        if (size > 0){
+        if (size > 0) {
             Map<String, Object> attach = new HashMap<>(size);
-            for (int i = 0; i < size; i ++){
+            for (int i = 0; i < size; i++) {
                 int keySize = frame.readInt();
                 byte[] keyBytes = new byte[keySize];
                 frame.readBytes(keyBytes);
                 String key = new String(keyBytes, CharsetUtil.UTF_8);
-                attach.put(key, marshallingDecoder.decode(frame));
+                attach.put(key, marshallingDecoder.decode(ctx, frame));
             }
             header.setAttachment(attach);
         }
         if (frame.readableBytes() > 4)
-            message.setBody(marshallingDecoder.decode(frame));
+            message.setBody(marshallingDecoder.decode(ctx, frame));
 
         message.setHeader(header);
         logger.info("decode message is completed : " + message);

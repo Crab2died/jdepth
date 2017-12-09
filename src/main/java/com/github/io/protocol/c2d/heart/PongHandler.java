@@ -3,12 +3,12 @@ package com.github.io.protocol.c2d.heart;
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
 import com.github.io.protocol.c2d.message.MessageSignal;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PongHandler extends ChannelInboundHandlerAdapter {
+public class PongHandler extends ChannelHandlerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(PongHandler.class);
 

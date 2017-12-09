@@ -3,8 +3,8 @@ package com.github.io.protocol.c2d.auth;
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
 import com.github.io.protocol.c2d.message.MessageSignal;
+import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import io.netty.channel.ChannelInboundHandlerAdapter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +12,7 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
+public class LoginAuthRespHandler extends ChannelHandlerAdapter {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginAuthRespHandler.class);
 
@@ -67,6 +67,7 @@ public class LoginAuthRespHandler extends ChannelInboundHandlerAdapter {
         return message;
     }
 
+    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
         logger.error("LoginAuthRespHandler exception ", cause);

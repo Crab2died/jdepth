@@ -29,7 +29,6 @@ public class C2DServer {
     public static void main(String... args) {
         try {
             new C2DServer().bind(HOST, PORT);
-            System.in.read();
         } catch (Exception e) {
             logger.error("start server error ", e);
         }
@@ -49,15 +48,15 @@ public class C2DServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new C2DMessageDecoder(1024 * 1024, 4, 4))
-                                    .addLast(new C2DMessageEncoder())
-                                    .addLast("readTimeoutHandler", new ReadTimeoutHandler(10))
-                                    .addLast(new LoginAuthRespHandler())
+                                    .addLast(new C2DMessageDecoder(1024 * 1024, 4, 4, -8, 0))
+                                    .addLast("MessageEncoder", new C2DMessageEncoder())
+                                    .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(30))
+                                    .addLast("LoginAuthResp", new LoginAuthRespHandler())
                                     .addLast("Pong", new PongHandler());
                         }
                     });
             ChannelFuture future = bootstrap.bind(host, port).sync();
-            //future.channel().closeFuture().sync();
+            future.channel().closeFuture().sync();
             logger.info("server is started");
         } finally {
             bossGroup.shutdownGracefully();

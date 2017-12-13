@@ -13,6 +13,9 @@
 ## 数据库
 ### > 1. [SQL优化](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/sql/SQL%E4%BC%98%E5%8C%96.md)
 
-## 深度试验
+## 验证与试验
+### > 1. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/TIPS.md)
+
 ## 工具封装
-## 也不单陷于java
+
+## 包括但不局限于JAVA

@@ -1,4 +1,4 @@
-# JAVA内存模型
+#                                                   JAVA内存模型
 ----
 ## 1. 内存模型
  ![内存模型](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/concurrent/java%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.png)

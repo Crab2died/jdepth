@@ -1,0 +1,46 @@
+# JVM多线程实现
+----
+## 1. JAVA与线程
+### 1.1 线程的实现
+   1. 实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.
+   2.
+   
+### 1.2 Java线程调度
+   1. 线程调度是指系统为线程分配处理器使用权的过程,主要调度方式有两种,分别是协同式线程调度(Cooperative Threads-Scheduling)
+      和抢占式线程调度(Preemptive ThreadsScheduling)
+   2. 协同式线程调度:线程的执行时间由线程本身来控制,线程把自己的工作执行完了之后,要主动通知系统切换到另外一个线程上;
+      优点是实现简单,缺点是线程执行时间不可控制,容易线程阻塞
+   3. 每个线程将由系统来分配执行时间,线程的切换不由线程本身来决定(在Java中,Thread.yield()可以让出执行时间,但是要获取执行时
+      间的话,线程本身是没有什么办法的);优点是线程的执行时间是系统可控的,也不会有一个线程导致整个进程阻塞的问题.
+   4. JAVA线程有10个优先级(Thread.MIN_PRIORITY至Thread.MAX_PRIORITY)
+   
+### 1.3 线程转换状态
+   1. JAVA线程定义了5个状态:  
+      * 新建(New):创建后尚未启动的线程处于这种状态.
+      * 运行(Runable):Runable包括了操作系统线程状态中的Running和Ready,也就是处于此状态的线程有可能正在执行,也有可能正在
+        等待着CPU为它分配执行时间.
+      * 无限期等待(Waiting):处于这种状态的线程不会被分配CPU执行时间,它们要等待被  
+            其他线程显式地唤醒. 以下方法会让线程陷入无限期的等待状态:  
+            ●没有设置Timeout参数的Object.wait()方法.  
+            ●没有设置Timeout参数的Thread.join()方法.  
+            ●LockSupport.park()方法.  
+      * 限期等待(Timed Waiting):处于这种状态的线程也不会被分配CPU执行时间,不过无须等待被其他线程显式地唤醒,在一定时间之后
+        它们会由系统自动唤醒. 以下方法会让线程进入限期等待状态:  
+            ●Thread.sleep()方法.  
+            ●设置了Timeout参数的Object.wait()方法.  
+            ●设置了Timeout参数的Thread.join()方法.  
+            ●LockSupport.parkNanos()方法.  
+            ●LockSupport.parkUntil()方法  
+      * 结束(Terminated):已终止线程的线程状态,线程已经结束执行.
+   2. 线程状态转换关系图  
+      ![线程状态转换关系](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/concurrent/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB.png)
+   
+## 2. 线程安全与锁优化
+### 2.1 JAVA中的线程安全
+   1. 共享数据分类
+      * 不可变(Immutable):不可变对象一定是线程安全的,典型的final
+      * 绝对线程安全:
+      * 相对线程安全: java大部分的线程安全都是相对线程安全的
+      * 线程兼容:
+      * 线程对立:
+   2.

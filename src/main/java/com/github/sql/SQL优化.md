@@ -1,7 +1,7 @@
 #                                               SQL优化
 ----
 1. 建立合适的索引,并合理使用
-   * 应在where和order by列上建立索引
+   * 应在`where`和`order by`列上建立索引
    * 索引列避免null值
    * 避免查询条件为!=、<>、like、in(exists代替)、not in
    * 避免or连接条件 采用union all  如:`SELECT * FROM TABLE WHERE NUM = 10 OR NUM = 20` 可优化为:
@@ -13,8 +13,8 @@
 2. 能用数值类型的列尽量使用
 3. 不要`SELECT *` 来获取返回结果,返回所需列
 4. 在新建临时表时,如果一次性插入数据量很大,那么可以使用 `select into` 形如：
-   `SELECT column_name(s) INTO new_table_name [IN externaldatabase] FROM old_tablename` 代替 create table,
-   避免造成大量 log ,以提高速度;如果数据量不大,为了缓和系统表的资源,应先create table,然后insert
+   `SELECT column_name(s) INTO new_table_name [IN externaldatabase] FROM old_tablename` 代替 `create table`,
+   避免造成大量 log ,以提高速度;如果数据量不大,为了缓和系统表的资源,应先`create table`,然后`insert`
 5. 如果使用到了临时表,在存储过程的最后务必将所有的临时表显式删除,先 `truncate table table_name`,然后 `drop table table_name`,
    这样可以避免系统表的较长时间锁定.
 6. 尽量避免游标,游标效率较差

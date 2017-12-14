@@ -1,8 +1,8 @@
 package com.github.io.protocol.c2d;
 
 import com.github.io.protocol.c2d.auth.LoginAuthReqHandler;
-import com.github.io.protocol.c2d.coding.C2DMessageDecoder;
-import com.github.io.protocol.c2d.coding.C2DMessageEncoder;
+import com.github.io.protocol.c2d.codc.hessian.C2DHessianMsgDecoder;
+import com.github.io.protocol.c2d.codc.hessian.C2DHessianMsgEncoder;
 import com.github.io.protocol.c2d.heart.PingHandler;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.ChannelFuture;
@@ -54,8 +54,12 @@ public class C2DClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
-                                    .addLast(new C2DMessageDecoder(1024 * 1024, 4, 4,-8 ,0))
-                                    .addLast("MessageEncoder", new C2DMessageEncoder())
+                                    // 指定JBoss Marshalling序列化
+//                                    .addLast(new C2DMarshalMsgDecoder(1024 * 1024, 4, 4,-8 ,0))
+//                                    .addLast("MessageEncoder", new C2DMarshalMsgEncoder())
+                                    // 指定Hessian序列化
+                                    .addLast(new C2DHessianMsgDecoder(1024 * 1024, 4, 4, -8, 0))
+                                    .addLast("MessageEncoder", new C2DHessianMsgEncoder())
                                     .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(30))
                                     .addLast("LoginAuthReq", new LoginAuthReqHandler())
                                     .addLast("Ping", new PingHandler());

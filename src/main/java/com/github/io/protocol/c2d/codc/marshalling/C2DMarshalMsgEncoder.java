@@ -1,4 +1,4 @@
-package com.github.io.protocol.c2d.coding;
+package com.github.io.protocol.c2d.codc.marshalling;
 
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
@@ -14,13 +14,13 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
-public class C2DMessageEncoder extends MessageToMessageEncoder<C2DMessage> {
+public class C2DMarshalMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
 
-    private static final Logger logger = LoggerFactory.getLogger(C2DMessageEncoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(C2DMarshalMsgEncoder.class);
 
     private C2DMarshalEncoder marshallingEncoder;
 
-    public C2DMessageEncoder() throws IOException {
+    public C2DMarshalMsgEncoder() throws IOException {
         this.marshallingEncoder = MarshallingCodecFactory.buildMarshalling();
     }
 

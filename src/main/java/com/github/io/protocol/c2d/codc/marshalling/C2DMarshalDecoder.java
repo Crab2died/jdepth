@@ -1,4 +1,4 @@
-package com.github.io.protocol.c2d.coding;
+package com.github.io.protocol.c2d.codc.marshalling;
 
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerContext;

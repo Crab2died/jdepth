@@ -1,4 +1,4 @@
-package com.github.io.protocol.c2d.coding;
+package com.github.io.protocol.c2d.codc.marshalling;
 
 import io.netty.handler.codec.marshalling.DefaultMarshallerProvider;
 import io.netty.handler.codec.marshalling.DefaultUnmarshallerProvider;

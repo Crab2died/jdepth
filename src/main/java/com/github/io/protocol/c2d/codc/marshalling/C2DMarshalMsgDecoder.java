@@ -1,4 +1,4 @@
-package com.github.io.protocol.c2d.coding;
+package com.github.io.protocol.c2d.codc.marshalling;
 
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
@@ -13,14 +13,14 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class C2DMessageDecoder extends LengthFieldBasedFrameDecoder {
+public class C2DMarshalMsgDecoder extends LengthFieldBasedFrameDecoder {
 
 
-    private static final Logger logger = LoggerFactory.getLogger(C2DMessageDecoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(C2DMarshalMsgDecoder.class);
 
     private C2DMarshalDecoder marshallingDecoder;
 
-    public C2DMessageDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
+    public C2DMarshalMsgDecoder(int maxFrameLength, int lengthFieldOffset, int lengthFieldLength,
                              int lengthAdjustment, int initialBytesToStrip)
             throws IOException {
         super(maxFrameLength, lengthFieldOffset, lengthFieldLength, lengthAdjustment, initialBytesToStrip);

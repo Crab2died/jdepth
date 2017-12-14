@@ -17,6 +17,7 @@ import java.util.Map;
  * @author : Crab2Died
  * 2017/12/14  14:57:07
  */
+@SuppressWarnings("all")
 public class HessianCodec {
 
     public static byte[] encode(Object obj) throws IOException {
@@ -35,7 +36,6 @@ public class HessianCodec {
         }
     }
 
-    @SuppressWarnings("unchecked")
     public static <T> T decode(byte[] bytes, Class<T> clazz) throws IOException {
 
         HessianInput hi = null;

@@ -57,9 +57,9 @@ public class C2DHessianMsgDecoder extends LengthFieldBasedFrameDecoder {
         }
         if (frame.readableBytes() > 4) {
             int _bodyLen = frame.readInt();
-            byte[] bodyBtes = new byte[_bodyLen];
-            frame.readBytes(bodyBtes);
-            message.setBody(HessianCodec.decode(bodyBtes, Object.class));
+            byte[] bodyBytes = new byte[_bodyLen];
+            frame.readBytes(bodyBytes);
+            message.setBody(HessianCodec.decode(bodyBytes, Object.class));
         }
 
         message.setHeader(header);

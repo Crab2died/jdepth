@@ -65,7 +65,7 @@ public class HessianCodec {
             System.out.println("原对象为：" + message);
             byte[] bytes = encode(message);
             System.out.println("序列化后byte数组长度为：" + bytes.length);
-            C2DMessage _d = decode(bytes, C2DMessage.class);
+            C2DMessage _d = (C2DMessage)decode(bytes, Object.class);
             System.out.println("反序列化后对象为：" + _d);
         } catch (IOException e) {
             e.printStackTrace();

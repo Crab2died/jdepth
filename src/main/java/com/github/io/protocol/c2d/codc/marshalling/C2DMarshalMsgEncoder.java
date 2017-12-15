@@ -48,7 +48,7 @@ public class C2DMarshalMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
             buf.writeBytes(keyArr);
             marshallingEncoder.encode(ctx, param.getValue(), buf);
         }
-        if (null == msg.getBody())
+        if (null != msg.getBody())
             marshallingEncoder.encode(ctx, msg.getBody(), buf);
         else
             buf.writeInt(0);

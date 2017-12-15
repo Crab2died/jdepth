@@ -27,6 +27,10 @@ public class C2DClient {
 
     private static final String REMOTE_HOST = "127.0.0.1";
     private static final int REMOTE_PORT = 8200;
+    private static final String LOCAL_HOST = "127.0.0.1";
+    private static final int LOCAL_PORT = 8201;
+
+    private static final int TIME_OUT = 70000;
 
     private final static Logger logger = LoggerFactory.getLogger(C2DClient.class);
 
@@ -34,13 +38,14 @@ public class C2DClient {
 
     public static void main(String... args) {
         try {
-            new C2DClient().connect(REMOTE_HOST, REMOTE_PORT, "127.0.0.1", 8201);
+            new C2DClient().connect(REMOTE_HOST, REMOTE_PORT, LOCAL_HOST, LOCAL_PORT);
         } catch (InterruptedException e) {
             logger.error("client connect error ", e);
         }
     }
 
-    public void connect(String remoteHost, int remotePort, String localeHost, int localPort) throws InterruptedException {
+    public void connect(String remoteHost, int remotePort, String localeHost, int localPort) throws
+            InterruptedException {
 
         EventLoopGroup group = new NioEventLoopGroup();
 
@@ -60,7 +65,10 @@ public class C2DClient {
                                     // 指定Hessian序列化
                                     .addLast(new C2DHessianMsgDecoder(1024 * 1024, 4, 4, -8, 0))
                                     .addLast("MessageEncoder", new C2DHessianMsgEncoder())
-                                    .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(30))
+                                    // 指定Protostuff序列化(c2d协议不适用)
+//                                    .addLast(new C2DProtostuffMsgDecoder(1024 * 1024, 4, 4, -8, 0))
+//                                    .addLast("MessageEncoder", new C2DProtostuffMsgEncoder())
+                                    .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(TIME_OUT))
                                     .addLast("LoginAuthReq", new LoginAuthReqHandler())
                                     .addLast("Ping", new PingHandler());
                         }
@@ -80,7 +88,7 @@ public class C2DClient {
                 try {
                     TimeUnit.SECONDS.sleep(5);
                     try {
-                        connect(REMOTE_HOST, REMOTE_PORT, "127.0.0.1", 8201);// 发起重连操作
+                        connect(REMOTE_HOST, REMOTE_PORT, LOCAL_HOST, LOCAL_PORT);// 发起重连操作
                     } catch (Exception e) {
                         logger.error("reconnect error", e);
                     }

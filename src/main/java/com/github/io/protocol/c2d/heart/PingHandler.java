@@ -9,6 +9,7 @@ import io.netty.util.concurrent.ScheduledFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.Random;
 import java.util.concurrent.TimeUnit;
 
 public class PingHandler extends ChannelHandlerAdapter {
@@ -30,7 +31,7 @@ public class PingHandler extends ChannelHandlerAdapter {
             heartBeat = ctx.executor().scheduleAtFixedRate(
                     new PingHandler.HeartBeatTask(ctx),
                     0,
-                    5000,
+                    60000,
                     TimeUnit.MILLISECONDS
             );
         } else if (message.getHeader() != null &&
@@ -58,6 +59,7 @@ public class PingHandler extends ChannelHandlerAdapter {
         private C2DMessage buildHeatBeat() {
             C2DMessage message = new C2DMessage();
             C2DHeader header = new C2DHeader();
+            header.setSerial(System.currentTimeMillis());
             header.setSignal(MessageSignal.PING);
             message.setHeader(header);
             return message;

@@ -25,8 +25,8 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
         // 如果是握手应答消息，需要判断是否认证成功
         if (message.getHeader() != null && message.getBody() != null
                 && message.getHeader().getSignal() == MessageSignal.AUTH_RESP) {
-            byte loginResult = (byte) message.getBody();
-            if (loginResult != (byte) 0) {
+            int loginResult = (int) message.getBody();
+            if (loginResult != 0) {
                 // 握手失败，关闭连接
                 ctx.close();
                 logger.info("Login is error : " + message);

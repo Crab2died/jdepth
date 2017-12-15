@@ -21,8 +21,9 @@ import org.slf4j.LoggerFactory;
 public class C2DServer {
 
     private static final String HOST = "127.0.0.1";
-
     private static final int PORT = 8200;
+
+    private static final int TIME_OUT = 70000;
 
     private final static Logger logger = LoggerFactory.getLogger(C2DServer.class);
 
@@ -54,7 +55,10 @@ public class C2DServer {
                                     // 指定Hessian序列化
                                     .addLast(new C2DHessianMsgDecoder(1024 * 1024, 4, 4, -8, 0))
                                     .addLast("MessageEncoder", new C2DHessianMsgEncoder())
-                                    .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(30))
+                                    // 指定Protostuff序列化(c2d协议不适用)
+//                                    .addLast(new C2DProtostuffMsgDecoder(1024 * 1024, 4, 4, -8, 0))
+//                                    .addLast("MessageEncoder", new C2DProtostuffMsgEncoder())
+                                    .addLast("ReadTimeoutHandler", new ReadTimeoutHandler(TIME_OUT))
                                     .addLast("LoginAuthResp", new LoginAuthRespHandler())
                                     .addLast("Pong", new PongHandler());
                         }

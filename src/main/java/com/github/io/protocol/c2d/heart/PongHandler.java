@@ -19,16 +19,17 @@ public class PongHandler extends ChannelHandlerAdapter {
         // 返回心跳应答消息
         if (message.getHeader() != null && message.getHeader().getSignal() == MessageSignal.PING) {
             logger.info("Receive client heart beat message : ---> " + message);
-            C2DMessage heartBeat = buildHeatBeat();
+            C2DMessage heartBeat = buildHeatBeat(message.getHeader().getSignal());
             logger.info("Send heart beat response message to client : ---> " + heartBeat);
             ctx.writeAndFlush(heartBeat);
         } else
             ctx.fireChannelRead(msg);
     }
 
-    private C2DMessage buildHeatBeat() {
+    private C2DMessage buildHeatBeat(long msgId) {
         C2DMessage message = new C2DMessage();
         C2DHeader header = new C2DHeader();
+        header.setSerial(msgId);
         header.setSignal(MessageSignal.PONG);
         message.setHeader(header);
         return message;

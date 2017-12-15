@@ -1,4 +1,4 @@
-package com.github.io.protocol.c2d.codc.hessian;
+package com.github.io.protocol.c2d.codc.protostuff;
 
 import com.github.io.protocol.c2d.message.C2DHeader;
 import com.github.io.protocol.c2d.message.C2DMessage;
@@ -13,9 +13,18 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 import java.util.Map;
 
-public class C2DHessianMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
+/**
+ *  基于Protostuff的反序列化必须指定明确的反序列化对象才能正确反序列化成功
+ *  对于指定为{@code Object.class}是不能被正确反序列化的
+ *  所以应用场景的选定很重要
+ *
+ *  @author : Crab2Died
+ * 	2017/12/15  10:21:13
+ */
+@Deprecated
+public class C2DProtostuffMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
 
-    private static final Logger logger = LoggerFactory.getLogger(C2DHessianMsgEncoder.class);
+    private static final Logger logger = LoggerFactory.getLogger(C2DProtostuffMsgEncoder.class);
 
     @Override
     protected void encode(ChannelHandlerContext ctx, C2DMessage msg, List<Object> out)
@@ -38,12 +47,12 @@ public class C2DHessianMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
             byte[] keyArr = param.getKey().getBytes(CharsetUtil.UTF_8);
             buf.writeInt(keyArr.length);
             buf.writeBytes(keyArr);
-            byte[] valArr = HessianCodec.encode(param.getValue());
+            byte[] valArr = ProtostuffCodec.encode(param.getValue());
             buf.writeInt(valArr.length);
             buf.writeBytes(valArr);
         }
         if (null != msg.getBody()) {
-            byte[] bodyArr = HessianCodec.encode(msg.getBody());
+            byte[] bodyArr = ProtostuffCodec.encode(msg.getBody());
             buf.writeInt(bodyArr.length);
             buf.writeBytes(bodyArr);
         } else
@@ -51,4 +60,5 @@ public class C2DHessianMsgEncoder extends MessageToMessageEncoder<C2DMessage> {
         buf.setInt(4, buf.readableBytes());
         out.add(buf);
     }
+
 }

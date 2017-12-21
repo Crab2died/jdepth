@@ -82,26 +82,29 @@
             <version>1.4.11.Final</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.caucho/hessian -->
         <dependency>
             <groupId>com.caucho</groupId>
             <artifactId>hessian</artifactId>
             <version>4.0.38</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-core -->
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-core</artifactId>
             <version>1.6.0</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/io.protostuff/protostuff-runtime -->
         <dependency>
             <groupId>io.protostuff</groupId>
             <artifactId>protostuff-runtime</artifactId>
             <version>1.6.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
+        <dependency>
+            <groupId>org.apache.thrift</groupId>
+            <artifactId>libthrift</artifactId>
+            <version>0.9.3</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.jibx/jibx-run -->
         <dependency>

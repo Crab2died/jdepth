@@ -1,3 +1,5 @@
+> [返回目录](https://github.com/Crab2died/jdepth)
+
 #                                               SQL优化
 ----
 1. 建立合适的索引,并合理使用
@@ -20,3 +22,5 @@
 6. 尽量避免游标,游标效率较差
 7. 在所有的存储过程和触发器的开始处设置 `SET NOCOUNT ON` ,在结束时设置 `SET NOCOUNT OFF`.
    无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息
+   
+> [返回目录](https://github.com/Crab2died/jdepth)

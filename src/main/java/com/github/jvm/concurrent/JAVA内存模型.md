@@ -1,3 +1,4 @@
+> [返回目录](https://github.com/Crab2died/jdepth)
 #                                                   JAVA内存模型
 ----
 ## 1. 内存模型
@@ -43,3 +44,6 @@
 ### 2.4. long和double的非原子性协定
   &emsp;&emsp;读写操作可分为2次32位操作,所以一定不是原子操作  
   **_注：现在商用虚拟机本身几乎都已经实现了原子操作,所以不用volatile修饰符_**
+  
+  
+> [返回目录](https://github.com/Crab2died/jdepth)

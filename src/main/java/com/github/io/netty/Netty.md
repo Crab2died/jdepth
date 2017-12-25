@@ -69,11 +69,10 @@
   - 2)写入态模型
   ```
     +--------------------------------+-----------------------+
-    |  readable bytes                |     writable bytes    |
+    |        readable bytes          |     writable bytes    |
     +--------------------------------+-----------------------+
     |                                |                       |
     0=readerIndex               N=writerIndex            M=capacity
-  
   ```
   - 3)读取态模型
   ```
@@ -82,7 +81,6 @@
     +------------------+----------------+--------------------+
     |                  |                |                    |
     0        K(K<=N)=readerIndex   N=writerIndex         M=capacity
-  
   ```
   
  ### 3. Channel

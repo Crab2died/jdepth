@@ -94,3 +94,6 @@ used [0x227d0000, 0x22aeb958, 0x22aeba00, 0x26bd0000)compacting perm gen total 8
 -XX：+DoEscapeAnalysis来手动开启逃逸分析，开启之后可以通过参数-XX：+PrintEscapeAnalysis来查看分析结果。
 有了逃逸分析支持之后，用户可以使用参数-XX：+EliminateAllocations来开启标量替换，使用+XX：+EliminateLocks来开启同步消除，
 使用参数-XX：+PrintEliminateAllocations查看标量的替换情况。
+
+-XX：MaxDirectMemorySize
+DirectMemory容量可通过-XX：MaxDirectMemorySize指定，如果不指定，则默认与Java堆最大值（-Xmx指定）一样

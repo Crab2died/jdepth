@@ -169,7 +169,7 @@
   |UseConMarkSweepGC       |ParNew+Serial Old+CMS组合,Serial Old作为CMS失败后备用            |
   |UseParallelGC           |Server模式默认,Parallel Scavenge+Serial Old(PS Mark Sweep)组合  |
   |UseParallelOldGC        |Parallel Scavenge+Parallel Old组合                             |
-
+  |UseG1GC                 |使用G1                                                         |
 ## 七. 内存分配与回收策略
 ### 1. 对象优先在Eden分配
    - 对象优先在Eden新生代分配,内存不足将发生一次Minor GC

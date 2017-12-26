@@ -72,9 +72,9 @@
         
 ### 3. 引用
    - 1、强引用(Strong Reference): new 关键字
-   - 2、软引用(Soft Reference)：当要发生内存溢出时会将软引用对象加入回收队列中
-   - 3、弱引用(Weak Reference)：只能活到下次GC前
-   - 4、虚引用(Phantom Reference)：幽灵引用或者幻影引用
+   - 2、软引用(Soft Reference):当要发生内存溢出时会将软引用对象加入回收队列中
+   - 3、弱引用(Weak Reference):只能活到下次GC前
+   - 4、虚引用(Phantom Reference):幽灵引用或者幻影引用
    
 ### 4. 回收方法区
    - 1、主要回收永久代的废弃的常量和无用的类   
@@ -124,13 +124,13 @@
 ### 2. PerNew收集器
    - 1、Serial收集器的多线程版，其他一样
    - 2、是许多虚拟机Server模式下新生代的首选收集器
-   - 3、ParNew收集器也是使用-XX：+UseConcMarkSweepGC选项后的默认新生代收集器，也可以使用-XX：+UseParNewGC选项来强制指定它
-   - 4、单核下效果不一定比Serial效果好，多核更适合，-XX：ParallelGCThreads参数来限制垃圾收集的线程数
+   - 3、ParNew收集器也是使用-XX:+UseConcMarkSweepGC选项后的默认新生代收集器，也可以使用-XX:+UseParNewGC选项来强制指定它
+   - 4、单核下效果不一定比Serial效果好，多核更适合，-XX:ParallelGCThreads参数来限制垃圾收集的线程数
    
 ### 3. Parallel Scavenge收集器
    - 1、新生代收集器，采用复制算法，并行的多线程收集器，吞吐量优先   
    - 2、追求可控的吞吐量， 吞吐量=运行用户代码时间/(运行用户代码时间+垃圾收集时间)
-   - 3、控制最大垃圾收集停顿时间的-XX：MaxGCPauseMillis参数以及直接设置吞吐量大小的-XX：GCTimeRatio参数。
+   - 3、控制最大垃圾收集停顿时间的-XX:MaxGCPauseMillis参数以及直接设置吞吐量大小的-XX:GCTimeRatio参数。
    
 ### 4. Serial Old收集器
    - 1、Serial老年代版本、单线程、标记-整理算法
@@ -150,24 +150,25 @@
 
 ### 7. G1收集器
    - 1、G1(Garbage-First)收集器是当今收集器技术发展的最前沿成果之一,面向服务端应用 
-   - 2、特点： 
-        * 并发与并行：充分利用cpu与多核等硬件优势
-        * 分代收集：
-        * 空间整理：标记-整理算法
-        * 可预测的停顿：将堆内存分为多个区域(Region),还保留有老年代与新生代
-   - 3、不计算维护Remembered Set的操作，G1收集器的运作大致可划分为以下几个步骤：  
+   - 2、特点: 
+        * 并发与并行:充分利用cpu与多核等硬件优势
+        * 分代收集:
+        * 空间整理:标记-整理算法
+        * 可预测的停顿:将堆内存分为多个区域(Region),还保留有老年代与新生代
+   - 3、不计算维护Remembered Set的操作，G1收集器的运作大致可划分为以下几个步骤:  
         * 初始标记(Initial Marking)
         * 并发标记(Concurrent Marking)
         * 最终标记(Final Marking)
         * 筛选回收(Live Data Counting and Evacuation) 
+        
 ### 8. 垃圾收集器参数  
-  |        参数            |                      描述                                    |
-  |:-----------------------|:------------------------------------------------------------|
-  |UseSerialGC             |Client模式下默认，使用Serial+Serial Old组合                     |
-  |UseParNewGC             |ParNew+Serial Old组合                                         |
-  |UseConMarkSweepGC       |ParNew+Serial Old+CMS组合，Serial Old作为CMS失败后备用          |
-  |UseParallelGC           |Server模式默认，Parallel Scavenge+Serial Old(PS Mark Sweep)组合|
-  |UseParallelOldGC        |Parallel Scavenge+Parallel Old组合                            |
+  |        参数            |                      描述                                      |
+  |:-----------------------|:--------------------------------------------------------------|
+  |UseSerialGC             |Client模式下默认,使用Serial+Serial Old组合                       |
+  |UseParNewGC             |ParNew+Serial Old组合                                          |
+  |UseConMarkSweepGC       |ParNew+Serial Old+CMS组合,Serial Old作为CMS失败后备用            |
+  |UseParallelGC           |Server模式默认,Parallel Scavenge+Serial Old(PS Mark Sweep)组合  |
+  |UseParallelOldGC        |Parallel Scavenge+Parallel Old组合                             |
 
 ## 七. 内存分配与回收策略
 ### 1. 对象优先在Eden分配
@@ -184,6 +185,8 @@
      到MaxTenuringThreshold中要求的年龄
 
 ### 5. 空间分配担保
-
+   - Minor GC前先判断老年代可用空间是否大于新生代对象总空间，如果大于则确保安全,如果小于则查看HandlePromotionFailure设置的值是否
+     允许担保失败，若允许则会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小，如果大于，将尝试着进行一次Minor 
+     GC，尽管这次Minor GC是有风险的；如果小于，或者HandlePromotionFailure设置不允许冒险，那这时也要改为进行一次Full GC。
   
 > [返回目录](https://github.com/Crab2died/jdepth)

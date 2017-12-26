@@ -54,9 +54,9 @@
    
 ### 3. 对象的访问定位
    - 1、句柄访问  
-      ![句柄访问对象]()
+      ![句柄访问对象](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/gc/%E5%8F%A5%E6%9F%84%E8%AE%BF%E9%97%AE.png)
    - 2、直接指针访问   
-      ![直接指针访问]()  
+      ![直接指针访问](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/gc/%E7%9B%B4%E6%8E%A5%E6%8C%87%E9%92%88%E8%AE%BF%E9%97%AE.png)  
    
    
 > [返回目录](https://github.com/Crab2died/jdepth)

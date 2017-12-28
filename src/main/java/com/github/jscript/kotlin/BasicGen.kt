@@ -31,7 +31,7 @@ fun condition(what: Int) {
     if (a in 1..5)
         println("$a in [1,5]")
     else
-        print("$a not in [1,5]")
+        println("$a not in [1,5]")
 
     // 类三目
     a = if (a > 0) 8 else 0

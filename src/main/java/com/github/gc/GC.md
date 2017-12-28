@@ -1,7 +1,7 @@
 > [返回目录](https://github.com/Crab2died/jdepth)
 
-#                                               自动内存管理
-
+#                                               自动内存管理  
+--- 
 ## 一. Java虚拟机内存区域
 ### 1. 运行时数据区
    ![java运行时数据区](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/java%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84.png)

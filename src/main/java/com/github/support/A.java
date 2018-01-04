@@ -9,6 +9,13 @@ public class A implements C{
         return 0;
     }
 
+    public A() {
+    }
+
+    public A(String a) {
+        this.a = a;
+    }
+
     public String getA() {
         return a;
     }

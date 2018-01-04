@@ -9,6 +9,10 @@ import java.util.concurrent.TimeUnit;
 
 /**
  * {@link java.util.concurrent.DelayQueue}
+ * <p>
+ * 延时队列
+ *
+ * @see java.util.concurrent.BlockingQueue
  */
 public class DelayQueueFeature {
 

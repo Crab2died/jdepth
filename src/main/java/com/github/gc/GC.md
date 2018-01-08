@@ -196,5 +196,10 @@
    - Minor GC前先判断老年代可用空间是否大于新生代对象总空间,如果大于则确保安全,如果小于则查看HandlePromotionFailure设置的值是否
      允许担保失败,若允许则会继续检查老年代最大可用的连续空间是否大于历次晋升到老年代对象的平均大小,如果大于,将尝试着进行一次Minor 
      GC,尽管这次Minor GC是有风险的;如果小于,或者HandlePromotionFailure设置不允许冒险,那这时也要改为进行一次Full GC.
+
+### 八. Minor GC、Major GC与Full GC
+   - Minor GC表示新生代GC、Major GC是指老年代GC、Full GC为全部堆内存GC。
+   - 往往他们之间相互影响，相互触发
+
   
 > [返回目录](https://github.com/Crab2died/jdepth)

@@ -13,6 +13,8 @@
   3. 高内聚，低耦合
   4. 接口继承关系  
     ![接口继承关系](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/spring/IoC.png)
-  
-
+  5. 初始化过程
+   ```
+   Resource定位  ->  载入  ->  注册  
+   ```
 > [返回目录](https://github.com/Crab2died/jdepth)

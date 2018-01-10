@@ -60,9 +60,16 @@ public class MergeSort {
 
 
     public static void main(String... args) {
+
+        // 只做归并
+        int[] d = {1, 3, 5, 7, 9, 2, 4, 6, 8, 10};
+        merge(d, 0, 4, d.length - 1);
+        System.out.println(Arrays.toString(d));
+
         int[] data = {121, 12323, 23231, 121, 12, 2345, 23, 12334, 1343, 2232, 234, 32, 2434, 2456, 34352, 367, 83};
         sort(data, 0, data.length - 1);
         System.out.println(Arrays.toString(data));
+
     }
 
 }

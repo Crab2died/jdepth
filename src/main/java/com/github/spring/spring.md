@@ -17,4 +17,14 @@
    ```
    Resource定位  ->  载入  ->  注册  
    ```
+  6. spring注册对象管理信息方式：  
+   - 直接编码方式：
+   - 配置文件方式：
+   - 元数据方式：
+  7. BeanFactory注册对象与依赖绑定方式： 
+   - 直接编码方式
+   - 外部配置文件方式：1) Properties配置  2) XML配置
+   - 注解方式
+  
+   
 > [返回目录](https://github.com/Crab2died/jdepth)

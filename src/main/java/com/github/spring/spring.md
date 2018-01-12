@@ -8,6 +8,7 @@
     ![spring模块架构](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/spring/spring%E6%A1%86%E6%9E%B6.jpg)
 
 ## IoC(控制反转, Inversion of Controller)
+### 描述
   1. IoC是将对象及对象之间的关系交由IoC容器管理，达到了代码关系解耦及提高了代码的可测试性
   2. 控制反转是典型的工厂模式的最佳实践
   3. 高内聚，低耦合
@@ -26,5 +27,51 @@
    - 外部配置文件方式：1) Properties配置  2) XML配置
    - 注解方式
   
+## AOP(面向方面编程)
+### 类型
+   1. 静态AOP:
+   2. 动态AOP:
    
+### AOP实现机制
+   1. 动态代理：
+   2. 动态字节码增强：
+   3. java代码生成：
+   4. 自定义类加载器：
+   5. AOL扩展：
+   
+### Joinpoint
+   1. 方法调用
+   2. 方法调用执行
+   3. 构造方法调用
+   4. 构造方法执行
+   5. 字段设置: 如setter
+   6. 字段获取: 如getter
+   7. 异常处理执行
+   8. 类初始化: 如static{}代码块
+   
+### Pointcut
+   1. 代表的是Joinpoint的表述方式,将横切逻辑织入当前系统过程中需要参照Pointcut规定的Joinpoint信息,
+      才能知道往系统哪些Joinpoint上织入横切逻辑
+   2. 表述方式
+    - 直接指定Joinpoint所在方法名称
+    - 正则表达式：Spring AOP， JBoss AOP都支持
+    - 使用特定的Poincut表述语言   
+
+### Advice
+   1. Before Advice  
+     是在指定的Joinpoint位置之前执行，不会中断执行(可通过抛出异常中断执行)
+   2. After Advice
+     - After Returning Advice: 当Joinpoint流程执行完成后执行Advice
+     - After Throwing Advice(Throws Advice): 当Joinpoint抛出异常后执行
+     - After Advice(Finally Advice): 无论Joinpoint是否正常执行还是抛出异常最终都会执行，想finally{}
+   3. Around Advice: 可以在Joinpoint执行之前和之后都能执行
+
+### Aspect
+
+### 织入和织入器
+   AspectJ的织入器是其专门的编译器ajc，JBoss AOP是通过其类加载器，Spring AOP是通过ProxyFactory
+
+### Spring AOP
+   1. Spring AOP是使用动态代理和字节码生成技术、用java做为AOP的实现语言(AOL)
+        
 > [返回目录](https://github.com/Crab2died/jdepth)

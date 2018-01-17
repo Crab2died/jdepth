@@ -73,5 +73,21 @@
 
 ### Spring AOP
    1. Spring AOP是使用动态代理和字节码生成技术、用java做为AOP的实现语言(AOL)
+
+### Spring AOP中Pointcut
+
+### Spring AOP中Advice
+   1. BeforeAdvice
+   2. ThrowsAdvice
+   3. AfterReturningAdvice
+   4. AroundAdvice
+   
+### Spring AOP中Aspect
+   1. DefaultPointcutAdvisor
+   2. NameMatchMethodPointcutAdvisor
+   3. RegexpMatchMethodPointcutAdvisor
+   4. DefaultBeanFactoryPointcutAdvisor
+      
+
         
 > [返回目录](https://github.com/Crab2died/jdepth)

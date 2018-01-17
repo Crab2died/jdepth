@@ -125,7 +125,7 @@
    
 ### 1. Serial收集器
    - 1、JDK1.3.1之前是虚拟机新生代收集的唯一选择
-   - 2、单线程、Stop The World
+   - 2、单线程、Stop The World、复制算法
    - 3、Client模式下新生代默认的垃圾收集器
    
 ### 2. PerNew收集器

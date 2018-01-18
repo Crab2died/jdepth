@@ -181,6 +181,30 @@
      一个DelayedWorkQueue实现
    - newSingleThreadScheduledExecutor: 创建一个ScheduledThreadPoolExecutor定时执行线程池,最大线程数为`Integer.MAX_VALUE`,
      内部是一个DelayedWorkQueue实现  
-     
-     
+
+## 5. AbstractQueuedSynchronizer
+   内部类：
+   - ConditionObject：
+   - Node：存放线程信息队列
+        
+### 5.1 AQS之ReentrantLock独占锁源码分析
+   - [AbstractQueuedSynchronizer独占锁](http://www.infoq.com/cn/articles/jdk1.8-abstractqueuedsynchronizer)
+   - `ReentrantLock.lock()`保证在`ReentrantLock.unlock()`之间的代码只有一个线程在执行；ReentrantLock为可重入锁，它有一个与
+     锁相关的获取计数器，如果拥有锁的某个线程再次得到锁，那么获取计数器就加1，然后锁需要被释放两次才能获得真正释放。
+   - 内部类`Syn`实现了`AbstractQueuedSynchronizer`接口
+   - 构造方法有公平锁和非公平锁，公平锁与非公平锁的区别在于公平锁在尝试获取锁时会放入等待队列的后面，获取锁的顺序是按先后顺序执行的，
+     而非公平锁在尝试获取锁时首先会去尝试获取锁，若获取失败在进入等待队列按顺序执行。
+   - 
+   
+### 5.2 AQS之CountDownLatch共享锁源码分析
+   - [AbstractQueuedSynchronizer共享锁](http://www.infoq.com/cn/articles/java8-abstractqueuedsynchronizer)
+   - `CountDownLatch.countDown()`实现锁计数-1，直到减至0是，唤醒`CountDownLatch.await()`等待线程
+ 
+## 6. `synchronized`与`Lock`比较
+   1. `synchronized`是JVM层面实现的’重量级锁‘，可通过监控工具监控`synchronized`的锁定，而且代码出现异常时会自动释放锁
+   2. `Lock`是纯JAVA实现的，为多种实现留下空间，可以实现不同的调度算法、性能特性或者锁定语义，`Lock`必须自己手动的释放锁
+      形如`finally{lock.unlock()}`
+   3. 当锁竞争激烈时用`Lock`,锁竞争较弱时用`syschronized`
+   
+    
 > [返回目录](https://github.com/Crab2died/jdepth)

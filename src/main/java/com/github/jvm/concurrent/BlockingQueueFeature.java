@@ -10,7 +10,11 @@ public class BlockingQueueFeature {
 
     private static BlockingQueue<Integer> queue = new LinkedBlockingQueue<>(20);
 
-    //  private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(20);
+    //private static BlockingQueue<Integer> queue = new ArrayBlockingQueue<>(20);
+
+    // 自增长优先级阻塞队列
+    //private static BlockingQueue<Integer> queue = new PriorityBlockingQueue<>(20, Comparator.comparingInt(o -> o));
+
     // 生产者
     static class Producer implements Runnable {
 

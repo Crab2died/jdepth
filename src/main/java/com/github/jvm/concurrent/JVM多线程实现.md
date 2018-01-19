@@ -210,10 +210,16 @@
    1. 阻塞队列是一个FIFO队列
    2. 主要方法   
 
-|   Ops   |    Throws Exception    |      Special Value     |         Blocks Times Out          |
-|:-------:|:----------------------:|:----------------------:|:---------------------------------:|
-|Insert   |    add(o)              |     offer(o)           |put(o) offer(o, timeout, timeUnit) |  
-|Remove   |   remove(o)            |     poll()             |take()	poll(timeout, timeUnit)     |
-|Examine  |   element()            |     peek()             |               -                   |
+|   Ops   |    Throws Exception    |      Special Value     |           Blocks Times Out          |
+|:-------:|:----------------------:|:----------------------:|:-----------------------------------:|
+|Insert   |    add(o)              |     offer(o)           |put(o) & offer(o, timeout, timeUnit) |  
+|Remove   |   remove(o)            |     poll()             |take()	& poll(timeout, timeUnit)     |
+|Examine  |   element()            |     peek()             |                -                    |
+
+   3. 主要实现  
+   - ArrayBlockingQueue：基于数组的阻塞队列，必须指定长度
+   - LinkedBlockingQueue: 基于链表的阻塞队列，长度可指定也可动态扩张，默认长度为`Integer.MAX_VALUE`
+   - SynchronousQueue: 无缓冲区的阻塞队列，`put()`要阻塞等待`take()`
+   - PriorityBlockingQueue: 优先级阻塞队列，队列元素必须实现`Comparator `接口，基于数组，自动扩展长度
     
 > [返回目录](https://github.com/Crab2died/jdepth)

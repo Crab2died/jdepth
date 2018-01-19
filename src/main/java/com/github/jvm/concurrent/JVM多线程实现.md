@@ -209,11 +209,11 @@
 ## 7. 阻塞队列`BlockingQueue`
    1. 阻塞队列是一个FIFO队列
    2. 主要方法   
-   
-    |   Ops   |    Throws Exception    |      Special Value     |         Blocks Times Out          |
-    |:-------:|:-----------------------|:-----------------------|:----------------------------------|
-    |Insert   |    add(o)              |     offer(o)           |put(o) offer(o, timeout, timeUnit) |  
-    |Remove   |   remove(o)            |     poll()             |take()	poll(timeout, timeUnit)     |
-    |Examine  |   element()            |     peek()             |               -                   |
+
+|   Ops   |    Throws Exception    |      Special Value     |         Blocks Times Out          |
+|:-------:|:----------------------:|:----------------------:|:---------------------------------:|
+|Insert   |    add(o)              |     offer(o)           |put(o) offer(o, timeout, timeUnit) |  
+|Remove   |   remove(o)            |     poll()             |take()	poll(timeout, timeUnit)     |
+|Examine  |   element()            |     peek()             |               -                   |
     
 > [返回目录](https://github.com/Crab2died/jdepth)

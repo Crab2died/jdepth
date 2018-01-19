@@ -110,8 +110,8 @@
     # workQueue 任务缓冲队列
     # threadFactory 线程工厂，用于创建线程
     # handler 表示拒接处理任务的策略有一下4种：
-    #  - ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。 
-    #  - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。 
+    #  - ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
+    #  - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
     #  - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
     #  - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
     
@@ -159,8 +159,8 @@
    
    5. 任务拒绝策略
    ```
-   ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常。
-   ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常。
+   ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
+   ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
    ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
    ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
    ```
@@ -194,7 +194,6 @@
    - 内部类`Syn`实现了`AbstractQueuedSynchronizer`接口
    - 构造方法有公平锁和非公平锁，公平锁与非公平锁的区别在于公平锁在尝试获取锁时会放入等待队列的后面，获取锁的顺序是按先后顺序执行的，
      而非公平锁在尝试获取锁时首先会去尝试获取锁，若获取失败在进入等待队列按顺序执行。
-   - 
    
 ### 5.2 AQS之CountDownLatch共享锁源码分析
    - [AbstractQueuedSynchronizer共享锁](http://www.infoq.com/cn/articles/java8-abstractqueuedsynchronizer)

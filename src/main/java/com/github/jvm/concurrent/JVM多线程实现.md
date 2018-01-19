@@ -205,6 +205,15 @@
    2. `Lock`是纯JAVA实现的，为多种实现留下空间，可以实现不同的调度算法、性能特性或者锁定语义，`Lock`必须自己手动的释放锁
       形如`finally{lock.unlock()}`
    3. 当锁竞争激烈时用`Lock`,锁竞争较弱时用`syschronized`
+
+## 7. 阻塞队列`BlockingQueue`
+   1. 阻塞队列是一个FIFO队列
+   2. 主要方法   
    
+    |   Ops   |    Throws Exception    |      Special Value     |         Blocks Times Out          |
+    |:-------:|:-----------------------|:-----------------------|:----------------------------------|
+    |Insert   |    add(o)              |     offer(o)           |put(o) offer(o, timeout, timeUnit) |  
+    |Remove   |   remove(o)            |     poll()             |take()	poll(timeout, timeUnit)     |
+    |Examine  |   element()            |     peek()             |               -                   |
     
 > [返回目录](https://github.com/Crab2died/jdepth)

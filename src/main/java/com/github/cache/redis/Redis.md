@@ -10,6 +10,21 @@
    - 3.0后支持分布式存储，去中心化，具有线性伸缩功能
    - [Redis命令大全](http://redisdoc.com/index.html)
    
-## 2. 
+## 2. Redis数据持久化
+### 2.1 RDB(Redis DataBase)
+   - SNAPSHOT(快照): `save 秒数 写操作次数`如`save 9000 1`表示900s(15min)又一次写操作生成快照，也可`save ""`表示每次
+     写操作即生成快照
+   - 配置`stop-writes-on-bgsave-error yes/no`当后台生成快照错误是否中断redis写操作的支持
+   - 配置`rdbcompression yes/no`表示是否压缩RDB文件
+   
+### 2.2 AOF(Append Only File)
+   - 配置`appendonly no/yes`启用AOF，启动时会触发全量写文件，后面写操作是增量写文件
+   - 同步策略配置`appendfsync always(每次写操作都触发同步)/everysec(每秒同步一次)/no(不同步)`
+   - 重写(rewrite): 满足条件后触发重写，会对AOF文件内容优化，减少文件大小
+   ```
+     auto-aof-rewrite-percentage 100 (表示超过文件的百分比)
+     auto-aof-rewrite-min-size 64mb (触发重写的最小文件大小)
+   ```
+   - AOF文件修复: `redis-check-aof --fix appendonly.aof`
 
 > [返回目录](https://github.com/Crab2died/jdepth)            

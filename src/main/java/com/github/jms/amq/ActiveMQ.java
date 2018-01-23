@@ -15,7 +15,7 @@ public class ActiveMQ {
         connectionFactory = new ActiveMQConnectionFactory(
                 "admin",
                 "admin",
-                "failover:(tcp://127.0.0.1:61616,tcp://127.0.0.1:61617,tcp://127.0.0.1:61618)");
+                "failover:(tcp://127.0.0.1:61616,tcp://127.0.0.1:61617,tcp://127.0.0.1:61618,tcp://127.0.0.1:61619)");
         try {
             connection = connectionFactory.createConnection();
             connection.start();
@@ -26,15 +26,15 @@ public class ActiveMQ {
             //时候不确认消息,不确认的话不会移出队列，一直存在，下次启动继续接受。接收消息的连接不断开，其他的消费者也不会接受（正常情况下队列模式不存在其他消费者）
             //DUPS_OK_ACKNOWLEDGE允许副本的确认模式。一旦接收方应用程序的方法调用从处理消息处返回，会话对象就会确认消息的接收；而且允许重复确认。在需要考虑资源使用时，这种模式非常有效。
             //待测试
-            session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
-            destination = session.createQueue("test-queue");
-            producer = session.createProducer(destination);
-            producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
-            //优先级不能影响先进先出。。。那这个用处究竟是什么呢呢呢呢
-            for (int i = 0; i < 100; i++) {
+            for (int i = 0; i < 10; i++) {
+                session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
+                destination = session.createQueue("test-queue");
+                producer = session.createProducer(destination);
+                producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+                //优先级不能影响先进先出。。。那这个用处究竟是什么呢呢呢呢
                 producer.send(session.createTextMessage("test-" + i));
+                producer.close();
             }
-            producer.close();
         } catch (JMSException e) {
             e.printStackTrace();
         }

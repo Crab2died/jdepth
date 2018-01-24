@@ -18,7 +18,8 @@ public class AtomicTest {
         for (int i = 0; i < THREADS_COUNT; i++) {
             new Thread(() -> {
                 for (int j = 0; j < 100; j++) {
-                    increase();
+                    //increase();
+                    race.addAndGet(j);
                 }
             }).start();
         }

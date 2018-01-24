@@ -30,10 +30,10 @@ public class GCAllocation {
          *  手动设置为null
          *  注释掉会报OOM
          */
-        byte2 = null;
+        //byte2 = null;
         byte[] byte3 = new byte[3 * 1024 * 1024];
         System.out.println(byte3.length);
-        byte[] byte4 = new byte[4 * 1024 * 1024];
+        byte[] byte4 = new byte[5 * 1024 * 1024];
 
 
     }

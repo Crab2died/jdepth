@@ -4,14 +4,16 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-import redis.clients.jedis.JedisPoolConfig;
-import redis.clients.jedis.ScanResult;
+import redis.clients.jedis.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 
+/**
+ *  Redis API
+ */
 public class JedisTests {
 
     private Jedis jedis;
@@ -41,14 +43,34 @@ public class JedisTests {
         Assert.assertEquals("PONG", jedis.ping());
     }
 
-    @Test public void KeysTest(){
+    // key相关API
+    @Test public void keysTest(){
 
+        // 清除库
+        jedis.flushDB();
+
+        // 返回条件key
         System.out.println(jedis.keys("*"));
+
+        jedis.set("key", "val");
+        //设置key存活时间，秒
+        jedis.expire("key", 3);
+
+        // 设置存活时间的时间戳
+        jedis.expireAt("key", System.currentTimeMillis() + 10000);
+
+        // 是否存在key
+        System.out.println(jedis.exists("key1", "key"));
+
+        // 还剩存活时间，秒
+        System.out.println(jedis.ttl("key"));
+        // 还剩存活时间，毫秒
+        System.out.println(jedis.pttl("key"));
 
     }
 
     // String类型API
-    @Test public void StringTest(){
+    @Test public void stringTest(){
 
         // 清库
         jedis.flushDB();
@@ -93,7 +115,7 @@ public class JedisTests {
     }
 
     // hash类型API
-    @Test public void HashTest(){
+    @Test public void hashTest(){
 
         // 清库
         jedis.flushDB();
@@ -137,7 +159,7 @@ public class JedisTests {
     }
 
     // list类型API
-    @Test public void ListTest(){
+    @Test public void listTest(){
 
         // 清除库
         jedis.flushDB();
@@ -166,7 +188,7 @@ public class JedisTests {
     }
 
     // set类型API
-    @Test public void SetTest(){
+    @Test public void setTest(){
 
         // 清除库
         jedis.flushDB();
@@ -212,8 +234,77 @@ public class JedisTests {
 
     }
 
-    @Test public void ZSetTest(){
+    // zset类型API
+    @Test public void zSetTest(){
 
+        // 清除库
+        jedis.flushDB();
+
+        // 添加
+        System.out.println(jedis.zadd("zset-key", 123, "1"));
+        Map<String, Double> map  = new HashMap<>();
+        map.put("3", 133.123);
+        map.put("5", 1.134);
+        map.put("2", 431.13);
+        map.put("4", 134.1);
+        map.put("2", 123.1);
+        // 批量添加
+        System.out.println(jedis.zadd("zset-key", map));
+
+        // 返回集合大小
+        System.out.println(jedis.zcard("zset-key"));
+
+        // 返回权重范围内元素数量
+        System.out.println(jedis.zcount("zset-key", 43, 143));
+
+        // 按位置索引查找
+        System.out.println(jedis.zrange("zset-key", 1, 3));
+
+        // 按位置索引查找并返回带得分的元素
+        Set<Tuple> temp = jedis.zrangeWithScores("zset-key", 1, 3);
+        for (Tuple li: temp) {
+            System.out.println(li.getElement() + " -> " + li.getScore());
+        }
+
+        // 按得分范围查找
+        System.out.println(jedis.zrangeByScore("zset-key", 43, 143));
+
+        // 元素得分排名
+        System.out.println(jedis.zrank("zset-key", "3"));
+
+        // 元素得分
+        System.out.println(jedis.zscore("zset-key", "3"));
+
+        // 移除元素
+        System.out.println(jedis.zrem("zset-key", "1", "3"));
+
+        // 移除得分范围内的元素
+        System.out.println(jedis.zremrangeByScore("zset-key", 0, 10));
+    }
+
+    // 事物API
+    @Test public void transactionTest(){
+
+        // 清除库
+        jedis.flushDB();
+
+        // 监视key
+        jedis.watch("tx-key1", "tx-key2");
+
+        // 启用事物
+        Transaction tx = jedis.multi();
+
+        tx.lpush("tx-key1", "1", "3", "5");
+        tx.set("tx-key2", "tx");
+
+        // 执行事物
+        tx.exec();
+
+        // 取消监视key
+        jedis.unwatch();
+
+        System.out.println(jedis.lrange("tx-key1", 0, -1));
+        System.out.println(jedis.get("tx-key2"));
     }
 
 }

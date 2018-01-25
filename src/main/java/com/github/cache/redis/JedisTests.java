@@ -6,10 +6,8 @@ import org.junit.Before;
 import org.junit.Test;
 import redis.clients.jedis.*;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.io.IOException;
+import java.util.*;
 
 /**
  *  Redis API
@@ -307,4 +305,32 @@ public class JedisTests {
         System.out.println(jedis.get("tx-key2"));
     }
 
+    // 集群操作
+    @Test public void redisCluster() throws IOException {
+
+        JedisPoolConfig config = new JedisPoolConfig();
+        config.setMaxIdle(100);
+        config.setMaxWaitMillis(50000L);
+        config.setTestOnBorrow(true);
+
+        Set<HostAndPort> nodes = new LinkedHashSet<>();
+        nodes.add(new HostAndPort("127.0.0.1", 7000));
+        nodes.add(new HostAndPort("127.0.0.1", 7001));
+        nodes.add(new HostAndPort("127.0.0.1", 7002));
+        nodes.add(new HostAndPort("127.0.0.1", 7003));
+        nodes.add(new HostAndPort("127.0.0.1", 7004));
+        nodes.add(new HostAndPort("127.0.0.1", 7005));
+
+        JedisCluster jedisCluster = new JedisCluster(nodes, 10000, config);
+
+       // jedisCluster.set("test", "test");
+
+        System.out.println(jedisCluster.get("test"));
+
+        for (int i = 0; i < 10000; i++){
+            jedisCluster.lpush("list", "node-" + i);
+        }
+        System.out.println(jedisCluster.lrange("list", 1000, 1010));
+        jedisCluster.close();
+    }
 }

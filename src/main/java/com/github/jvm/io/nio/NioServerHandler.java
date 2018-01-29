@@ -14,8 +14,6 @@ public class NioServerHandler implements Runnable {
 
     private Selector selector;
 
-    private ServerSocketChannel serverSocketChannel;
-
     private volatile boolean stop;
 
     public NioServerHandler(int port) {
@@ -23,7 +21,7 @@ public class NioServerHandler implements Runnable {
         try {
             // 创建多路复用器selector、serverSocketChannel
             selector = Selector.open();
-            serverSocketChannel = ServerSocketChannel.open();
+            ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
             // 设置为异步非阻塞
             serverSocketChannel.configureBlocking(false);
             // 绑定TCP端口号及最大连接数

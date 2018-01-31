@@ -1,0 +1,71 @@
+> [返回目录](https://github.com/Crab2died/jdepth)
+
+#                                      JAVA性能调优监控
+---
+## jps(JVM Process Status Tool)
+### 1. 介绍
+   类似UNIX的ps命令，列出虚拟机正在运行的进程信息
+### 2. 参数
+   - -q: 只输出进程ID
+   - -m: 输出主类启动时的参数
+   - -l: 输出主类全名，如果是jar则输出jar路径
+   - -v: 输出虚拟机启动时的JVM参数
+
+## jstat(JVM Statistics Monitoring Tool)
+### 1. 介绍
+   用于监视虚拟机各种运行状态信息的命令行工具。 它可以显示本地或者远程虚拟机进程中的类装载、 内存、 垃圾收集、 JIT编译等运行数据 
+### 2. 格式
+   jstat[option vmid[interval[s|ms][count]]]
+   如`jstat -class 14232(PID) 520(采样率) 4(采样次数)`
+### 3. 参数
+   - -class: 监控类加载数量、卸载数量、总空间以及加载所用时间
+   - -gc: 监控java堆状态，包括Eden区，2个survivor区，老年代，永久代的容量、已用空间、GC时间合计等
+   - -gccapacity: 与-gc基本相同，但主要关注java堆各个区域使用到的最大、最小空间
+   - -gcutil: 与-gc基本相同，但主要关注java堆各个区域使用占比
+   - -gccase: 与-gcutil一样，但会额外输出上一次GC的原因
+   - -gcnew: 监控新生代GC状态
+   - -gcnewcapacity: 与-gcnew基本相同，但主要关注的是使用到的最大、最小空间
+   - -gcold: 监控老年代GC状态
+   - -gcoldcapacity: 与-gcold基本相同，但主要关注的是使用道的最大、最小空间
+   - -gcpermcapacity: 输出永久带使用到的最大、最小空间
+   - -compiler: 输出JIT编译过的方法、耗时等信息
+   - -printcompilation: 输出已被JIT编译过的方法
+   
+## jinfo(Configuration Info for Java)
+### 1. 介绍
+   实时地查看和调整虚拟机各项参数
+### 2. 格式
+   jinfo [option] pid 如 `jinfo -flags 14232`
+### 3. 参数
+   - -flag <name>: to print the value of the named VM flag(输出JVM参数名为name的参数信息)
+   - -flag [+|-]<name>: to enable or disable the named VM flag(添加或除去JVM参数名为name的参数)
+   - -flag <name>=<value>: to set the named VM flag to the given value(设置JVM参数，入-Xmx=1024m)
+   - -flags: to print VM flags(输出JVM启动参数信息)
+   - -sysprops: to print Java system properties(输出`System.getProperties()`信息)
+
+## jmap(Memory Map for Java)
+### 1. 介绍
+   命令用于生成堆转储快照(一般称为heapdump或dump文件)  
+   其他生成dump文件方式:通过参数`-XX：+HeapDumpOnOutOfMemoryError`OOM时生成、`-XX：+HeapDumpOnCtrlBreak`通过
+   [Ctrl]+[Break]键让虚拟机生成dump文件、或者Linux通过命令kill -3 pid也能拿到dump
+### 2. 格式
+   jmap [option] vmid 
+### 3. 参数
+   - -dump: 生成java堆转存快照, 格式 -dump:[live, ],format=b,file=<filename>, live表示是否只导出存活的对象
+   - -finalizerinfo: 显示在F-Queen里面等待Finalizer线程执行finalize()方法的对象，只在Linux/Solaris平台有效
+   - -heap: 显示java堆详细信息，如使用哪种GC回收器，参数配置、分代状况等信息，只在Linux/Solaris平台有效
+   - -histo: 显示堆中对象统计信息，包括类、实例数量及合计容量等
+   - -permstat: 以ClassLoader为统计口径显示永久带内存状态，只在Linux/Solaris平台有效
+   - -F: 当-dump没响应时，使用-F强制生成dump文件，只在Linux/Solaris平台有效
+ 
+## jhat(JVM Heap Analysis Tool)
+### 1. 介绍
+   分析jmap生成的堆转储快照(dump文件)
+### 2. 格式
+   jhat [-port 7001] <dumpfile> 
+### 3. 参数
+   - -port: server端口，可通过host:port访问
+   - <file>: dump文件
+
+   
+> [返回目录](https://github.com/Crab2died/jdepth)

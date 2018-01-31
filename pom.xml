@@ -25,6 +25,12 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/com.sun.tools.btrace/btrace-boot -->
+        <dependency>
+            <groupId>com.sun.tools.btrace</groupId>
+            <artifactId>btrace-boot</artifactId>
+            <version>1.2.3</version>
+        </dependency>
 
         <!-- https://mvnrepository.com/artifact/org.objenesis/objenesis -->
         <dependency>

@@ -2,7 +2,7 @@
 
 #                                      JAVA性能调优监控
 ---
-## jps(JVM Process Status Tool)
+## 一. jps(JVM Process Status Tool)
 ### 1. 介绍
    类似UNIX的ps命令，列出虚拟机正在运行的进程信息
 ### 2. 参数
@@ -11,7 +11,7 @@
    - -l: 输出主类全名，如果是jar则输出jar路径
    - -v: 输出虚拟机启动时的JVM参数
 
-## jstat(JVM Statistics Monitoring Tool)
+## 二. jstat(JVM Statistics Monitoring Tool)
 ### 1. 介绍
    用于监视虚拟机各种运行状态信息的命令行工具。 它可以显示本地或者远程虚拟机进程中的类装载、 内存、 垃圾收集、 JIT编译等运行数据 
 ### 2. 格式
@@ -31,7 +31,7 @@
    - -compiler: 输出JIT编译过的方法、耗时等信息
    - -printcompilation: 输出已被JIT编译过的方法
    
-## jinfo(Configuration Info for Java)
+## 三. jinfo(Configuration Info for Java)
 ### 1. 介绍
    实时地查看和调整虚拟机各项参数
 ### 2. 格式
@@ -43,7 +43,7 @@
    - -flags: to print VM flags(输出JVM启动参数信息)
    - -sysprops: to print Java system properties(输出`System.getProperties()`信息)
 
-## jmap(Memory Map for Java)
+## 四. jmap(Memory Map for Java)
 ### 1. 介绍
    命令用于生成堆转储快照(一般称为heapdump或dump文件)  
    其他生成dump文件方式:通过参数`-XX：+HeapDumpOnOutOfMemoryError`OOM时生成、`-XX：+HeapDumpOnCtrlBreak`通过
@@ -58,7 +58,7 @@
    - -permstat: 以ClassLoader为统计口径显示永久带内存状态，只在Linux/Solaris平台有效
    - -F: 当-dump没响应时，使用-F强制生成dump文件，只在Linux/Solaris平台有效
  
-## jhat(JVM Heap Analysis Tool)
+## 五. jhat(JVM Heap Analysis Tool)
 ### 1. 介绍
    分析jmap生成的堆转储快照(dump文件)
 ### 2. 格式
@@ -68,7 +68,7 @@
    - <file>: dump文件
    - -J<flag>: 运行参数,如``-J-mx512m`
 
-## jstack(Stack Trace for Java)
+## 六. jstack(Stack Trace for Java)
 ### 1. 介绍
    用于生成虚拟机当前时刻的线程快照(一般称为threaddump或者javacore文件)  
    线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合，生成线程快照的主要目的是定位线程出现长时间停顿的原因，
@@ -104,7 +104,7 @@
    在JDK1.5中在`java.lang.Thread`类中新增了`getAllStackTraces()`方法获取虚拟机所有的线程`StackTraceElement`
    对象，实现了大部分jstack功能，实际项目中可页面展示
 
-## VisualVM(All-in-One Java Troubleshooting Tool)
+## 七. VisualVM(All-in-One Java Troubleshooting Tool)
 ### 介绍
   是到目前为止随JDK发布的功能最强大的运行监视和故障处理程序，并且可以预见在未来一段时间内都是官方主力发展的虚拟机故障处理工具。
   官方在VisualVM的软件说明中写上了“All-in-One”的描述字样，预示着它除了运行监视、 故障处理外，还提供了很多其他方面的功能。
@@ -128,7 +128,7 @@
   - 3、启动jvisualvm,操作步骤:  
     远程 -> 添加远程主机 -> 添加JMS链接
 
-## 案列
+## 八. 案列
 ### 1. 利用jstack调试线程堆栈信息
    1. jps得到PID，如14232
    2. 查看进程PID的线程耗时情况,命令`ps -Lfp pid`或`top -Hp pid`找到最耗时的线程ID 如14253

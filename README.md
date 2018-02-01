@@ -17,7 +17,8 @@
 ### > 2. [SQL优化](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/sql/SQL%E4%BC%98%E5%8C%96.md)
 ---
 ## 验证与试验
-### > 1. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/TIPS.md)
+### > 1. [JAVA性能调优监控](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/optimize/JAVA%E6%80%A7%E8%83%BD%E8%B0%83%E7%9B%91%E6%8E%A7.md)
+### > 2. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/TIPS.md)
 ---
 ## 集合
 ### > 1. [集合框架](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/collections/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.md)

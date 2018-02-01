@@ -66,6 +66,23 @@
 ### 3. 参数
    - -port: server端口，可通过host:port访问
    - <file>: dump文件
+   - -J<flag>: 运行参数,如``-J-mx512m`
+
+## jstack(Stack Trace for Java)
+### 1. 介绍
+   用于生成虚拟机当前时刻的线程快照(一般称为threaddump或者javacore文件)  
+   线程快照就是当前虚拟机内每一条线程正在执行的方法堆栈的集合，生成线程快照的主要目的是定位线程出现长时间停顿的原因，
+   如线程间死锁、 死循环、 请求外部资源导致的长时间等待等都是导致线程长时间停顿的常见原因。 线程出现停顿的时候通过
+   jstack来查看各个线程的调用堆栈，就可以知道没有响应的线程到底在后台做些什么事情，或者等待着什么资源
+### 2. 格式
+   jstack [option] vmid 如`jstack -l 14232`
+### 3. 参数
+   - -F: 当正常请求无响应时，强制输出线程堆栈
+   - -l: 除堆栈外，显示关于锁的附加信息
+   - -m: 如果调用到本地方法时，显示C/C++堆栈信息
+### 4. 附录
+   在JDK1.5中在`java.lang.Thread`类中新增了`getAllStackTraces()`方法获取虚拟机所有的线程`StackTraceElement`
+   对象，实现了大部分jstack功能，实际项目中可页面展示
 
    
 > [返回目录](https://github.com/Crab2died/jdepth)

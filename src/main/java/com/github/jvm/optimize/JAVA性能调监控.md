@@ -81,7 +81,7 @@
    - -l: 除堆栈外，显示关于锁的附加信息
    - -m: 如果调用到本地方法时，显示C/C++堆栈信息
 ### 4. 日志分析
-   - 线程分为New、Runnable、Running、Waiting、Timed_Waiting、Blocked、Dead等状态  
+   1. 线程分为New、Runnable、Running、Waiting、Timed_Waiting、Blocked、Dead等状态  
     * New: 当线程对象创建时存在的状态，此时线程不可能执行；  
     * Runnable：当调用thread.start()后，线程变成为Runnable状态。只要得到CPU，就可以执行；  
     * Running：线程正在执行；  
@@ -90,7 +90,7 @@
       Timed_Waiting的等待有时间限制；  
     * Blocked：如果进入同步方法或同步代码块，没有获取到锁，则会进入该状态；  
     * Dead：线程执行完毕，或者抛出了未捕获的异常之后，会进入dead状态，表示该线程结束  
-   - 其次，对于jstack日志，我们要着重关注如下关键信息  
+   2. 其次，对于jstack日志，我们要着重关注如下关键信息  
     * Deadlock：表示有死锁  
     * Waiting on condition：等待某个资源或条件发生来唤醒自己。具体需要结合jstacktrace来分析，比如线程正在sleep，网络读写繁忙而等待  
     * Blocked：阻塞  

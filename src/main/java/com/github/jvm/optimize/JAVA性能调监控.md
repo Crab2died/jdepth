@@ -134,7 +134,7 @@
    2. 查看进程PID的线程耗时情况,命令`ps -Lfp pid`或`top -Hp pid`找到最耗时的线程ID 如14253
    3. 获取线程ID16进制编码`print "%x\n" 14253`为37ad
    4. 用jstack获取线程堆栈信息`jstack 14232 |grep 37ad`打印如下信息:  
-      `"VM Periodic Task Thread" os_prio=0 tid=0x00007f772c00f800 nid=0x37ad waiting on condition `
+      `"VM Periodic Task Thread" os_prio=0 tid=0x00007f772c00f800 nid=0x37ad waiting on condition `  
       通过该日志分析表示该线程在等待某个资源来唤醒
   
 > [返回目录](https://github.com/Crab2died/jdepth)

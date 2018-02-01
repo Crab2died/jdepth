@@ -84,5 +84,30 @@
    在JDK1.5中在`java.lang.Thread`类中新增了`getAllStackTraces()`方法获取虚拟机所有的线程`StackTraceElement`
    对象，实现了大部分jstack功能，实际项目中可页面展示
 
-   
+## VisualVM(All-in-One Java Troubleshooting Tool)
+### 介绍
+  是到目前为止随JDK发布的功能最强大的运行监视和故障处理程序，并且可以预见在未来一段时间内都是官方主力发展的虚拟机故障处理工具。
+  官方在VisualVM的软件说明中写上了“All-in-One”的描述字样，预示着它除了运行监视、 故障处理外，还提供了很多其他方面的功能。
+### 远程监控
+  - 1、远程服务器启动jstatd服务
+    创建配置文件jstatd.policy内容为  
+    ```
+        grant codebase "file:${java.home}/../lib/tools.jar" {  
+           permission java.security.AllPermission;  
+        };
+    ```  
+    启动服务:`jstatd -J-Djava.security.policy=jstatd.all.policy -p 8701`
+  - 2、启动应用参数
+    ``` 
+        -Dcom.sun.management.jmxremote=true 
+        -Dcom.sun.management.jmxremote.port=9090 
+        -Dcom.sun.management.jmxremote.ssl=false 
+        -Dcom.sun.management.jmxremote.authenticate=false
+        -Djava.rmi.server.hostname=192.168.0.1
+    ```
+  - 3、启动jvisualvm,操作步骤:  
+    远程 -> 添加远程主机 -> 添加JMS链接
+  
+  
+  
 > [返回目录](https://github.com/Crab2died/jdepth)

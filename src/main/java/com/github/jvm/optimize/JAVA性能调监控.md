@@ -66,7 +66,7 @@
 ### 3. 参数
    - -port: server端口，可通过host:port访问
    - <file>: dump文件
-   - -J<flag>: 运行参数,如``-J-mx512m`
+   - -J<flag>: 运行参数,如`-J-mx512m`
 
 ## 六. jstack(Stack Trace for Java)
 ### 1. 介绍

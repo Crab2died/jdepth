@@ -5,7 +5,7 @@
 ## 1. JAVA与线程
 ### 1.1 线程的实现
    1. 实现方式:使用内核线程实现、 使用用户线程实现和使用用户线程加轻量级进程混合实现.
-   2.
+   2. JDK1.2之前是基于用户线程实现的，JDK1.2及以后是基于操作系统原生线程模型实现的.
    
 ### 1.2 Java线程调度
    1. 线程调度是指系统为线程分配处理器使用权的过程,主要调度方式有两种,分别是协同式线程调度(Cooperative Threads-Scheduling)
@@ -32,7 +32,8 @@
             ●设置了Timeout参数的Object.wait()方法.  
             ●设置了Timeout参数的Thread.join()方法.  
             ●LockSupport.parkNanos()方法.  
-            ●LockSupport.parkUntil()方法  
+            ●LockSupport.parkUntil()方法 
+      * 阻塞(Blocked):该状态程序在等待获取一个排他锁，程序在同步时会在该状态 
       * 结束(Terminated):已终止线程的线程状态,线程已经结束执行.
    2. 线程状态转换关系图  
       ![线程状态转换关系](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/concurrent/%E7%BA%BF%E7%A8%8B%E7%8A%B6%E6%80%81%E8%BD%AC%E6%8D%A2%E5%85%B3%E7%B3%BB.png)

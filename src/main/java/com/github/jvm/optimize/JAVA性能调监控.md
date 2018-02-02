@@ -116,7 +116,7 @@
            permission java.security.AllPermission;  
         };
     ```  
-    启动服务:`jstatd -J-Djava.security.policy=jstatd.all.policy -p 8701`
+    启动服务:`jstatd -J-Djava.security.policy=jstatd.policy -p 8701`
   - 2、启动应用参数
     ``` 
         -Dcom.sun.management.jmxremote=true 

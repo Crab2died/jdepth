@@ -46,7 +46,6 @@
       * 相对线程安全: java大部分的线程安全都是相对线程安全的
       * 线程兼容:
       * 线程对立:
-   2.
    
 ## 3. 锁介绍
 ### 3.1 自旋锁
@@ -98,36 +97,36 @@
   
 ## 4. java线程池
 ### 4.1 线程池实现类
-```
-   (C)ThreadPoolExecutor --->  (AC)AbstractExecutorService ---> (I)ExecutorService ---> (I)Executor
-```
+    ```
+       (C)ThreadPoolExecutor --->  (AC)AbstractExecutorService ---> (I)ExecutorService ---> (I)Executor
+    ```
 
 ### 4.2 ThreadPoolExecutor构造参数说明
-```
-    # corePoolSize 核心线程数，当任务多于核心线程数时会进入缓冲阻塞队列workQueue
-    # maximunPoolSize 线程池最大线程数
-    # keepAliveTime 多于核心线程数的空闲线程最长存活时间量级与unit参数配合使用
-    # unit 线程等待时间的单位级
-    # workQueue 任务缓冲队列
-    # threadFactory 线程工厂，用于创建线程
-    # handler 表示拒接处理任务的策略有一下4种：
-    #  - ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
-    #  - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
-    #  - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
-    #  - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
-    
-    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
-            BlockingQueue<Runnable> workQueue);
- 
-    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
-            BlockingQueue<Runnable> workQueue,ThreadFactory threadFactory);
- 
-    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
-            BlockingQueue<Runnable> workQueue,RejectedExecutionHandler handler);
- 
-    public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
-        BlockingQueue<Runnable> workQueue,ThreadFactory threadFactory,RejectedExecutionHandler handler);
-```
+    ```
+        # corePoolSize 核心线程数，当任务多于核心线程数时会进入缓冲阻塞队列workQueue
+        # maximunPoolSize 线程池最大线程数
+        # keepAliveTime 多于核心线程数的空闲线程最长存活时间量级与unit参数配合使用
+        # unit 线程等待时间的单位级
+        # workQueue 任务缓冲队列
+        # threadFactory 线程工厂，用于创建线程
+        # handler 表示拒接处理任务的策略有一下4种：
+        #  - ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
+        #  - ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
+        #  - ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+        #  - ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
+        
+        public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+                BlockingQueue<Runnable> workQueue);
+     
+        public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+                BlockingQueue<Runnable> workQueue,ThreadFactory threadFactory);
+     
+        public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+                BlockingQueue<Runnable> workQueue,RejectedExecutionHandler handler);
+     
+        public ThreadPoolExecutor(int corePoolSize,int maximumPoolSize,long keepAliveTime,TimeUnit unit,
+            BlockingQueue<Runnable> workQueue,ThreadFactory threadFactory,RejectedExecutionHandler handler);
+    ```
 
 ### 4.3 实现原理
    1. 线程池状态：  
@@ -160,10 +159,10 @@
    
    5. 任务拒绝策略
    ```
-   ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
-   ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
-   ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
-   ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
+    ThreadPoolExecutor.AbortPolicy:丢弃任务并抛出RejectedExecutionException异常
+    ThreadPoolExecutor.DiscardPolicy：也是丢弃任务，但是不抛出异常
+    ThreadPoolExecutor.DiscardOldestPolicy：丢弃队列最前面的任务，然后重新尝试执行任务（重复此过程）
+    ThreadPoolExecutor.CallerRunsPolicy：由调用线程处理该任务
    ```
    
    6. 线程池的关闭
@@ -210,11 +209,11 @@
    1. 阻塞队列是一个FIFO队列
    2. 主要方法   
 
-|   Ops   |    Throws Exception    |      Special Value     |           Blocks Times Out          |
-|:-------:|:----------------------:|:----------------------:|:-----------------------------------:|
-|Insert   |    add(o)              |     offer(o)           |put(o) & offer(o, timeout, timeUnit) |  
-|Remove   |   remove(o)            |     poll()             |take()	& poll(timeout, timeUnit)     |
-|Examine  |   element()            |     peek()             |                -                    |
+  |   Ops   |    Throws Exception    |      Special Value     |           Blocks Times Out          |
+  |:-------:|:----------------------:|:----------------------:|:-----------------------------------:|
+  |Insert   |    add(o)              |     offer(o)           |put(o) & offer(o, timeout, timeUnit) |  
+  |Remove   |   remove(o)            |     poll()             |take()	& poll(timeout, timeUnit)     |
+  |Examine  |   element()            |     peek()             |                -                    |
 
    3. 主要实现  
    - ArrayBlockingQueue：基于数组的阻塞队列，必须指定长度

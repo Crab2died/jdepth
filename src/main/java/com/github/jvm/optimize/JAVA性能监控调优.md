@@ -1,6 +1,6 @@
 > [返回目录](https://github.com/Crab2died/jdepth)
 
-#                                      JAVA性能调优监控
+#                                      JAVA性能监控调优
 ---
 ## 一. jps(JVM Process Status Tool)
 ### 1. 介绍

@@ -88,6 +88,14 @@
    3. RegexpMatchMethodPointcutAdvisor
    4. DefaultBeanFactoryPointcutAdvisor
       
-
+## SpringMVC
+### 1. spring事物的传播性(Propagation)
+   1. REQUIRED：如果存在一个事物，则支持当前事物。如果没有则新建
+   2. MANDATORY：支持当前事物，如果没有当前事物则抛出异常
+   3. NEVER：以非事物方式执行，如果当前存在事物则抛出异常
+   4. NOT_SUPPORTED：以非事物方式执行，如果当前存在事物则将当前事物挂起
+   5. REQUIRES_NEW：新建事物，如果当前存在事物，则将当前事物挂起
+   6. SUPPORTS：支持当前事物，如果当前没有事物，则以非事物方式执行
+   7. NESTED：支持当前事物，新增savepoint，与当前事物提交或回滚
         
 > [返回目录](https://github.com/Crab2died/jdepth)

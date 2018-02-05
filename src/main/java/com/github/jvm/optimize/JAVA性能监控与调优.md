@@ -1,6 +1,6 @@
 > [返回目录](https://github.com/Crab2died/jdepth)
 
-#                                      JAVA性能监控调优
+#                                                   JAVA性能监控与调优
 ---
 ## 一. jps(JVM Process Status Tool)
 ### 1. 介绍
@@ -126,7 +126,7 @@
         -Djava.rmi.server.hostname=192.168.0.1
     ```
   - 3、启动jvisualvm,操作步骤:  
-    远程 -> 添加远程主机 -> 添加JMS链接
+    远程 -> 添加远程主机 -> 添加JMX链接
 
 ## 八. 案列
 ### 1. 利用jstack调试线程堆栈信息

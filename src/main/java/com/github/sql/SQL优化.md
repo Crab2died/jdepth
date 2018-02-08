@@ -22,5 +22,8 @@
 6. 尽量避免游标,游标效率较差
 7. 在所有的存储过程和触发器的开始处设置 `SET NOCOUNT ON` ,在结束时设置 `SET NOCOUNT OFF`.
    无需在执行存储过程和触发器的每个语句后向客户端发送 DONE_IN_PROC 消息
+8. 联合索引，联合索引只在`where + and`这类条件下生效，而且索引只能在从左开始组合才生效，如`ALERT TABLE_NAME ADD INDEX INDEX_NAME 
+   (col1, col2, col3)`只有`WHERE col1=? AND col2=? AND col3=?` 或 `WHERE col1=? AND col2=?` 或 `WHERE col1=?` 索引生效，
+   另外,复杂度高的列有先左排列
    
 > [返回目录](https://github.com/Crab2died/jdepth)

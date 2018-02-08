@@ -200,10 +200,10 @@
    - `CountDownLatch.countDown()`实现锁计数-1，直到减至0是，唤醒`CountDownLatch.await()`等待线程
  
 ## 6. `synchronized`与`Lock`比较
-   1. `synchronized`是JVM层面实现的’重量级锁‘，可通过监控工具监控`synchronized`的锁定，而且代码出现异常时会自动释放锁
+   1. `synchronized`是JVM层面实现的'重量级锁'，可通过监控工具监控`synchronized`的锁定，而且代码出现异常时会自动释放锁
    2. `Lock`是纯JAVA实现的，为多种实现留下空间，可以实现不同的调度算法、性能特性或者锁定语义，`Lock`必须自己手动的释放锁
-      形如`finally{lock.unlock()}`
-   3. 当锁竞争激烈时用`Lock`,锁竞争较弱时用`syschronized`
+      形如`finally{lock.unlock();}`
+   3. 当锁竞争激烈时用`Lock`,锁竞争较弱时用`synchronized`
 
 ## 7. 阻塞队列`BlockingQueue`
    1. 阻塞队列是一个FIFO队列
@@ -219,6 +219,6 @@
    - ArrayBlockingQueue：基于数组的阻塞队列，必须指定长度
    - LinkedBlockingQueue: 基于链表的阻塞队列，长度可指定也可动态扩张，默认长度为`Integer.MAX_VALUE`
    - SynchronousQueue: 无缓冲区的阻塞队列，`put()`要阻塞等待`take()`
-   - PriorityBlockingQueue: 优先级阻塞队列，队列元素必须实现`Comparator `接口，基于数组，自动扩展长度
+   - PriorityBlockingQueue: 优先级阻塞队列，队列元素必须实现`Comparator`接口，基于数组，自动扩展长度
     
 > [返回目录](https://github.com/Crab2died/jdepth)

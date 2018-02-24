@@ -63,7 +63,7 @@
    2. After Advice
      - After Returning Advice: 当Joinpoint流程执行完成后执行Advice
      - After Throwing Advice(Throws Advice): 当Joinpoint抛出异常后执行
-     - After Advice(Finally Advice): 无论Joinpoint是否正常执行还是抛出异常最终都会执行，想finally{}
+     - After Advice(Finally Advice): 无论Joinpoint是否正常执行还是抛出异常最终都会执行，如finally{}
    3. Around Advice: 可以在Joinpoint执行之前和之后都能执行
 
 ### Aspect

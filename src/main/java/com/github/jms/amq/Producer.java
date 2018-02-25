@@ -75,6 +75,26 @@ public class Producer {
         }
     }
 
+    public static void publishTopicMsg(String dest, String msg) {
+
+        try {
+            Topic topic = session.createTopic(dest);
+
+            MessageProducer producer;
+            if (null != threadLocal.get()) {
+                producer = threadLocal.get();
+            } else {
+                producer = session.createProducer(topic);
+                producer.setDeliveryMode(DeliveryMode.PERSISTENT);
+                threadLocal.set(producer);
+            }
+            producer.send(session.createTextMessage(msg));
+            session.commit();
+        } catch (JMSException e) {
+            logger.error("JMS error: ", e);
+        }
+    }
+
     public static void closeConnection() {
         try {
             connection.close();

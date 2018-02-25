@@ -55,4 +55,26 @@ public class Consumer {
             logger.error("JMS error: ", e);
         }
     }
+
+    public static void subscribeTopicMsg(String dest) {
+        try {
+            Topic topic = session.createTopic(dest);
+            MessageConsumer consumer;
+            if (threadLocal.get() != null) {
+                consumer = threadLocal.get();
+            } else {
+                consumer = session.createConsumer(topic);
+                threadLocal.set(consumer);
+            }
+            for (; ; ) {
+                TextMessage msg = (TextMessage) consumer.receive();
+                if (null != msg) {
+                    // 接收消息
+                    System.out.println(Thread.currentThread().getName() + ",接收订阅消息：" + msg.getText());
+                }
+            }
+        } catch (JMSException e) {
+            logger.error("JMS error: ", e);
+        }
+    }
 }

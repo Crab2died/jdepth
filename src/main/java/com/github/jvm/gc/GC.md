@@ -149,11 +149,13 @@
 ### 6. CMS收集器
    - 1、CMS(Concurrent Mark Sweep)收集器是一种以获取最短回收停顿时间为目标的收集器. 
    - 2、标记-清除算法实现  
-        * 初始标记(CMS initial mark)
+        * 初始标记(CMS initial mark)，有短时的STW
         * 并发标记(CMS concurrent mark)
-        * 重新标记(CMS remark)
+        * 重新标记(CMS remark)，有短时的STW
         * 并发清除(CMS concurrent sweep)
    - 3、并发收集、 低停顿,Sun公司的一些官方文档中也称之为并发低停顿收集器
+   - 4、-XX：+UseCMSCompactAtFullCollection默认开启，表示CMS进行Full GC的时候开启内存碎片的合并整理，该过程无法并发停顿时间变长
+   - 5、-XX：CMSFullGCsBeforeCompaction表示执行多少次不压缩的Full GC后跟着来一次压缩的Full GC，默认是0，每次都压缩
 
 ### 7. G1收集器
    - 1、G1(Garbage-First)收集器是当今收集器技术发展的最前沿成果之一,面向服务端应用 

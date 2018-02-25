@@ -5,19 +5,18 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class CollectionsFeature {
 
-    // 剃头
-    public void rid(){
-
-    }
-
     public static void main(String... args){
         Map<String, Object> table = new Hashtable<>();
-        //table.put(null, "");
+        // table.put(null, "");
         Map<String, Object> map = new HashMap<>();
         map.put(null, "");
+        //
+        map.put(new String("test"), "test1");
+        map.put(new String("test"), "test2");
+        System.out.println(map);
 
         Map<String, Object> mapc = new ConcurrentHashMap<>();
-        //mapc.put(null, "");
+        // mapc.put(null, "");
 
         Map<String, Object> idMap = new IdentityHashMap<>();
         // 必须new String以保证地址不一样

@@ -6,7 +6,7 @@ class ActiveMQTest {
 
     @Test
     fun `producer queue test`() {
-        for (i in 1..1000)
+        for (i in 1..100)
             Producer.sendQueueMsg("test-queue", "msg" + i)
         Producer.closeConnection()
     }

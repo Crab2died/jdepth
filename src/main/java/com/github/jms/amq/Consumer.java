@@ -26,7 +26,8 @@ public class Consumer {
             ConnectionFactory connectionFactory = new ActiveMQConnectionFactory(USERNAME, PASSWORD, BROKEN_URL);
             Connection connection = connectionFactory.createConnection();
             connection.start();
-            session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+            // 客户端签收
+            session = connection.createSession(false, Session.CLIENT_ACKNOWLEDGE);
         } catch (JMSException e) {
             logger.error("JMS error: ", e);
         }
@@ -46,9 +47,9 @@ public class Consumer {
             for (; ; ) {
                 TextMessage msg = (TextMessage) consumer.receive();
                 if (null != msg) {
-                    // 签收消息
-                    // msg.acknowledge();
                     System.out.println(Thread.currentThread().getName() + ",消息已接收：" + msg.getText());
+                    // 签收消息
+                    msg.acknowledge();
                 }
             }
         } catch (JMSException e) {

@@ -47,8 +47,8 @@ public class Consumer {
                 TextMessage msg = (TextMessage) consumer.receive();
                 if (null != msg) {
                     // 签收消息
-                    msg.acknowledge();
-                    System.out.println("消息已接收：" + msg.getText());
+                    // msg.acknowledge();
+                    System.out.println(Thread.currentThread().getName() + ",消息已接收：" + msg.getText());
                 }
             }
         } catch (JMSException e) {

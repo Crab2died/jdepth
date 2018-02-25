@@ -38,7 +38,7 @@ public class Producer {
              当第一个参数为true时，表示启用事物，第二个参数默认无效为Session.SESSION_TRANSACTED
              当第一个参数为false时，第二个参数为下列值：
              1. session.AUTO_ACKNOWLEDGE当消费端从receive或者onMessage成功返回时，Session自动签收客户端的这条消息。
-             2. Session.CLIENT_ACNOWLEDGE消费端通过调用消息(Message)的acknoledge方法签收消息(mess.acknowledge())。
+             2. Session.CLIENT_ACNOWLEDGE消费端通过调用消息(Message)的acknowledge方法签收消息(mess.acknowledge())。
                 在这种情况下，签收发生在Session层面：签收一个已经消费的消息会自动地签收这个Session所有消费已消费消息的收条。
              3. Session.DUPS_OK_ACKNOWLEDGE此选项指示Session不必确保对传送消息的签收，它可能引起消息的重复，
                 但是降低了Session的开销，所以只有消费端能容忍重复消息才能使用。

@@ -125,7 +125,7 @@
    
 ### 1. Serial收集器
    - 1、JDK1.3.1之前是虚拟机新生代收集的唯一选择
-   - 2、单线程、Stop The World、复制算法
+   - 2、单线程、Stop The World(STW)、复制算法
    - 3、Client模式下新生代默认的垃圾收集器
    
 ### 2. PerNew收集器
@@ -175,7 +175,7 @@
   |:-----------------------|:--------------------------------------------------------------|
   |UseSerialGC             |Client模式下默认,使用Serial+Serial Old组合                       |
   |UseParNewGC             |ParNew+Serial Old组合                                          |
-  |UseConMarkSweepGC       |ParNew+Serial Old+CMS组合,Serial Old作为CMS失败后备用            |
+  |UseConMarkSweepGC       |ParNew+CMS+Serial Old组合,Serial Old作为CMS失败后备用            |
   |UseParallelGC           |Server模式默认,Parallel Scavenge+Serial Old(PS Mark Sweep)组合  |
   |UseParallelOldGC        |Parallel Scavenge+Parallel Old组合                             |
   |UseG1GC                 |使用G1                                                         |

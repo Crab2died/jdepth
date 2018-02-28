@@ -16,6 +16,7 @@ public class SignalListener {
 
     public static void onListen(SignalEvent event) {
 
+        // 独立线程监听
         new Thread(new Runnable() {
 
             @Override

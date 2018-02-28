@@ -25,6 +25,7 @@ class SignalTest {
     }
 }
 
+// 信号事件实现
 class SignalEventImpl : SignalEvent {
 
     override fun stop() {

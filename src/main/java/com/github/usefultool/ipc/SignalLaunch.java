@@ -14,7 +14,7 @@ import java.nio.channels.FileChannel;
 public class SignalLaunch {
 
     /**
-     * 信号有三种：
+     * 信号有三种(不区分大小写)：
      * 1. stop 信号
      * 2. restart 信号
      * 3. status 信号

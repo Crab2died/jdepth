@@ -35,17 +35,17 @@ public class SignalListener {
                     for (; ; ) {
                         int sign = mbb.get(0);
                         if (sign == Signal.STOP) {
-                            event.stop();
                             mbb.put(0, (byte) 0);
+                            event.stop();
                             break;
                         }
                         if (sign == Signal.RESTART) {
-                            event.restart();
                             mbb.put(0, (byte) 0);
+                            event.restart();
                         }
                         if (sign == Signal.STATUS) {
-                            event.status();
                             mbb.put(0, (byte) 0);
+                            event.status();
                         }
                     }
                 } catch (IOException e) {

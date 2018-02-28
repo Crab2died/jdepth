@@ -30,6 +30,7 @@ class SignalEventImpl : SignalEvent {
 
     override fun stop() {
         println("do something when get the stop signal ")
+        System.exit(1)
     }
 
     override fun restart() {

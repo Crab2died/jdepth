@@ -26,10 +26,10 @@
      - 替换原则(Is-A)：替换原则即是总是保证子类可以替换它的基类,如麻雀Is-A鸟
      - 依赖倒置原则: 高层模块不应该依赖于低层模块,二者都应该依赖于抽象；抽象不应该依赖于细节，细节应该依赖于抽象。
      - 接口隔离原则：
-13. JAVA的CAS(Compare And Sweep)：有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，将内存值V
-    修改为B，否则什么都不做。    
+13. JAVA的CAS(Compare And Sweep)：有3个操作数，内存值V，旧的预期值A，要修改的新值B。当且仅当预期值A和内存值V相同时，
+    将内存值V修改为B，否则什么都不做。    
 14. [设计模式介绍](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 15. [LOGO生成工具](http://patorjk.com/software/taag) 
-
+16. [基于ffmpeg的音视频处理工具jave(Java Audio Video Encoder)](http://www.sauronsoftware.it/projects/jave/index.php)
 
 > [返回目录](https://github.com/Crab2died/jdepth)

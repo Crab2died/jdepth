@@ -11,7 +11,7 @@ class SignalTest {
      * 启动监听器
      */
     @Test
-    fun `signal listener`() {
+    fun signalListenerTest() {
         SignalListener.onListen(SignalEventImpl())
         System.`in`.read()
     }
@@ -20,7 +20,7 @@ class SignalTest {
      * 发送信号
      */
     @Test
-    fun `signal launch`() {
+    fun signalLaunchTest() {
         SignalLaunch.doSend("STOP")
     }
 }

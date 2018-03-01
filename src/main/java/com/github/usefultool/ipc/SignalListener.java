@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
+import java.util.concurrent.TimeUnit;
 
 /**
  * 系统信号监听器
@@ -44,8 +45,9 @@ public class SignalListener {
                         mbb.put(0, (byte) 0);
                         event.status();
                     }
+                    TimeUnit.MILLISECONDS.sleep(100L);
                 }
-            } catch (IOException e) {
+            } catch (Exception e) {
                 System.err.println("lock file channel create error");
                 System.exit(2);
             } finally {

@@ -25,7 +25,7 @@
         </fileSet>
         <!--拷贝文档文件-->
         <fileSet>
-            <directory>src/main/resources</directory>
+            <directory>src/main/resources/config</directory>
             <outputDirectory>config</outputDirectory>
         </fileSet>
     </fileSets>

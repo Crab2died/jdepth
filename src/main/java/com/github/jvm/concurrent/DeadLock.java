@@ -19,29 +19,23 @@ public class DeadLock {
     }
 
     private void deadLock() {
-        Thread t1 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (A) {
-                    try {
-                        Thread.sleep(2000);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    synchronized (B) {
-                        System.out.println("1");
-                    }
+        Thread t1 = new Thread(() -> {
+            synchronized (A) {
+                try {
+                    Thread.sleep(2000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                synchronized (B) {
+                    System.out.println("1");
                 }
             }
         }, "dead-thread-01");
 
-        Thread t2 = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                synchronized (B) {
-                    synchronized (A) {
-                        System.out.println("2");
-                    }
+        Thread t2 = new Thread(() -> {
+            synchronized (B) {
+                synchronized (A) {
+                    System.out.println("2");
                 }
             }
         }, "dead-thread-02");

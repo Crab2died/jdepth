@@ -17,7 +17,7 @@
    4. JAVA线程有10个优先级(Thread.MIN_PRIORITY至Thread.MAX_PRIORITY)
    
 ### 1.3 线程转换状态
-   1. JAVA线程定义了5个状态:  
+   1. JAVA线程定义了6个状态:  
       * 新建(New):创建后尚未启动的线程处于这种状态.
       * 运行(Runable):Runable包括了操作系统线程状态中的Running和Ready,也就是处于此状态的线程有可能正在执行,也有可能正在
         等待着CPU为它分配执行时间.

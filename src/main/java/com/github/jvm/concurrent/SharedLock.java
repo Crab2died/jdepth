@@ -1,12 +1,11 @@
 package com.github.jvm.concurrent;
 
-import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.AbstractQueuedSynchronizer;
 
 /**
  * 实现的简易共享锁
  *
- * @author : wbhe2
+ * @author : Crab2Died
  * 2018/03/06  11:41:49
  * @see java.util.concurrent.Semaphore
  */
@@ -61,22 +60,4 @@ public class SharedLock {
         sync.releaseShared(1);
     }
 
-    public static void main(String... args) throws InterruptedException {
-        SharedLock lock = new SharedLock(3);
-        for (int i = 1; i <= 10; i++) {
-            int finalI = i;
-            new Thread(() -> {
-                try {
-                    lock.lock();
-                    System.out.println("Thread " + finalI + " get the lock");
-                    TimeUnit.MILLISECONDS.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } finally {
-                    lock.unlock();
-                    System.out.println("Thread " + finalI + " release the lock");
-                }
-            }).start();
-        }
-    }
 }

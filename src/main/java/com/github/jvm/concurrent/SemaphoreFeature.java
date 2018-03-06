@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class SemaphoreFeature {
 
+    // 对象池
     static class ObjectPool<E> {
 
         // 池大小
@@ -37,6 +38,17 @@ public class SemaphoreFeature {
 
         public E take() throws InterruptedException {
             semaphore.acquire();
+            return getObject();
+        }
+
+        public E take(long timeout, TimeUnit timeUnit) throws InterruptedException {
+
+            semaphore.tryAcquire(timeout, timeUnit);
+            return getObject();
+        }
+
+        private E getObject() {
+
             for (int i = 0; i < itemLabel.length; i++) {
                 if (!itemLabel[i]) {
                     itemLabel[i] = true;
@@ -44,8 +56,7 @@ public class SemaphoreFeature {
                     return items.get(i);
                 }
             }
-            System.out.println("对象获取失败");
-            return null;
+            throw new RuntimeException("take null object from the pool");
         }
 
         public boolean release(E item) {
@@ -74,7 +85,7 @@ public class SemaphoreFeature {
             new Thread(() -> {
                 A _a = null;
                 try {
-                    _a = pool.take();
+                    _a = pool.take(20000, TimeUnit.MILLISECONDS);
                     if (null != _a) {
                         System.out.println(Thread.currentThread().getName() + " :" + _a.getA());
                         _a.setA(_a.getA() + _a.getA());

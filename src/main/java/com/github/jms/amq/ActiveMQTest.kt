@@ -5,19 +5,19 @@ import org.junit.Test
 class ActiveMQTest {
 
     @Test
-    fun `producer queue test`() {
+    fun producerQueueTest() {
         for (i in 1..100)
-            Producer.sendQueueMsg("test-queue", "msg" + i)
+            Producer.sendQueueMsg("test-queue", "msg$i")
         Producer.closeConnection()
     }
 
     @Test
-    fun `consumer queue test`() {
+    fun consumerQueueTest() {
         (1..5)
                 .map {
                     Thread(Runnable {
                         Consumer.getQueueMsg("test-queue")
-                    }, "Thread-" + it)
+                    }, "Thread-$it")
                 }
                 .forEach { it.start() }
 
@@ -25,19 +25,19 @@ class ActiveMQTest {
     }
 
     @Test
-    fun `producer topic test`() {
+    fun producerTopicTest() {
         for (i in 1..10)
-            Producer.publishTopicMsg("test-topic", "msg" + i)
+            Producer.publishTopicMsg("test-topic", "msg$i")
         Producer.closeConnection()
     }
 
     @Test
-    fun `consumer topic test`() {
+    fun consumerTopicTest() {
         (1..5)
                 .map {
                     Thread(Runnable {
                         Consumer.subscribeTopicMsg("test-topic")
-                    }, "Thread-" + it)
+                    }, "Thread-$it")
                 }
                 .forEach { it.start() }
 

@@ -202,7 +202,11 @@
 ### 5.2 AQS之CountDownLatch共享锁源码分析
    - [AbstractQueuedSynchronizer共享锁](http://www.infoq.com/cn/articles/java8-abstractqueuedsynchronizer)
    - `CountDownLatch.countDown()`实现锁计数-1，直到减至0是，唤醒`CountDownLatch.await()`等待线程
- 
+
+### 5.3 公平锁和非公平锁
+   公平锁是严格按照FIFO队列获得锁，但带来了大量的线程切换的消耗，非公平锁极大的降低了线程切换带来的消耗，虽然可能造成线程饥饿的情况，
+   但也提高了吞吐量。
+
 ## 6. `synchronized`与`Lock`比较
    1. `synchronized`是JVM层面实现的'重量级锁'，可通过监控工具监控`synchronized`的锁定，而且代码出现异常时会自动释放锁
    2. `Lock`是纯JAVA实现的，为多种实现留下空间，可以实现不同的调度算法、性能特性或者锁定语义，`Lock`必须自己手动的释放锁

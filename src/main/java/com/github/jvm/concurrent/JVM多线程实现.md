@@ -228,5 +228,10 @@
    - LinkedBlockingQueue: 基于链表的阻塞队列，长度可指定也可动态扩张，默认长度为`Integer.MAX_VALUE`
    - SynchronousQueue: 无缓冲区的阻塞队列，`put()`要阻塞等待`take()`
    - PriorityBlockingQueue: 优先级阻塞队列，队列元素必须实现`Comparator`接口，基于数组，自动扩展长度
-    
+   
+## 8. ConcurrentLinkedQueue
+   非阻塞线程安全的FIFO队列，基于单向链表实现，循环CAS操作实现，由于是根据Node.NEXT是否为NULL来判断是否为TAIL节点，因此
+   队列的元素值不可为NULL。
+   
+
 > [返回目录](https://github.com/Crab2died/jdepth)

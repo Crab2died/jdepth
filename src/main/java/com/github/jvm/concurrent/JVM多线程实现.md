@@ -224,10 +224,16 @@
    |Examine  |   element()            |     peek()             |                -                    |
 
    3. 主要实现  
-   - ArrayBlockingQueue：基于数组的阻塞队列，必须指定长度
-   - LinkedBlockingQueue: 基于链表的阻塞队列，长度可指定也可动态扩张，默认长度为`Integer.MAX_VALUE`
+   - ArrayBlockingQueue：基于数组的有界阻塞队列，必须指定长度
+   - LinkedBlockingQueue: 基于链表的有界阻塞队列，长度可指定也可动态扩张，默认长度为`Integer.MAX_VALUE`
    - SynchronousQueue: 无缓冲区的阻塞队列，`put()`要阻塞等待`take()`
    - PriorityBlockingQueue: 优先级阻塞队列，队列元素必须实现`Comparator`接口，基于数组，自动扩展长度
+   - DelayQueue：一个使用优先级队列实现的无界阻塞队列
+   - LinkedTransferQueue：一个由链表结构组成的无界阻塞队列
+   - LinkedBlockingDeque：一个由链表结构组成的双向阻塞队列
+   
+   4. 注意  
+   如果是无界阻塞队列，队列不可能会出现满的情况，所以使用put或offer方法永远不会被阻塞，而且使用offer方法时，该方法永远返回true。
    
 ## 8. ConcurrentLinkedQueue
    非阻塞线程安全的FIFO队列，基于单向链表实现，循环CAS操作实现，由于是根据Node.NEXT是否为NULL来判断是否为TAIL节点，因此

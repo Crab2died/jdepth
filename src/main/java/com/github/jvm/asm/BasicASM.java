@@ -77,6 +77,10 @@ public class BasicASM {
 
     public static void main(String... args) throws Exception {
 
+//        FileOutputStream fos = new FileOutputStream(new File("target/classes/com/github/jvm/asm/CircleCalc.class"));
+//        fos.write(generateClass());
+//        fos.close();
+
         ASMClassLoader classLoader = new ASMClassLoader(generateClass());
         Class<?> clazz = classLoader.loadClass("com.github.jvm.asm.CircleCalc");
         Object object = clazz.newInstance();

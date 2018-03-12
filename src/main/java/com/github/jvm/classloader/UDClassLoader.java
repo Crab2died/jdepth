@@ -21,15 +21,15 @@ public class UDClassLoader extends ClassLoader {
 
     @Override
     public Class<?> loadClass(String name) throws ClassNotFoundException {
-        Class<?> clazz = findClass(name);
-        if (null == clazz) {
-            try {
-                clazz = getParent().loadClass(name);
-            } catch (ClassNotFoundException e) {
-                clazz = CLASS_CACHE.get(name);
-                if (null == clazz) {
-                    clazz = findClass(name);
-                }
+        Class<?> clazz;
+        try {
+            // 委派父类加载器
+            clazz = getParent().loadClass(name);
+        } catch (ClassNotFoundException e) {
+            clazz = CLASS_CACHE.get(name);
+            if (null == clazz) {
+                clazz = findClass(name);
+                CLASS_CACHE.put(name, clazz);
             }
         }
         return clazz;
@@ -42,7 +42,7 @@ public class UDClassLoader extends ClassLoader {
 
             try (ByteArrayOutputStream out = new ByteArrayOutputStream()) {
                 byte[] buffer = new byte[1024];
-                int len = 0;
+                int len;
                 while ((len = fis.read(buffer)) != -1) {
                     out.write(buffer, 0, len);
                 }
@@ -55,8 +55,9 @@ public class UDClassLoader extends ClassLoader {
     }
 
     public static void main(String... args) throws Exception {
+
         UDClassLoader classLoader = new UDClassLoader();
-        Class<?> clazz = classLoader.loadClass("com.github.jvm.asm.CircleCalc");
+        Class<?> clazz = Class.forName("com.github.jvm.asm.CircleCalc", true, classLoader);
         Object object = clazz.newInstance();
         Method method = clazz.getMethod("calcArea", double.class);
         Object rel = method.invoke(object, 10D);

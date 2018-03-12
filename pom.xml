@@ -25,21 +25,18 @@
             <artifactId>junit</artifactId>
             <version>4.11</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.sun.tools.btrace/btrace-boot -->
         <dependency>
             <groupId>com.sun.tools.btrace</groupId>
             <artifactId>btrace-boot</artifactId>
             <version>1.2.3</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.objenesis/objenesis -->
         <dependency>
             <groupId>org.objenesis</groupId>
             <artifactId>objenesis</artifactId>
             <version>2.6</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
         <dependency>
             <groupId>io.netty</groupId>
             <artifactId>netty-all</artifactId>
@@ -98,21 +95,18 @@
             <version>1.6.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.apache.thrift/libthrift -->
         <dependency>
             <groupId>org.apache.thrift</groupId>
             <artifactId>libthrift</artifactId>
             <version>0.9.3</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/org.jibx/jibx-run -->
         <dependency>
             <groupId>org.jibx</groupId>
             <artifactId>jibx-run</artifactId>
             <version>1.3.1</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.esotericsoftware/kryo -->
         <dependency>
             <groupId>com.esotericsoftware</groupId>
             <artifactId>kryo</artifactId>
@@ -146,27 +140,23 @@
             <artifactId>activemq-all</artifactId>
             <version>5.15.2</version>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients -->
         <!--<dependency>-->
         <!--<groupId>org.apache.kafka</groupId>-->
         <!--<artifactId>kafka-clients</artifactId>-->
         <!--<version>1.0.0</version>-->
         <!--</dependency>-->
-        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
         <dependency>
             <groupId>org.apache.kafka</groupId>
             <artifactId>kafka_2.11</artifactId>
             <version>1.0.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/redis.clients/jedis -->
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>
             <version>2.9.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/jline/jline -->
         <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>

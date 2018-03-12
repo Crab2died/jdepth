@@ -18,25 +18,29 @@ public class UDClassLoader extends ClassLoader {
     static {
         CLASS_CACHE = new HashMap<>();
     }
-
-    @Override
-    public Class<?> loadClass(String name) throws ClassNotFoundException {
-        Class<?> clazz;
-        try {
-            // 委派父类加载器
-            clazz = getParent().loadClass(name);
-        } catch (ClassNotFoundException e) {
-            clazz = CLASS_CACHE.get(name);
-            if (null == clazz) {
-                clazz = findClass(name);
-                CLASS_CACHE.put(name, clazz);
-            }
-        }
-        return clazz;
-    }
+//
+//    @Override
+//    public Class<?> loadClass(String name) throws ClassNotFoundException {
+//        Class<?> clazz;
+//        try {
+//            // 委派父类加载器
+//            clazz = getParent().loadClass(name);
+//        } catch (ClassNotFoundException e) {
+//            clazz = CLASS_CACHE.get(name);
+//            if (null == clazz) {
+//                clazz = findClass(name);
+//                CLASS_CACHE.put(name, clazz);
+//            }
+//        }
+//        return clazz;
+//    }
 
     @Override
     protected Class<?> findClass(String name) throws ClassNotFoundException {
+
+        Class<?> clazz = CLASS_CACHE.get(name);
+        if (null != clazz)
+            return clazz;
         String classPath = CLASS_HOLDER + name.replaceAll("\\.", "/") + ".class";
         try (FileInputStream fis = new FileInputStream(new File(classPath))) {
 
@@ -47,7 +51,9 @@ public class UDClassLoader extends ClassLoader {
                     out.write(buffer, 0, len);
                 }
                 byte[] data = out.toByteArray();
-                return defineClass(name, data, 0, data.length);
+                clazz = defineClass(name, data, 0, data.length);
+                CLASS_CACHE.put(name, clazz);
+                return clazz;
             }
         } catch (IOException e) {
             throw new ClassNotFoundException();

@@ -43,6 +43,12 @@
             <version>5.0.0.Alpha2</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.ow2.asm</groupId>
+            <artifactId>asm-all</artifactId>
+            <version>5.2</version>
+        </dependency>
+
         <!-- logback -->
         <dependency>
             <groupId>ch.qos.logback</groupId>
@@ -109,9 +115,9 @@
 
         <dependency>
             <groupId>com.esotericsoftware</groupId>
-            <artifactId>kryo</artifactId>
+            <!--<artifactId>kryo</artifactId>-->
             <!-- 解决asm jar包冲突问题 -->
-            <!--<artifactId>kryo-shaded</artifactId>-->
+            <artifactId>kryo-shaded</artifactId>
             <version>4.0.0</version>
         </dependency>
 

@@ -4,6 +4,8 @@ package com.github.jvm.asm;
 import com.github.jvm.classloader.ASMClassLoader;
 import org.objectweb.asm.*;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.lang.reflect.Method;
 
@@ -66,12 +68,24 @@ public class BasicASM {
             mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
             mv.visitFieldInsn(PUTSTATIC, "CircleCalc", "PI", "Ljava/lang/Double;");
             mv.visitInsn(RETURN);
-            mv.visitMaxs(2, 0);
+            mv.visitMaxs(4, 2);
             mv.visitEnd();
         }
         cw.visitEnd();
 
         return cw.toByteArray();
+    }
+
+    public static void readClass() throws Exception {
+
+        try (FileInputStream fis = new FileInputStream(
+                new File("target/classes/com/github/jvm/asm/CircleCalc.class")
+        )) {
+
+            ClassReader reader = new ClassReader(fis);
+        } catch (Exception e) {
+            throw new Exception(e);
+        }
     }
 
 
@@ -87,6 +101,8 @@ public class BasicASM {
         Method method = clazz.getMethod("calcArea", double.class);
         Object rel = method.invoke(object, 10D);
         System.out.println(rel);
+
+        readClass();
     }
 
 }

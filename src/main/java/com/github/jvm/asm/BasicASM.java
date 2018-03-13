@@ -15,8 +15,8 @@ import static org.objectweb.asm.Opcodes.*;
 public class BasicASM {
 
 
+    // 生成 CircleCalc 类的字节码
     public static byte[] generateClass() throws IOException {
-
 
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;

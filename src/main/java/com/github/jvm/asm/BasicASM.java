@@ -17,6 +17,7 @@ public class BasicASM {
 
     public static byte[] generateClass() throws IOException {
 
+
         ClassWriter cw = new ClassWriter(0);
         FieldVisitor fv;
         MethodVisitor mv;
@@ -24,7 +25,7 @@ public class BasicASM {
         cw.visit(52, ACC_PUBLIC + ACC_SUPER, "com/github/jvm/asm/CircleCalc", null, "java/lang/Object", null);
 
         {
-            fv = cw.visitField(ACC_PRIVATE + ACC_FINAL + ACC_STATIC, "PI", "Ljava/lang/Double;", null, null);
+            fv = cw.visitField(ACC_PRIVATE + ACC_FINAL + ACC_STATIC, "PI", "D", null, new Double("3.14"));
             fv.visitEnd();
         }
         {
@@ -37,9 +38,9 @@ public class BasicASM {
             mv.visitEnd();
         }
         {
-            mv = cw.visitMethod(ACC_PUBLIC, "calcArea", "(D)Ljava/lang/Double;", null, null);
+            mv = cw.visitMethod(ACC_PUBLIC, "calcArea", "(D)D", null, null);
             mv.visitCode();
-            mv.visitVarInsn(DLOAD, 0);
+            mv.visitVarInsn(DLOAD, 1);
             mv.visitInsn(DCONST_0);
             mv.visitInsn(DCMPG);
             Label l0 = new Label();
@@ -50,25 +51,13 @@ public class BasicASM {
             mv.visitInsn(ATHROW);
             mv.visitLabel(l0);
             mv.visitFrame(Opcodes.F_SAME, 0, null, 0, null);
-            mv.visitFieldInsn(GETSTATIC, "CircleCalc", "PI", "Ljava/lang/Double;");
-            mv.visitMethodInsn(INVOKEVIRTUAL, "java/lang/Double", "doubleValue", "()D", false);
-            mv.visitVarInsn(DLOAD, 0);
-            mv.visitInsn(DMUL);
-            mv.visitVarInsn(DLOAD, 0);
-            mv.visitInsn(DMUL);
-            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
-            mv.visitInsn(ARETURN);
-            mv.visitMaxs(4, 2);
-            mv.visitEnd();
-        }
-        {
-            mv = cw.visitMethod(ACC_STATIC, "<clinit>", "()V", null, null);
-            mv.visitCode();
             mv.visitLdcInsn(new Double("3.14"));
-            mv.visitMethodInsn(INVOKESTATIC, "java/lang/Double", "valueOf", "(D)Ljava/lang/Double;", false);
-            mv.visitFieldInsn(PUTSTATIC, "CircleCalc", "PI", "Ljava/lang/Double;");
-            mv.visitInsn(RETURN);
-            mv.visitMaxs(4, 2);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitInsn(DMUL);
+            mv.visitVarInsn(DLOAD, 1);
+            mv.visitInsn(DMUL);
+            mv.visitInsn(DRETURN);
+            mv.visitMaxs(4, 3);
             mv.visitEnd();
         }
         cw.visitEnd();
@@ -83,6 +72,7 @@ public class BasicASM {
         )) {
 
             ClassReader reader = new ClassReader(fis);
+            System.out.println(new String(reader.b, "UTF-8"));
         } catch (Exception e) {
             throw new Exception(e);
         }
@@ -102,7 +92,7 @@ public class BasicASM {
         Object rel = method.invoke(object, 10D);
         System.out.println(rel);
 
-        readClass();
+//        readClass();
     }
 
 }

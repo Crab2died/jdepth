@@ -18,7 +18,7 @@
 ### > 7. [运行参数](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/VM%20Options)
 ### > 8. [集合框架](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/collections/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.md)
 ### > 9. [JAVA性能监控与调优](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/optimize/JAVA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E8%B0%83%E4%BC%98.md)
-### > 10. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/TIPS.md)
+### > 10. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/usefultool/TIPS.md)
 ---
 ## 解析JDK版本变迁及新特性(@since 1.5 ~ 1.9)
 ### > 1.[各版本新特性](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/JDK%E7%89%88%E6%9C%AC.png)

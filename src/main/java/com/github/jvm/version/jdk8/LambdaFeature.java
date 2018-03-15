@@ -13,6 +13,7 @@ public class LambdaFeature {
 
         int run(int var1, int var2);
 
+        // 默认接口实现
         default void hello(){
             System.out.println("hello");
         }

@@ -8,6 +8,8 @@ import java.util.Date;
 
 /**
  * JDK1.8 日期API
+ * <p>
+ * java 8 给出的日期API都是不可变且线程安全的，这一点完全不同于{@link Date}的
  *
  * @author : Crab2Died
  * 2018/03/15  15:53:52

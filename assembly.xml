@@ -28,6 +28,12 @@
             <directory>src/main/resources/config</directory>
             <outputDirectory>config</outputDirectory>
         </fileSet>
+        <!-- 拷贝源文件 -->
+        <fileSet>
+            <directory>src</directory>
+            <outputDirectory>src</outputDirectory>
+        </fileSet>
+
     </fileSets>
     <!--将依赖生成到lib目录下-->
     <dependencySets>

@@ -22,10 +22,15 @@
 
 ### 3. Intercepter
    1. 在web开发中，拦截器是经常用到的功能。它可以帮我们验证是否登陆、预先设置数据以及统计方法的执行效率等等
-   2. Spring中有HandlerInterceptor和MethodInterceptor两类拦截器 
+   2. Spring中有HandlerInterceptor和MethodInterceptor两类拦截器 
 
 ### 4. Listener
-   1. 
+   1. 监听器Listener就是在application,session,request三个对象创建、销毁或者往其中添加修改删除属性时自动执行代码的功能组件。
+   Listener是Servlet的监听器，可以监听客户端的请求，服务端的操作等。
+   2. ServletContextListener主要是基于对 ServletContext  初始化与销毁的监听
+   3. ServletRequestListener主要是基于对 ServletRequest  初始化与销毁的监听 即 一个request 生命周期 当你访问服务器时生成一个
+   request 访问成功后 request即被销毁
+   4. HttpSessionListener主要是基于对 HttpSession  初始化与销毁的监听 即 一个 HttpSession 生命周期
 
 ### web.xml加载
    加载顺序是: `context-param -> Listener -> Filter -> Servlet`

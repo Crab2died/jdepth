@@ -26,7 +26,19 @@
    - 直接编码方式
    - 外部配置文件方式：1) Properties配置  2) XML配置
    - 注解方式
-  
+  8. Spring生命周期
+   - 1)spring对bean进行实例化,默认bean是单例
+   - 2)spring对bean进行依赖注入
+   - 3)如果bean实现了BeanNameAware接口,spring将bean的id传给setBeanName()方法
+   - 4)如果bean实现了BeanFactoryAware接口,spring将调用setBeanFactory方法,将BeanFactory实例传进来
+   - 5)如果bean实现了ApplicationContextAware()接口,spring将调用setApplicationContext()方法将应用上下文的引用传入
+   - 6)如果bean实现了BeanPostProcessor接口,spring将调用它们的postProcessBeforeInitialization接口方法
+   - 7)如果bean实现了InitializingBean接口,spring将调用它们的afterPropertiesSet接口方法,类似的如果bean使用了  
+     init-method属性声明了初始化方法,改方法也会被调用
+   - 8)如果bean实现了BeanPostProcessor接口,spring将调用它们的postProcessAfterInitialization接口方法
+   - 9)此时bean已经准备就绪,可以被应用程序使用了,他们将一直驻留在应用上下文中,直到该应用上下文被销毁
+   - 10)若bean实现了DisposableBean接口,spring将调用它的distroy()接口方法。同样的,如果bean使用了destroy-method属性
+  
 ## AOP(面向方面编程)
 ### 类型
    1. 静态AOP:

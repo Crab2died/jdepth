@@ -19,8 +19,12 @@
    2. Filter接口主要有init($FilterConfig)、doFilter($ServletRequest, $ServletResponse, $FilterChain)和destroy()方法
     其中FilterConfig参数主要是一些Filter名称、parameter、servletContext等信息，FilterChain提供doFilter()方法调用等。
    3. 多个Filter执行顺序是由web.xml内Filter的配置顺序决定
-   
-### 3. Listener
+
+### 3. Intercepter
+   1. 在web开发中，拦截器是经常用到的功能。它可以帮我们验证是否登陆、预先设置数据以及统计方法的执行效率等等
+   2. Spring中有HandlerInterceptor和MethodInterceptor两类拦截器 
+
+### 4. Listener
    1. 
 
 ### web.xml加载

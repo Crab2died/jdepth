@@ -26,13 +26,13 @@
      auto-aof-rewrite-min-size 64mb (触发重写的最小文件大小)
    - AOF文件修复: `redis-check-aof --fix appendonly.aof`
    
-### 2.3 缓存失效策略
-   - volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
-   - volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
-   - volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
-   - allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
-   - allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
-   - no-enviction（驱逐）：禁止驱逐数据
+### 2.3 缓存失效策
+   - volatile-lru：从已设置过期时间的数据集（server.db[i].expires）中挑选最近最少使用的数据淘汰
+   - volatile-ttl：从已设置过期时间的数据集（server.db[i].expires）中挑选将要过期的数据淘汰
+   - volatile-random：从已设置过期时间的数据集（server.db[i].expires）中任意选择数据淘汰
+   - allkeys-lru：从数据集（server.db[i].dict）中挑选最近最少使用的数据淘汰
+   - allkeys-random：从数据集（server.db[i].dict）中任意选择数据淘汰
+   - no-enviction（驱逐）：禁止驱逐数据
 
 ### 2.4 比较
    - RDB安全性较差、容易丢失最近一次缓存内容，但文件较小，恢复速度较快，是Master/Slave主从复制模式下的最好补充

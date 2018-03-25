@@ -65,27 +65,25 @@
 
 ### 2.9 先行发生(happens-before)规则
   《JSR-133:Java Memory Model and Thread Specification》定义了如下happens-before规则。 
-  - 1.程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。
-  - 2.监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。
-  - 3.volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。
-  - 4.传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。
-  - 5.start()规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()
-    操作happens-before于线程B中的任意操作。
-  - 6.join()规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before
-    于线程A从ThreadB.join()操作成功返回。
+  - 1、程序顺序规则：一个线程中的每个操作，happens-before于该线程中的任意后续操作。
+  - 2、监视器锁规则：对一个锁的解锁，happens-before于随后对这个锁的加锁。
+  - 3、volatile变量规则：对一个volatile域的写，happens-before于任意后续对这个volatile域的读。
+  - 4、传递性：如果A happens-before B，且B happens-before C，那么A happens-before C。
+  - 5、start()规则：如果线程A执行操作ThreadB.start()（启动线程B），那么A线程的ThreadB.start()操作happens-before于线程B中的任意操作。
+  - 6、join()规则：如果线程A执行操作ThreadB.join()并成功返回，那么线程B中的任意操作happens-before于线程A从ThreadB.join()操作成功返回。
 
 ## 3. 常见比较
 ### 3.1 volatile与synchronized比较
-  - 1. 被volatile描述的共享变量通过内存屏障是代码不被指令重排优化，从而保证了共享变量在线程间的可见性，更新变量时会及时
+  - 1、被volatile描述的共享变量通过内存屏障是代码不被指令重排优化，从而保证了共享变量在线程间的可见性，更新变量时会及时
   的将最新值同步至主内存，读变量时会及时的去主内存获取最新值，volatile只能修饰变量，只保证可见性，不保证原子性，不能用来
   同步。
-  - 2. synchronized是通过对象头的锁标志位来实现加锁与释放锁，不仅保证可见性，还保证了原子性，只有获得了对象锁的线程才能
+  - 2、synchronized是通过对象头的锁标志位来实现加锁与释放锁，不仅保证可见性，还保证了原子性，只有获得了对象锁的线程才能
   进入临界区，其他线程会阻塞等待锁释放后再争抢锁。
  
 ##  3.2 Lock(ReentrantLock)与synchronized比较
-  - 1. synchronized是JAVA关键字，Lock是一个java接口，ReentrantLock实现了该接口
-  - 2. Lock锁需要在finally{}代码里手动释放，synchronized会自动释放锁
-  - 3. Lock根据实现不同有多种锁类型，如公平锁、非公平锁(默认非公平锁)
-  - 4. 性能方面，在锁竞争很大的情况下Lock性能更优于synchronized
+  - 1、synchronized是JAVA关键字，Lock是一个java接口，ReentrantLock实现了该接口
+  - 2、Lock锁需要在finally{}代码里手动释放，synchronized会自动释放锁
+  - 3、Lock根据实现不同有多种锁类型，如公平锁、非公平锁(默认非公平锁)
+  - 4、性能方面，在锁竞争很大的情况下Lock性能更优于synchronized
     
 > [返回目录](https://github.com/Crab2died/jdepth)

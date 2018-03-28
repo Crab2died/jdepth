@@ -7,12 +7,13 @@ import java.nio.channels.AsynchronousSocketChannel;
 import java.nio.channels.CompletionHandler;
 import java.util.concurrent.CountDownLatch;
 
-public class AIOClientHandler implements CompletionHandler<Void, AIOClientHandler>, Runnable{
+public class AIOClientHandler implements CompletionHandler<Void, AIOClientHandler>, Runnable {
 
     private AsynchronousSocketChannel clientChannel;
     private String host;
     private int port;
     private CountDownLatch latch;
+
     public AIOClientHandler(String host, int port) {
         this.host = host;
         this.port = port;
@@ -23,6 +24,7 @@ public class AIOClientHandler implements CompletionHandler<Void, AIOClientHandle
             e.printStackTrace();
         }
     }
+
     @Override
     public void run() {
         //创建CountDownLatch等待
@@ -40,12 +42,14 @@ public class AIOClientHandler implements CompletionHandler<Void, AIOClientHandle
             e.printStackTrace();
         }
     }
+
     //连接服务器成功
     //意味着TCP三次握手完成
     @Override
     public void completed(Void result, AIOClientHandler attachment) {
         System.out.println("客户端成功连接到服务器...");
     }
+
     //连接服务器失败
     @Override
     public void failed(Throwable exc, AIOClientHandler attachment) {
@@ -58,13 +62,14 @@ public class AIOClientHandler implements CompletionHandler<Void, AIOClientHandle
             e.printStackTrace();
         }
     }
+
     //向服务器发送消息
-    public void sendMsg(String msg){
+    public void sendMsg(String msg) {
         byte[] req = msg.getBytes();
         ByteBuffer writeBuffer = ByteBuffer.allocate(req.length);
         writeBuffer.put(req);
         writeBuffer.flip();
         //异步写
-        clientChannel.write(writeBuffer, writeBuffer,new AIOClientWriteHandler(clientChannel, latch));
+        clientChannel.write(writeBuffer, writeBuffer, new AIOClientWriteHandler(clientChannel, latch));
     }
 }

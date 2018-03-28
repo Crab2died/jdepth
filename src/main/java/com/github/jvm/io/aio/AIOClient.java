@@ -31,6 +31,9 @@ public class AIOClient {
         AIOClient.start();
         System.out.println("请输入请求消息：");
         Scanner scanner = new Scanner(System.in);
-        while (AIOClient.sendMsg(scanner.nextLine())) ;
+        String req = scanner.nextLine();
+        do {
+            AIOClient.sendMsg(req);
+        } while (req.equals("exit"));
     }
 }

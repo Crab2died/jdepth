@@ -80,7 +80,7 @@
   - 2、synchronized是通过对象头的锁标志位来实现加锁与释放锁，不仅保证可见性，还保证了原子性，只有获得了对象锁的线程才能
   进入临界区，其他线程会阻塞等待锁释放后再争抢锁。
  
-###  3.2 Lock(ReentrantLock)与synchronized比较
+### 3.2 Lock(ReentrantLock)与synchronized比较
   - 1、synchronized是JAVA关键字，Lock是一个java接口，ReentrantLock实现了该接口
   - 2、Lock锁需要在finally{}代码里手动释放，synchronized会自动释放锁
   - 3、Lock根据实现不同有多种锁类型，如公平锁、非公平锁(默认非公平锁)

@@ -18,10 +18,8 @@
 ### > 7. [运行参数](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/VM%20Options)
 ### > 8. [集合框架](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/collections/%E9%9B%86%E5%90%88%E6%A1%86%E6%9E%B6.md)
 ### > 9. [JAVA性能监控与调优](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/optimize/JAVA%E6%80%A7%E8%83%BD%E7%9B%91%E6%8E%A7%E4%B8%8E%E8%B0%83%E4%BC%98.md)
-### > 10. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/usefultool/TIPS.md)
----
-## 解析JDK版本变迁及新特性(@since 1.5 ~ 1.9)
-### > 1.[各版本新特性](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/JDK%E7%89%88%E6%9C%AC.png)
+### > 10. [各版本新特性](https://raw.githubusercontent.com/Crab2died/jdepth/master/src/main/java/com/github/jvm/JDK%E7%89%88%E6%9C%AC.png)
+### > 11. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/usefultool/TIPS.md)
 ---
 ## 数据库
 ### > 1. [数据库](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/sql/%E6%95%B0%E6%8D%AE%E5%BA%93.md)
@@ -34,3 +32,6 @@
 ## 框架架构解析
 ### > 1. [Spring框架](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/spring/spring.md)
 ### > 2. [Redis](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/cache/redis/Redis.md)
+---
+## 其他
+### > 1. [面典](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/%E9%9D%A2%E5%85%B8.md)

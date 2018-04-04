@@ -84,7 +84,7 @@
    AspectJ的织入器是其专门的编译器ajc，JBoss AOP是通过其类加载器，Spring AOP是通过ProxyFactory
 
 ### Spring AOP
-   1. Spring AOP是使用动态代理和字节码生成技术、用java做为AOP的实现语言(AOL)
+   1. Spring AOP是使用JDK动态代理(当实现一个接口时)和CGLIB动态代理(一个普通类时)、用java做为AOP的实现语言(AOL)
 
 ### Spring AOP中Pointcut
 

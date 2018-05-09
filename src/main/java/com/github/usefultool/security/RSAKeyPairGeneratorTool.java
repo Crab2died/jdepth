@@ -77,9 +77,4 @@ public class RSAKeyPairGeneratorTool {
 
     }
 
-
-    public static void main(String... args){
-
-    }
-
 }

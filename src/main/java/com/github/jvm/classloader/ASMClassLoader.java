@@ -35,7 +35,7 @@ public class ASMClassLoader extends ClassLoader {
 //    }
 
     @Override
-    protected Class<?> findClass(String name) throws ClassNotFoundException {
+    protected Class<?> findClass(String name) {
         Class<?> clazz = CACHE_CLASS.get(name);
         if (null != clazz)
             return clazz;

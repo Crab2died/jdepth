@@ -3,6 +3,7 @@ package com.github.jvm;
 public enum GoldEnum {
 
 
+    // enum implement
     SYS_OUT {
         @Override
         public void print(Object sysout) {
@@ -16,10 +17,12 @@ public enum GoldEnum {
         }
     };
 
+    /* define function */
     public abstract void print(Object print);
 
 
-    public static void main(String... args){
+    public static void main(String... args) {
+
         GoldEnum.SYS_ERR.print("error");
 
         GoldEnum.SYS_OUT.print("right");

@@ -1,6 +1,6 @@
 > [返回目录](https://github.com/Crab2died/jdepth)
 
-#                                                       JAVA虚拟机规范
+#                                                    JAVA虚拟机规范(JAVA SE 8)
 ---
 ##  一. java虚拟机结构
 ### 1. java虚拟机数据类型

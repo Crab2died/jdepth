@@ -9,6 +9,7 @@
 ```
 ----
 ## java虚拟机
+### > 0. [JAVA虚拟机规范(JAVA SE 8)](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/version/jdk8/java%E8%99%9A%E6%8B%9F%E6%9C%BA%E8%A7%84%E8%8C%83.md)
 ### > 1. [JVM内存模型](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/concurrent/JAVA%E5%86%85%E5%AD%98%E6%A8%A1%E5%9E%8B.md)
 ### > 2. [自动内存管理](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/gc/GC.md)
 ### > 3. [类加载](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/classloader/%E7%B1%BB%E5%8A%A0%E8%BD%BD.md)

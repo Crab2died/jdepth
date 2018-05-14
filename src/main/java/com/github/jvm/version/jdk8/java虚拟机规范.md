@@ -62,5 +62,8 @@
        - 如果线程请求分配的栈容量超过本地方法栈允许的最大容量时，虚拟机将会抛出一个StackOverflowError异常。
        - 如果本地方法栈可以动态扩展，并且扩展的动作已经尝试过，但是目前无法申请到足够的内存去完成扩展，或者在建立新的线程时没有足够的
          内存去创建对应的本地方法栈，那虚拟机将会抛出一个OutOfMemoryError异常。
+   - 1.5. 栈帧(Frame)
+     栈帧是用来存储数据和部分过程结果的数据结构，同时也被用来处理动态链接(Dynamic Linking)、方法返回值和异常分派(Dispatch Exception)。
+     
          
 > [返回目录](https://github.com/Crab2died/jdepth)

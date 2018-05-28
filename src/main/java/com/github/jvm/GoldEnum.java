@@ -26,6 +26,13 @@ public enum GoldEnum {
         GoldEnum.SYS_ERR.print("error");
 
         GoldEnum.SYS_OUT.print("right");
+
+        int i = 1;
+        i &=3;
+       // i |= 2;
+
+
+        System.out.println(i);
     }
 
 }

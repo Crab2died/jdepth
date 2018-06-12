@@ -32,5 +32,6 @@
 14. [设计模式介绍](http://www.runoob.com/design-pattern/design-pattern-tutorial.html)
 15. [LOGO生成工具](http://patorjk.com/software/taag) 
 16. [基于ffmpeg的音视频处理工具jave(Java Audio Video Encoder)](http://www.sauronsoftware.it/projects/jave/index.php)
+17. [shields.io](http://shields.io/)
 
 > [返回目录](https://github.com/Crab2died/jdepth)

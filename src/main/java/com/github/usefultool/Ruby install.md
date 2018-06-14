@@ -1,4 +1,4 @@
-# Ruby Install with source for CentOS
+# Ruby Install with source on CentOS
 
 ---
 ### 1. Install OpenSSL
@@ -19,14 +19,14 @@
 ### 2. Install Ruby
  - [Download Ruby Source](http://www.ruby-lang.org/en/downloads/)
  - Install Ruby
- ``` 
+ ```
  # tar -zxvf ruby-2.5.1.tar.gz
  # cd ruby-2.5.1
  # ./configure --prefix=/usr/local/ruby --with-opessl-dir=/usr/local/openssl     // important
  # make && make install
  ```
  - Configure environment variable
- ``` 
+ ```
  # vi /etc/profile
  
  append => export PATH=/usr/local/ruby/bin:$PATH
@@ -34,7 +34,7 @@
  # source /etc/profile
  ```
  - Check install
- ``` 
+ ```
  # ruby -v
  ruby 2.5.1p57 (2018-03-29 revision 63029) [x86_64-linux]
  

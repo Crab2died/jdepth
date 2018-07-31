@@ -23,8 +23,8 @@
 > 11. [TIPS](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/usefultool/TIPS.md)
 ---
 ## 数据库
-> 1. [数据库](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/sql/%E6%95%B0%E6%8D%AE%E5%BA%93.md)
-> 2. [SQL优化](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/sql/SQL%E4%BC%98%E5%8C%96.md)
+> 1. [数据库](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/database/%E6%95%B0%E6%8D%AE%E5%BA%93.md)
+> 2. [SQL优化](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/database/SQL%E4%BC%98%E5%8C%96.md)
 ---
 ## 网络编程
 > 1. [网络编程](https://github.com/Crab2died/jdepth/blob/master/src/main/java/com/github/jvm/io/%E7%BD%91%E7%BB%9C%E7%BC%96%E7%A8%8B.md)

@@ -54,11 +54,10 @@ public class NettyServer {
     }
 
 
-    class ServerHandler extends ChannelHandlerAdapter {
+    class ServerHandler extends SimpleChannelInboundHandler {
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
+        protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
             ByteBuf buf = (ByteBuf) msg;
             byte[] req = new byte[buf.readableBytes()];
             buf.readBytes(req);
@@ -68,7 +67,6 @@ public class NettyServer {
             String respBody = "Your request is >> " + reqBody;
             ByteBuf resp = Unpooled.copiedBuffer(respBody.getBytes());
             ctx.write(resp);
-
         }
 
         @Override

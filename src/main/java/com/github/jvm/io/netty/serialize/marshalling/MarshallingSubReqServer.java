@@ -55,13 +55,11 @@ public class MarshallingSubReqServer {
         }
     }
 
-    class MarshallingSubReqServerHandler extends ChannelHandlerAdapter {
+    class MarshallingSubReqServerHandler extends SimpleChannelInboundHandler<SubscribeReq> {
+
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
-            SubscribeReq req = (SubscribeReq) msg;
-
+        protected void channelRead0(ChannelHandlerContext ctx, SubscribeReq req) throws Exception {
             SubscribeResp resp = new SubscribeResp();
             resp.setRespCode(UUID.randomUUID().toString());
             resp.setSubReqId(req.getSubReqId());

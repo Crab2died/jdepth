@@ -13,7 +13,7 @@ import io.netty.handler.codec.string.StringDecoder;
 public class EchoClient {
 
     private static final String HOST = "127.0.0.1";
-    private static final int    PORT =        8020;
+    private static final int PORT = 8020;
 
     public static void main(String... args) {
 
@@ -53,7 +53,7 @@ public class EchoClient {
         }
     }
 
-    class EchoClientHandler extends ChannelHandlerAdapter {
+    class EchoClientHandler extends SimpleChannelInboundHandler<String> {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -64,8 +64,7 @@ public class EchoClient {
         }
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
+        protected void channelRead0(ChannelHandlerContext channelHandlerContext, String msg) throws Exception {
             System.out.println("Response is >> " + msg);
         }
 

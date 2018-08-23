@@ -14,7 +14,7 @@ public class NettyClient {
 
     private final static String HOST = "127.0.0.1";
 
-    private final static int    PORT =        8200;
+    private final static int PORT = 8200;
 
     public static void main(String... args) {
 
@@ -50,7 +50,7 @@ public class NettyClient {
     }
 
 
-    class ClientHandler extends ChannelHandlerAdapter {
+    class ClientHandler extends SimpleChannelInboundHandler {
 
         private ByteBuf reqBuf;
 
@@ -70,7 +70,7 @@ public class NettyClient {
         }
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        protected void channelRead0(ChannelHandlerContext ctx, Object msg) throws Exception {
             ByteBuf buf = (ByteBuf) msg;
             byte[] resp = new byte[buf.readableBytes()];
             buf.readBytes(resp);

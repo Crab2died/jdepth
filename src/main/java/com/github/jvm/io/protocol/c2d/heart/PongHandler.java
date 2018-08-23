@@ -5,17 +5,17 @@ import com.github.jvm.io.protocol.c2d.message.C2DMessage;
 import com.github.jvm.io.protocol.c2d.message.MessageSignal;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class PongHandler extends ChannelHandlerAdapter {
+public class PongHandler extends SimpleChannelInboundHandler<C2DMessage> {
 
     private final static Logger logger = LoggerFactory.getLogger(PongHandler.class);
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)
-            throws Exception {
-        C2DMessage message = (C2DMessage) msg;
+    protected void channelRead0(ChannelHandlerContext ctx, C2DMessage message) throws Exception {
+
         // 返回心跳应答消息
         if (message.getHeader() != null && message.getHeader().getSignal() == MessageSignal.PING) {
             logger.info("Receive client heart beat message : ---> " + message);
@@ -23,7 +23,7 @@ public class PongHandler extends ChannelHandlerAdapter {
             logger.info("Send heart beat response message to client : ---> " + heartBeat);
             ctx.writeAndFlush(heartBeat);
         } else
-            ctx.fireChannelRead(msg);
+            ctx.fireChannelRead(message);
     }
 
     private C2DMessage buildHeatBeat(long msgId) {

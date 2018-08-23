@@ -13,16 +13,15 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<C2DMessage> {
     private C2DMessage request;
 
     @Override
-    protected void messageReceived(ChannelHandlerContext ctx, C2DMessage msg)
-            throws Exception {
-
-    }
-
-    @Override
     public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause)
             throws Exception {
         logger.error("RpcRequestHandler exception", cause);
         ctx.close();
         ctx.fireExceptionCaught(cause);
+    }
+
+    @Override
+    protected void channelRead0(ChannelHandlerContext channelHandlerContext, C2DMessage message) throws Exception {
+
     }
 }

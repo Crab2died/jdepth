@@ -5,10 +5,11 @@ import com.github.jvm.io.protocol.c2d.message.C2DMessage;
 import com.github.jvm.io.protocol.c2d.message.MessageSignal;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class LoginAuthReqHandler extends ChannelHandlerAdapter {
+public class LoginAuthReqHandler extends SimpleChannelInboundHandler<C2DMessage> {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginAuthReqHandler.class);
 
@@ -18,9 +19,7 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
     }
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)
-            throws Exception {
-        C2DMessage message = (C2DMessage) msg;
+    protected void channelRead0(ChannelHandlerContext ctx, C2DMessage message) throws Exception {
 
         // 如果是握手应答消息，需要判断是否认证成功
         if (message.getHeader() != null && message.getBody() != null
@@ -32,11 +31,11 @@ public class LoginAuthReqHandler extends ChannelHandlerAdapter {
                 logger.info("Login is error : " + message);
             } else {
                 logger.info("Login is ok : " + message);
-                ctx.fireChannelRead(msg);
+                ctx.fireChannelRead(message);
             }
         } else
             //调用下一个channel链..
-            ctx.fireChannelRead(msg);
+            ctx.fireChannelRead(message);
     }
 
     /**

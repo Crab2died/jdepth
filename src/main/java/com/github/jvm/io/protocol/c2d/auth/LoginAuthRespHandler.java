@@ -5,6 +5,7 @@ import com.github.jvm.io.protocol.c2d.message.C2DMessage;
 import com.github.jvm.io.protocol.c2d.message.MessageSignal;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -12,7 +13,7 @@ import java.net.InetSocketAddress;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-public class LoginAuthRespHandler extends ChannelHandlerAdapter {
+public class LoginAuthRespHandler extends SimpleChannelInboundHandler<C2DMessage> {
 
     private final static Logger logger = LoggerFactory.getLogger(LoginAuthRespHandler.class);
 
@@ -23,11 +24,8 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
 
     private String[] whiteList = {"127.0.0.1", "localhost"};
 
-
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
-        C2DMessage message = (C2DMessage) msg;
+    protected void channelRead0(ChannelHandlerContext ctx, C2DMessage message) throws Exception {
 
         // 如果是握手请求消息，处理，其它消息透传
         if (message.getHeader() != null && message.getHeader().getSignal() == MessageSignal.AUTH_REQ) {
@@ -54,7 +52,7 @@ public class LoginAuthRespHandler extends ChannelHandlerAdapter {
             logger.info("The login response is : " + loginResp + " body [" + loginResp.getBody() + "]");
             ctx.writeAndFlush(loginResp);
         } else {
-            ctx.fireChannelRead(msg);
+            ctx.fireChannelRead(message);
         }
     }
 

@@ -19,7 +19,7 @@ public class SubReqServer {
 
     private static final int PORT = 8200;
 
-    public static void main(String... args){
+    public static void main(String... args) {
         try {
             new SubReqServer().bind(PORT);
         } catch (InterruptedException e) {
@@ -42,12 +42,12 @@ public class SubReqServer {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
+                                    .addLast(new ObjectEncoder())
                                     .addLast(new ObjectDecoder(
                                             1024 * 1024,
                                             ClassResolvers.weakCachingConcurrentResolver(
                                                     this.getClass().getClassLoader())
                                     ))
-                                    .addLast(new ObjectEncoder())
                                     .addLast(new SubReqServerHandler());
                         }
                     });
@@ -55,24 +55,22 @@ public class SubReqServer {
             ChannelFuture future = bootstrap.bind(port).sync();
 
             future.channel().closeFuture().sync();
-        }finally {
+        } finally {
             boosGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
 
-    class SubReqServerHandler extends ChannelHandlerAdapter {
+    class SubReqServerHandler extends SimpleChannelInboundHandler<SubscribeReq> {
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
-
-            SubscribeReq req = (SubscribeReq) msg;
+        protected void channelRead0(ChannelHandlerContext ctx, SubscribeReq req) throws Exception {
 
             SubscribeResp resp = new SubscribeResp();
             resp.setSubReqId(req.getSubReqId());
             resp.setRespCode(UUID.randomUUID().toString());
             resp.setDesc("You order ID is : " + req.getSubReqId() + " address is : " + req.getAddress()
-                                + " phone is : " + req.getPhoneNumber());
+                    + " phone is : " + req.getPhoneNumber());
             ctx.writeAndFlush(resp);
         }
 

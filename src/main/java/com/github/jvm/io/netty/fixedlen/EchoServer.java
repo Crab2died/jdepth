@@ -16,7 +16,7 @@ public class EchoServer {
 
     private static final int PORT = 8020;
 
-    public static void main(String... args){
+    public static void main(String... args) {
 
         try {
             new EchoServer().bind(PORT);
@@ -51,18 +51,17 @@ public class EchoServer {
             ChannelFuture future = bootstrap.bind(port).sync();
 
             future.channel().closeFuture().sync();
-        }finally {
+        } finally {
             bossGroup.shutdownGracefully();
             workerGroup.shutdownGracefully();
         }
     }
 
-    class EchoServerHandler extends ChannelHandlerAdapter {
+    class EchoServerHandler extends SimpleChannelInboundHandler<String> {
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        protected void channelRead0(ChannelHandlerContext ctx, String req) throws Exception {
 
-            String req = (String) msg;
             System.out.println("Request is >> " + req);
 
             ByteBuf resp = Unpooled.copiedBuffer(req.getBytes());

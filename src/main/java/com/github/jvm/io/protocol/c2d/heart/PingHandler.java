@@ -3,15 +3,15 @@ package com.github.jvm.io.protocol.c2d.heart;
 import com.github.jvm.io.protocol.c2d.message.C2DHeader;
 import com.github.jvm.io.protocol.c2d.message.C2DMessage;
 import com.github.jvm.io.protocol.c2d.message.MessageSignal;
-import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.SimpleChannelInboundHandler;
 import io.netty.util.concurrent.ScheduledFuture;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.concurrent.TimeUnit;
 
-public class PingHandler extends ChannelHandlerAdapter {
+public class PingHandler extends SimpleChannelInboundHandler<C2DMessage> {
 
     private final static Logger logger = LoggerFactory.getLogger(PingHandler.class);
 
@@ -19,9 +19,7 @@ public class PingHandler extends ChannelHandlerAdapter {
     private volatile ScheduledFuture<?> heartBeat;
 
     @Override
-    public void channelRead(ChannelHandlerContext ctx, Object msg)
-            throws Exception {
-        C2DMessage message = (C2DMessage) msg;
+    protected void channelRead0(ChannelHandlerContext ctx, C2DMessage message) throws Exception {
         // 当握手成功后，Login响应向下透传，主动发送心跳消息
         if (message.getHeader() != null
                 && message.getHeader().getSignal() == MessageSignal.AUTH_RESP) {
@@ -37,7 +35,7 @@ public class PingHandler extends ChannelHandlerAdapter {
                 message.getHeader().getSignal() == MessageSignal.PONG) {
             logger.info("Client receive server heart beat message : ---> " + message);
         } else
-            ctx.fireChannelRead(msg);
+            ctx.fireChannelRead(message);
     }
 
     //Ping消息任务类

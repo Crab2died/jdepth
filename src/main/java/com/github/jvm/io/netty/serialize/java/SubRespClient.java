@@ -1,6 +1,7 @@
 package com.github.jvm.io.netty.serialize.java;
 
 import com.github.jvm.io.netty.serialize.SubscribeReq;
+import com.github.jvm.io.netty.serialize.SubscribeResp;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -41,13 +42,14 @@ public class SubRespClient {
                         @Override
                         protected void initChannel(SocketChannel ch) throws Exception {
                             ch.pipeline()
+                                    .addLast(new ObjectEncoder())
                                     .addLast(new ObjectDecoder(
                                             1024,
                                             ClassResolvers.weakCachingConcurrentResolver(
                                                     this.getClass().getClassLoader()
                                             )))
-                                    .addLast(new ObjectEncoder())
                                     .addLast(new SubRespClientHandler());
+
                         }
                     });
             ChannelFuture future = bootstrap.connect(host, port).sync();
@@ -59,7 +61,7 @@ public class SubRespClient {
 
     }
 
-    class SubRespClientHandler extends ChannelHandlerAdapter {
+    class SubRespClientHandler extends SimpleChannelInboundHandler<SubscribeResp> {
 
         @Override
         public void channelActive(ChannelHandlerContext ctx) throws Exception {
@@ -76,7 +78,7 @@ public class SubRespClient {
         }
 
         @Override
-        public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
+        protected void channelRead0(ChannelHandlerContext channelHandlerContext, SubscribeResp msg) throws Exception {
             System.out.println("Response is : " + msg);
         }
 

@@ -7,7 +7,7 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
-public class LockTest {
+public class RedisLockTest {
 
     private DistributedLock lock;
 

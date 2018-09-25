@@ -25,7 +25,7 @@ public class RedisDistributedLock implements DistributedLock {
 
     public RedisDistributedLock(Jedis jedis, String lockKey, int ttl) {
         this.jedis = jedis;
-        this.lockKey = lockKey;
+        this.lockKey = "locks:" + lockKey;
         this.ttl = ttl;
     }
 

@@ -11,13 +11,12 @@ public class LockTest {
 
     private DistributedLock lock;
 
-
     private Jedis jedis;
 
     private JedisPool jedisPool;
 
     @Before
-    public void connect() {
+    public void init() {
 
         JedisPoolConfig config = new JedisPoolConfig();
         config.setMaxIdle(100);
@@ -28,7 +27,7 @@ public class LockTest {
 
         jedis = jedisPool.getResource();
 
-        lock = new RedisDistributedLock(jedis, "lock1", 10);
+        lock = new RedisDistributedLock(jedis, "lock1", 40);
     }
 
     @After
@@ -42,7 +41,6 @@ public class LockTest {
     public void lock() {
         try {
             lock.lock();
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         }finally {

@@ -12,7 +12,7 @@ public class RedisDistributedLock implements DistributedLock {
 
     private String lockKey;
 
-    private int ttl = 5;
+    private int ttl = 30;
 
     private static final String LOCK_SCRIPT =
             "if redis.call('setnx',KEYS[1],ARGV[1]) == 1 then  return redis.call('expire',KEYS[1],ARGV[2])  else return 0 end";
@@ -44,22 +44,47 @@ public class RedisDistributedLock implements DistributedLock {
 
     @Override
     public void lock(long time, TimeUnit unit) throws InterruptedException {
-
+        long timeout = unit.toNanos(time);
+        long dieLine = System.nanoTime() + timeout;
+        for (; ; ) {
+            if (dieLine < System.nanoTime())
+                throw new InterruptedException();
+            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+            if ((long) result == 0) {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } else {
+                return;
+            }
+        }
     }
 
     @Override
     public boolean tryLock() {
-        return false;
+
+        Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+
+        return (long) result != 0;
     }
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-        return false;
+        long timeout = unit.toNanos(time);
+        long dieLine = System.nanoTime() + timeout;
+        for (; ; ) {
+            if (dieLine < System.nanoTime())
+                return false;
+            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+            if ((long) result == 0) {
+                TimeUnit.MILLISECONDS.sleep(100);
+            } else {
+                return true;
+            }
+        }
     }
 
     @Override
     public void unlock() {
 
-        jedis.eval(UNLOCK_SCRIPT, 2, lockKey, "1");
+        jedis.eval(UNLOCK_SCRIPT, Collections.singletonList(lockKey), Collections.singletonList("1"));
     }
 }

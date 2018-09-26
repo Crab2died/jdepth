@@ -10,7 +10,7 @@ public class RedisDistributedLock implements DistributedLock {
 
     private Jedis jedis;
 
-    private String lockKey;
+    private String lockName;
 
     private int ttl = 30;
 
@@ -20,12 +20,14 @@ public class RedisDistributedLock implements DistributedLock {
     private static final String UNLOCK_SCRIPT =
             "if redis.call('get',KEYS[1]) == ARGV[1] then return redis.call('del',KEYS[1]) else return 0 end";
 
-    public RedisDistributedLock() {
+    public RedisDistributedLock(Jedis jedis, String lockName) {
+        this.jedis = jedis;
+        this.lockName = "locks:" + lockName;
     }
 
-    public RedisDistributedLock(Jedis jedis, String lockKey, int ttl) {
+    public RedisDistributedLock(Jedis jedis, String lockName, int ttl) {
         this.jedis = jedis;
-        this.lockKey = "locks:" + lockKey;
+        this.lockName = "locks:" + lockName;
         this.ttl = ttl;
     }
 
@@ -33,7 +35,7 @@ public class RedisDistributedLock implements DistributedLock {
     public void lock() throws InterruptedException {
 
         for (; ; ) {
-            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockName), Arrays.asList("1", String.valueOf(ttl)));
             if ((long) result == 0) {
                 TimeUnit.MILLISECONDS.sleep(100);
             } else {
@@ -49,7 +51,7 @@ public class RedisDistributedLock implements DistributedLock {
         for (; ; ) {
             if (dieLine < System.nanoTime())
                 throw new InterruptedException();
-            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockName), Arrays.asList("1", String.valueOf(ttl)));
             if ((long) result == 0) {
                 TimeUnit.MILLISECONDS.sleep(100);
             } else {
@@ -61,7 +63,7 @@ public class RedisDistributedLock implements DistributedLock {
     @Override
     public boolean tryLock() {
 
-        Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+        Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockName), Arrays.asList("1", String.valueOf(ttl)));
 
         return (long) result != 0;
     }
@@ -73,7 +75,7 @@ public class RedisDistributedLock implements DistributedLock {
         for (; ; ) {
             if (dieLine < System.nanoTime())
                 return false;
-            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockKey), Arrays.asList("1", String.valueOf(ttl)));
+            Object result = jedis.eval(LOCK_SCRIPT, Collections.singletonList(lockName), Arrays.asList("1", String.valueOf(ttl)));
             if ((long) result == 0) {
                 TimeUnit.MILLISECONDS.sleep(100);
             } else {
@@ -84,7 +86,7 @@ public class RedisDistributedLock implements DistributedLock {
 
     @Override
     public void unlock() {
-
-        jedis.eval(UNLOCK_SCRIPT, Collections.singletonList(lockKey), Collections.singletonList("1"));
+        jedis.eval(UNLOCK_SCRIPT, Collections.singletonList(lockName), Collections.singletonList("1"));
+        jedis.close();
     }
 }

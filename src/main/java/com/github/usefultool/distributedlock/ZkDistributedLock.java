@@ -57,7 +57,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
                 throw new InterruptedException();
             }
         } catch (KeeperException e) {
-            throw new InterruptedException();
+            throw new InterruptedException(e.getMessage());
         }
     }
 
@@ -70,7 +70,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
                 throw new InterruptedException();
             }
         } catch (KeeperException e) {
-            throw new InterruptedException();
+            throw new InterruptedException(e.getMessage());
         }
     }
 
@@ -85,7 +85,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
             // get all sub nodes
             List<String> subNodes = zk.getChildren(ROOT_LOCK, false);
-            // 取出所有lockName的锁
+            // get all lockName locks
             List<String> lockObjects = new ArrayList<>();
             for (String node : subNodes) {
                 String _node = node.split(LOCK_SPILT)[0];
@@ -94,11 +94,11 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
                 }
             }
             Collections.sort(lockObjects);
-            // 若当前节点为最小节点，则获取锁成功
+            // get lock success when current node is the first zk node
             if (CURRENT_LOCK.equals(ROOT_LOCK + "/" + lockObjects.get(0))) {
                 return true;
             }
-            // 若不是最小节点，则找到自己的前一个节点
+            // get the prev zk node when current node is not the first node
             String prevNode = CURRENT_LOCK.substring(CURRENT_LOCK.lastIndexOf("/") + 1);
             WAIT_LOCK = lockObjects.get(Collections.binarySearch(lockObjects, prevNode) - 1);
         } catch (InterruptedException | KeeperException e) {
@@ -123,7 +123,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
             CURRENT_LOCK = null;
             zk.close();
         } catch (InterruptedException | KeeperException e) {
-            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

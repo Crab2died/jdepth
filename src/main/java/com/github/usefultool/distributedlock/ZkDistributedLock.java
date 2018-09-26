@@ -12,71 +12,84 @@ import java.util.concurrent.TimeUnit;
 
 public class ZkDistributedLock implements DistributedLock, Watcher {
 
-    private String zkAddr = "localhost:2181";
+    private int sessionTimeout = 30000;
 
-    private String lockKey;
+    private String lockName;
 
     private ZooKeeper zk;
 
     private String CURRENT_LOCK;
 
-    // 等待的前一个锁
     private String WAIT_LOCK;
 
     private CountDownLatch countDownLatch;
 
-    private static final int TIMEOUT = 20000;
-
     private static final String ROOT_LOCK = "/LOCKS";
 
-    public ZkDistributedLock() {
+    private static final String LOCK_SPILT = "_lock_";
+
+    public ZkDistributedLock(String address, String lockName) {
+        this(address, 30000, lockName);
     }
 
-    public ZkDistributedLock(String zkAddr, String lockKey) {
-        this.zkAddr = zkAddr;
-        this.lockKey = lockKey;
-
-        // 连接zookeeper
+    public ZkDistributedLock(String address, int sessionTimeout, String lockName) {
+        this.lockName = lockName;
+        this.sessionTimeout = sessionTimeout;
+        // connect zookeeper
         try {
-            zk = new ZooKeeper(zkAddr, TIMEOUT, this);
+            zk = new ZooKeeper(address, sessionTimeout, this);
             Stat stat = zk.exists(ROOT_LOCK, false);
             if (stat == null) {
-                // 如果根节点不存在，则创建根节点
+                // create root node if it not exist
                 zk.create(ROOT_LOCK, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
         } catch (IOException | KeeperException | InterruptedException e) {
-            e.printStackTrace();
+            throw new RuntimeException("create zookeeper distributed lock error");
         }
-
     }
 
     @Override
     public void lock() throws InterruptedException {
-
+        if (tryLock())
+            return;
+        try {
+            if (waitForLock(sessionTimeout, TimeUnit.MILLISECONDS)) {
+                throw new InterruptedException();
+            }
+        } catch (KeeperException e) {
+            throw new InterruptedException();
+        }
     }
 
     @Override
     public void lock(long time, TimeUnit unit) throws InterruptedException {
-
+        if (tryLock())
+            return;
+        try {
+            if (!waitForLock(time, unit)) {
+                throw new InterruptedException();
+            }
+        } catch (KeeperException e) {
+            throw new InterruptedException();
+        }
     }
 
     @Override
     public boolean tryLock() {
         try {
-            String splitStr = "_lock_";
-            if (lockKey.contains(splitStr)) {
-                throw new IllegalArgumentException("锁名有误");
+            if (lockName.contains(LOCK_SPILT)) {
+                throw new IllegalArgumentException("lock can not contains '_lock_'");
             }
-            // 创建临时有序节点
-            CURRENT_LOCK = zk.create(ROOT_LOCK + "/" + lockKey + splitStr, new byte[0],
+            // create provisional node
+            CURRENT_LOCK = zk.create(ROOT_LOCK + "/" + lockName + LOCK_SPILT, new byte[0],
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
-            // 取所有子节点
+            // get all sub nodes
             List<String> subNodes = zk.getChildren(ROOT_LOCK, false);
             // 取出所有lockName的锁
             List<String> lockObjects = new ArrayList<>();
             for (String node : subNodes) {
-                String _node = node.split(splitStr)[0];
-                if (_node.equals(lockKey)) {
+                String _node = node.split(LOCK_SPILT)[0];
+                if (_node.equals(lockName)) {
                     lockObjects.add(node);
                 }
             }
@@ -89,14 +102,18 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
             String prevNode = CURRENT_LOCK.substring(CURRENT_LOCK.lastIndexOf("/") + 1);
             WAIT_LOCK = lockObjects.get(Collections.binarySearch(lockObjects, prevNode) - 1);
         } catch (InterruptedException | KeeperException e) {
-            e.printStackTrace();
+            return false;
         }
         return false;
     }
 
     @Override
     public boolean tryLock(long time, TimeUnit unit) throws InterruptedException {
-        return false;
+        try {
+            return tryLock() || waitForLock(time, unit);
+        } catch (KeeperException e) {
+            throw new InterruptedException();
+        }
     }
 
     @Override
@@ -112,7 +129,25 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
 
     @Override
     public void process(WatchedEvent watchedEvent) {
-        if (null != countDownLatch)
-            countDownLatch.countDown();
+        if (watchedEvent.getType() == Event.EventType.NodeDeleted) {
+            if (null != this.countDownLatch) {
+                this.countDownLatch.countDown();
+            }
+        }
+    }
+
+    private boolean waitForLock(long time, TimeUnit unit) throws KeeperException, InterruptedException {
+
+        Stat stat = zk.exists(ROOT_LOCK + "/" + WAIT_LOCK, true);
+        if (stat != null) {
+            this.countDownLatch = new CountDownLatch(1);
+            // waiting for CountDownLatch = 0
+            if (this.countDownLatch.await(time, unit)) {
+                countDownLatch = null;
+            } else {
+                return false;
+            }
+        }
+        return true;
     }
 }

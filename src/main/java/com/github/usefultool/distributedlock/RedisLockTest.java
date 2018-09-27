@@ -13,7 +13,6 @@ public class RedisLockTest {
 
     private DistributedLock lock;
 
-
     private JedisPool jedisPool;
 
     @Before

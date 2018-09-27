@@ -1,6 +1,5 @@
 package com.github.usefultool.distributedlock;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.concurrent.CountDownLatch;
@@ -8,15 +7,9 @@ import java.util.concurrent.TimeUnit;
 
 public class ZkLockTest {
 
-    private DistributedLock lock;
-
-    @Before
-    public void init() {
-        lock = new ZkDistributedLock("localhost:2181", "lock1");
-    }
-
     @Test
     public void test() {
+        DistributedLock lock = new ZkDistributedLock("localhost:2181", "lock1");
         try {
             lock.lock();
         } catch (InterruptedException e) {

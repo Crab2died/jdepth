@@ -12,19 +12,21 @@ import java.util.concurrent.TimeUnit;
 
 public class ZkDistributedLock implements DistributedLock, Watcher {
 
-    private int sessionTimeout = 30000;
-
-    private String lockName;
+    private final String lockName;
 
     private ZooKeeper zk;
+
+    private int sessionTimeout = 30000;
+
+    private CountDownLatch countDownLatch;
 
     private String CURRENT_LOCK;
 
     private String WAIT_LOCK;
 
-    private CountDownLatch countDownLatch;
+    private final String ROOT_LOCK;
 
-    private static final String ROOT_LOCK = "/LOCKS";
+    private static final String ROOT_NODE = "/LOCKS";
 
     private static final String LOCK_SPILT = "_lock_";
 
@@ -33,10 +35,15 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
     }
 
     public ZkDistributedLock(String address, int sessionTimeout, String lockName) {
+
+        if (lockName.contains(LOCK_SPILT)) {
+            throw new IllegalArgumentException("lock name [" + lockName + "] can not contains '_lock_'");
+        }
         this.lockName = lockName;
         this.sessionTimeout = sessionTimeout;
-        // connect zookeeper
+        this.ROOT_LOCK = ROOT_NODE + "/" + lockName;
         try {
+            // connect zookeeper
             zk = new ZooKeeper(address, sessionTimeout, this);
             Stat stat = zk.exists(ROOT_LOCK, false);
             if (stat == null) {
@@ -44,7 +51,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
                 zk.create(ROOT_LOCK, new byte[0], ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.PERSISTENT);
             }
         } catch (IOException | KeeperException | InterruptedException e) {
-            throw new RuntimeException("create zookeeper distributed lock error");
+            throw new RuntimeException("create zookeeper distributed lock error", e);
         }
     }
 
@@ -77,9 +84,6 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
     @Override
     public boolean tryLock() {
         try {
-            if (lockName.contains(LOCK_SPILT)) {
-                throw new IllegalArgumentException("lock can not contains '_lock_'");
-            }
             // create provisional node
             CURRENT_LOCK = zk.create(ROOT_LOCK + "/" + lockName + LOCK_SPILT, new byte[0],
                     ZooDefs.Ids.OPEN_ACL_UNSAFE, CreateMode.EPHEMERAL_SEQUENTIAL);
@@ -112,7 +116,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
         try {
             return tryLock() || waitForLock(time, unit);
         } catch (KeeperException e) {
-            throw new InterruptedException();
+            throw new InterruptedException(e.getMessage());
         }
     }
 
@@ -127,6 +131,9 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
         }
     }
 
+    /**
+     * zookeeper {@link Watcher} interface implement
+     */
     @Override
     public void process(WatchedEvent watchedEvent) {
         if (watchedEvent.getType() == Event.EventType.NodeDeleted) {

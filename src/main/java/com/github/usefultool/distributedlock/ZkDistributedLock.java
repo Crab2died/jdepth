@@ -18,6 +18,8 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
 
     private int sessionTimeout = 30000;
 
+    private int count;
+
     private CountDownLatch countDownLatch;
 
     private String CURRENT_LOCK;
@@ -83,6 +85,10 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
 
     @Override
     public boolean tryLock() {
+        if (count > 0) {
+            count++;
+            return true;
+        }
         try {
             // create provisional node
             CURRENT_LOCK = zk.create(ROOT_LOCK + "/" + lockName + LOCK_SPILT, new byte[0],
@@ -100,6 +106,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
             Collections.sort(lockObjects);
             // get lock success when current node is the first zk node
             if (CURRENT_LOCK.equals(ROOT_LOCK + "/" + lockObjects.get(0))) {
+                count++;
                 return true;
             }
             // get the prev zk node when current node is not the first node
@@ -122,10 +129,14 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
 
     @Override
     public void unlock() {
+        if (--count > 0) {
+            return;
+        }
         try {
             zk.delete(CURRENT_LOCK, -1);
             CURRENT_LOCK = null;
             zk.close();
+            count = 0;
         } catch (InterruptedException | KeeperException e) {
             throw new RuntimeException(e);
         }
@@ -139,6 +150,7 @@ public class ZkDistributedLock implements DistributedLock, Watcher {
         if (watchedEvent.getType() == Event.EventType.NodeDeleted) {
             if (null != this.countDownLatch) {
                 this.countDownLatch.countDown();
+                count++;
             }
         }
     }

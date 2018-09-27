@@ -2,6 +2,10 @@ package com.github.usefultool.distributedlock;
 
 import java.util.concurrent.TimeUnit;
 
+/**
+ * Non-thread safety
+ * Reentrant lock
+ */
 public interface DistributedLock {
 
     void lock() throws InterruptedException;

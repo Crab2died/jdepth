@@ -37,9 +37,11 @@ public class RedisLockTest {
         lock = new RedisDistributedLock(jedisPool.getResource(), "lock1", 40);
         try {
             lock.lock();
+            lock.tryLock();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
+            lock.unlock();
             lock.unlock();
         }
     }

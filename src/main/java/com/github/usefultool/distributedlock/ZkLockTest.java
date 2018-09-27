@@ -11,12 +11,15 @@ public class ZkLockTest {
     public void test() {
         DistributedLock lock = new ZkDistributedLock("localhost:2181", "lock1");
         try {
+            lock.tryLock();
             lock.lock();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } finally {
             lock.unlock();
+            lock.unlock();
         }
+        System.out.println();
     }
 
     @Test

@@ -21,6 +21,18 @@ object ScalaGen {
     var list1 = List("A", "B", "C")
     val list2 = "E":: list1
     println(list1 :: list2)
+
+    val calc = new Area()
+    println(calc.calcArea(12, 12))
   }
 
 }
+
+class Area {
+
+  def calcArea(x: Double, y: Double): Double = {
+    x * y
+  }
+
+}
+

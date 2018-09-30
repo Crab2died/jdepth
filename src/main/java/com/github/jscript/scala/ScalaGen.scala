@@ -16,10 +16,13 @@ object ScalaGen {
     }
     println(v)
 
+    // 闭包
+    val p = (i: Int, b: Int) => i + b
+    println(p(12, 12))
 
     // list
-    var list1 = List("A", "B", "C")
-    val list2 = "E":: list1
+    val list1 = List("A", "B", "C")
+    val list2 = "E" :: list1
     println(list1 :: list2)
 
     val calc = new Area()

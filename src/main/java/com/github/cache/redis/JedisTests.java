@@ -1,6 +1,3 @@
-
-
-
 package com.github.cache.redis;
 
 import org.junit.After;

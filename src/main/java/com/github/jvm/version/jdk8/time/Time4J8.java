@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.TimeZone;
 
 /**
  * JDK1.8 日期API
@@ -109,6 +110,14 @@ public class Time4J8 {
     }
 
     @Test
+    public void zoneDateTime() {
+        ZonedDateTime zonedDateTime1 = ZonedDateTime.ofInstant(Instant.now(), ZoneId.of("UTC"));
+        System.out.println(zonedDateTime1.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+        ZonedDateTime zonedDateTime2 =ZonedDateTime.of(LocalDate.now(), LocalTime.now(), TimeZone.getDefault().toZoneId());
+        System.out.println(zonedDateTime2.toInstant().toEpochMilli());
+    }
+
+    @Test
     public void formatTime() {
 
         // 格式化
@@ -124,7 +133,6 @@ public class Time4J8 {
                 "18:10:11 02-12-2016",
                 DateTimeFormatter.ofPattern("HH:mm:ss MM-dd-yyyy")
         );
-        System.out.println(dateTime);
 
         // 时间格式化为字符串
         String dateStr = dateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSS"));

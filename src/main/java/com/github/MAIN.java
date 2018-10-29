@@ -1,6 +1,7 @@
 package com.github;
 
-import com.github.jscript.scala.IpIntUtil;
+
+import com.github.jscript.scala.IpV4IntUtil;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -11,7 +12,7 @@ import java.util.TimeZone;
 public class MAIN {
 
     public static void main(String... args) throws ParseException {
-        System.out.println(IpIntUtil.int2Ip(113546789));
+        System.out.println(IpV4IntUtil.int2Ip(113546789));
 
         String date = "2018-10-09";
         SimpleDateFormat sdf1 = new SimpleDateFormat("yyyy-MM-dd");

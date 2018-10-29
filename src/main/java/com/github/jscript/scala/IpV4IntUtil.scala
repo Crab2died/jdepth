@@ -1,6 +1,6 @@
 package com.github.jscript.scala
 
-object IpIntUtil {
+object IpV4IntUtil {
 
     private val INADDRSZ = 4
 
@@ -8,7 +8,7 @@ object IpIntUtil {
 
         val ipPart = ip.split("\\.")
         if (ipPart.length != INADDRSZ) {
-            throw new IllegalArgumentException("[" + ip + "] is invalid IP.")
+            throw new IllegalArgumentException("[" + ip + "] is invalid IP, only allow IPv4.")
         }
         var ipInt: Int = 0
         for (i: Int <- 0 until ipPart.length) {

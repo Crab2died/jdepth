@@ -10,6 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * RSA key pair generate tool
+ * @author Crab2Died
  */
 public class RSAKeyPairGeneratorTool {
 

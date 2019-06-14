@@ -18,9 +18,9 @@ import java.util.concurrent.TimeUnit;
 public class InfluxDBTest {
 
     @Test
-    public void test() throws InterruptedException {
-        String databaseURL = "http://54.251.178.131:80";
-        InfluxDB influxDB = InfluxDBFactory.connect(databaseURL, "admin", "zoom@2018");
+    public void test() {
+        String databaseURL = "";
+        InfluxDB influxDB = InfluxDBFactory.connect(databaseURL, "admin", "");
         Pong response = influxDB.ping();
         if (response.getVersion().equalsIgnoreCase("unknown")) {
             System.out.println("Error pinging server.");
@@ -134,9 +134,8 @@ public class InfluxDBTest {
     @Test
     public void batchInsert() throws IOException {
 
-        //String databaseURL = "http://54.251.178.131:80";
         String databaseURL = "http://127.0.0.1:8086";
-        InfluxDB influxDB = InfluxDBFactory.connect(databaseURL, "admin", "zoom@2018");
+        InfluxDB influxDB = InfluxDBFactory.connect(databaseURL, "admin", "");
 
         ExecutorService executorService = Executors.newFixedThreadPool(5);
         for (int i =0; i < 10000 ; i++) {

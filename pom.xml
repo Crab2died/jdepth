@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- log -->
         <slf4j.log4j.version>1.7.21</slf4j.log4j.version>
-        <logback.version>1.1.7</logback.version>
+        <logback.version>1.2.0</logback.version>
         <jansi.version>1.8</jansi.version>
         <kotlin.version>1.2.30</kotlin.version>
     </properties>
